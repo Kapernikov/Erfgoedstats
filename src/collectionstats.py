@@ -6,7 +6,7 @@ Created on Jan 6, 2011
 @author: kervel
 '''
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import ElementTree, Element
 
 import htmlutils
 import invulboek
@@ -29,14 +29,18 @@ class Collection:
     def parseDocument(self,doc):
         '''Append all records from the given doc (which is an XML element tree)
         to this collection as Collection Objects.'''
+        if(not isinstance(doc, ElementTree)):
+            return
+        
         assert isinstance(doc, ElementTree)
         for x in doc.findall(".//record"):
             self.objects.append(CollectionObject(x))
 
     def getComplianceLevels(self):
-        '''Returns a Counter Dictionary (see utils) with
+        '''Returns a Counter Dictionary (see utils) with the aggregated
+        compliance levels to standard thesauri of the terms for all objects
+        in this collection.
         ''' 
-        
         levels = utils.CounterDict()
         for x in self.objects:
             cl = x.getMoveComplianceLevels()
@@ -104,30 +108,34 @@ class CollectionObject(object):
         can either be a singular value, or a list of values.
         '''
         self.params = {}
-        ' TODO: is dit niet hetzeflde als reeds gedefinieerd in een helper functie?'
+        if(not isinstance(element, Element)):
+            return        
         for x in element:   # for all tags in element
-            if x.text is None:  # that contains text
-                continue
-            value = x.text.strip()  # that is not just whitespaces
-            if len(value) == 0:
-                continue
-            value = utils.nencode(value)
-            #@@@TEST
-            #fieldname = utils.nencode(x.tag)
-            fieldname = x.tag               # the tagname is the key, the value is the text
-            if fieldname in self.params:    # if tag name is already stored in this collection object
-                l = self.params[fieldname]
-                if type(l) is list:
-                    l.append(value)             # append value to list of values
-                else:
-                    self.params[fieldname] = [l, value]
-            else:
-                self.params[fieldname] = value
+            value = x.text
+            fieldname = x.tag
+            self.addParam(fieldname, value)
+            
+    def addParam(self, fieldname, value):
+        '''Add param as key-value pair to this object.'''
+        if(not value):
+            return
+        value = x.text.strip()  # that is not just whitespaces
+        if len(value) == 0:
+            return
+        value = utils.nencode(value)
+        #@@@TEST
+        #fieldname = utils.nencode(x.tag)
+        fieldname = utils.nencode(fieldname)
+        if fieldname in self.params:
+            # append value to existing param 
+            self.params[fieldname].append(value)
+        else:
+            self.params[fieldname] = [value]
     
     
     def __getitem__(self,key):
         '''Get the value of item with specified key. Returns
-        None if key does not exist.''' 
+        None if key does not exist, else returns a list.''' 
         if (not (key in self.params.keys())):
             return None
         return self.params[key]
@@ -164,19 +172,14 @@ class CollectionObject(object):
         '''
         failed = []
         for x in set_of_fields:
-            if (x in self.params.keys()):
-                if (x in validationrules.keys()):
-                    possiblevalues = validationrules[x]
-                    val = self.params[x]
-                    if (type(val) == list):
-                        for ival in val:
-                            if (not (ival in possiblevalues)):
-                                if (not (x in failed)):
-                                    failed.append(x)
-                    else:
-                        if (not (val in possiblevalues)):
-                            if (not (x in failed)):
-                                failed.append(x)
+            if (x in self.params.keys() and x in validationrules.keys()):
+                val = self.params[x]
+                if (not isinstance(val,list)): continue
+                possiblevalues = validationrules[x]
+                for ival in val:
+                    if (not (ival in possiblevalues)):
+                        if (not (x in failed)):
+                            failed.append(x)
         return failed
 
     def getMoveComplianceLevels(self):
