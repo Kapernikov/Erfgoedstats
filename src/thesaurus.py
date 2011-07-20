@@ -262,8 +262,8 @@ def getCollectionThesauriReport(collection):
             else:
                 for value in fieldvalue:
                     statusmap.count(getThesauriStatusOfWord(value))
-    html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
-    html += statusmap.getReport()
+        html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
+        html += statusmap.getReport()
     return html
     
     
