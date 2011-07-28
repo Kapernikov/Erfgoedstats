@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Representation and analysis of thesauri
 
@@ -6,10 +7,13 @@ Created on Jan 7, 2011
 @author: kervel
 '''
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import ElementTree, iselement
 import utils
 import tr
 import os
+import codecs
+import pickle
+import copy
 
 '''The fields for which a thesaurus simularities
 report should be created. For each of these fields
@@ -23,43 +27,50 @@ fields_to_check = [
 
 class Thesaurus:
     '''Represents a thesaurus. Contains a list of terms.'''
-    def __init__(self, name='Unknown'):
+    def __init__(self, name=u'Unknown'):
         self.terms = {}
-        self.name = name
+        self.name = utils.ensureUnicode(name)
         pass
     
     def addTerm(self, term):
-        '''Add a term to this thesaurus. Term should be a term object.'''
-        self.terms[term.getTermName().lower()] = term
+        '''Add a term to this thesaurus. Term should be a term object
+        and should be valid, otherwise it will not be added.'''
+        #print "term: %s (%s)" % (term.getTermName(), type(term.getTermName()))
+        if(isinstance(term, Term) and term.isValid()):
+            self.terms[term.getTermName().lower()] = term
         
     def containsTerm(self,word):
         '''Check whether term is in thesaurus. Word is case insensitive.'''
+        word = utils.ensureUnicode(word)
         return word.lower() in self.terms
     
     def getTerm(self,word):
         '''Searches for word in thesaurus, case insensitive. Returns a term object.
         Only supply a word that is in thesaurus, test with containsTerm.'''
+        word = utils.ensureUnicode(word)
         return self.terms[word.lower()]
     
+    def getAllTerms(self):
+        '''Returns all terms in this thesaurus'''
+        return self.terms.values()
+    
     def parseDefaultAdlibDoc(self, filename):
-        '''Parse adLib XML thesaurus from specified filename.'''
+        '''Parse adLib XML thesaurus from specified filename.
+        Will check if there is a cached plaintext version of the thesaurus stored
+        already. If so, this will be parsed instead of the XML version,
+        because this is a lot faster.'''
+        filename = utils.ensureUnicode(filename)
+        if cachedVersionExists(filename):
+            print "Loading thesaurus from previously cached file %s" % getCachedVersionFilename(filename)
+            cachedThesaurus = loadCachedVersion(filename)
+            self.terms = cachedThesaurus.terms
+            self.name = cachedThesaurus.name
+            return
         the_doc = ElementTree(file=filename)
         self.parseAdlibDoc(the_doc)
-
-    def parseTextFile(self, filename):
-        '''Parse thesaurus from plain text file with given filename'''
-        fil = file(filename,'r')
-        x = fil.readline().decode("iso-8859-15").encode("utf-8")
-        while x:
-            word = x[:-1]
-            if (word != ''):
-                t = Term()
-                t.params["term"] = word
-                self.addTerm(t)
-            x = fil.readline().decode("iso-8859-15").encode("utf-8")
-        fil.close()
-
-    
+        print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
+        createCachedVersion(self, filename)
+        
     def parseAdlibDoc(self, doc):
         '''Parse records from XML adlib doc at specified
         filename.'''
@@ -68,27 +79,47 @@ class Thesaurus:
             t = Term()
             t.parseAdlibDoc(x)
             self.addTerm(t)
-    
+            
+    def parseTextFile(self, filename):
+        '''Parse thesaurus from plain text file with given filename, with auto detection'''
+        fil = codecs.open(filename, mode='r', encoding='latin-1')
+        'TODO: put in standard read mechanism'''
+        #x = fil.readline().decode("iso-8859-15").encode("utf-8")
+        x = fil.readline()
+        x = utils.ensureUnicode(x)
+        while x:
+            word = x[:-1]
+            if (word != ''):
+                t = Term()
+                t.addField(u"term", word)
+                self.addTerm(t)
+            #x = fil.readline().decode("iso-8859-15").encode("utf-8")
+            x = fil.readline()
+            x = utils.ensureUnicode(x)
+        fil.close()
+
     def getStatusOfWord(self,word):
         '''Compare a specified word with the thesaurus. It will
         either be a preferred term, an unpreferred synonym, or
         not exist in thesaurus.'''
         'TODO: lots of input testing here, verify why'
-        if (word is None or len(word) == 0):
-            return "Leeg (niet ingevuld)"
-        assert isinstance(word, str) or isinstance(word, unicode)
+        word = utils.ensureUnicode(word)
+        #if (word is None or len(word) == 0):
+        if (not word):
+            return u"Leeg (niet ingevuld)"
+        #assert isinstance(word, str) or isinstance(word, unicode)
         if (not self.containsTerm(word)):
-            return "Niet in de %s thesaurus" % (self.name)
+            return u"Niet in de %s thesaurus" % (self.name)
         term = self.getTerm(word)
         if (term.getUse() is not None):
-            return "Niet de voorkeurterm"
-        return "Voorkeurterm"
+            return u"Niet de voorkeurterm"
+        return u"Voorkeurterm"
     
     def getCollectionThesaurusReport(self, collection):
         '''Generate a collection with thesaurus comparison report in HTML format of a specified
         museum collection. This report is structured with a counter dict and creates
         a table per field, for each field in fields_to_check.'''
-        html = ""
+        html = u""
         html += "<h2>%s Thesaurus</h2>\n" % self.name
         for f in fields_to_check:
             # start counter dict
@@ -96,12 +127,8 @@ class Thesaurus:
             for object in collection.objects:
                 'TODO: what if field does not exist?'
                 fieldvalue = object[f]
-                'TODO: vies''' 
-                if (type(fieldvalue) != list):
-                    statusmap.count(self.getStatusOfWord(fieldvalue))
-                else:
-                    for value in fieldvalue:
-                        statusmap.count(self.getStatusOfWord(value))
+                for value in fieldvalue:
+                    statusmap.count(self.getStatusOfWord(value))
             html += "<h3>%s Thesaurus overeenkomst: %s</h3>\n" % (self.name, tr.tr(f))
             html += statusmap.getReport()
         return html
@@ -142,33 +169,69 @@ class Term:
         ignored and parameter values can contain multiple
         values (in which case they become a list).'''
         'TODO: you cant be certain that required fields will be present!'
+        if(not iselement(element)):
+            return
         for x in element:
-            if x.text is None:
+            value = utils.ensureUnicode(x.text)
+            if not value:
                 continue
-            value = x.text.strip()
+            value = value.strip()
             if len(value) == 0:
                 continue
-            value = utils.nencode(value)
+            #value = utils.nencode(value)
             #@@@TEST
             #fieldname = utils.nencode(x.tag)
-            fieldname = x.tag
-            if fieldname in self.params:
-                l = self.params[fieldname]
-                if type(l) is list:
-                    l.append(value)
-                else:
-                    self.params[fieldname] = [l, value]
-            else:
-                self.params[fieldname] = value    
+            fieldname = utils.ensureUnicode(x.tag)
+            if not fieldname:
+                continue
+            self.addField(fieldname, value)
+
+    def addField(self, fieldname, value):
+        'TODO: zijn lege fields toegelaten? anders is het beter eerst ensureUnicode te doen'
+        if(not fieldname or not value):
+            return
+        fieldname = utils.ensureUnicode(fieldname)
+        value = utils.ensureUnicode(value)
+        if(fieldname in self.params):
+            self.params[fieldname].append(value)
+        else:
+            self.params[fieldname] = [value]
+            
+    def removeField(self, fieldname):
+        '''Removes the parameter with the given name, if it exists.'''
+        if not fieldname:
+            return
+        fieldname = utils.ensureUnicode(fieldname)
+        if fieldname in self.params:
+            del self.params[fieldname]
 
     def getTermName(self):
         '''Returns the name of this term. The parameter
         "term" is preferred (usually dutch name), otherwise
         "english_term" is returned.'''
         if not "term" in self.params:
-            return "english_term"
-        'TODO: what if term is also not present?'
-        return self.params["term"]
+            return self.getSingleFieldValue(u"english_term")
+        return self.getSingleFieldValue(u"term")
+
+    'TODO: will we be encoding field names also as unicode?'    
+    def getSingleFieldValue(self, fieldname):
+        '''Returns only the first value of the specified field,
+        if it is available'''
+        values = self.getFieldValues(fieldname)
+        if(len(values) < 1):
+            return u""
+        return values[0]
+        
+    def getFieldValues(self, fieldname):
+        '''Return the values of the field with specified name'''
+        'TODO: what to do when fieldname does not exist? return empty list, None?'
+        if not fieldname in self.params:
+            return []
+        return self.params[fieldname]
+    
+    def getFieldNames(self):
+        '''Returns all available field names in this term.'''
+        return self.params.keys()
     
     def getUse(self):
         '''Returns none if this is a preferred term, returns
@@ -177,12 +240,67 @@ class Term:
         if "use" in self.params.keys():
             return self.params["use"]
         return None
+    
+    def isValid(self):
+        '''Verify that the minimal required field for this
+        term are filled, so that it's usable'''
+        return ('term' in self.params or 'english_term' in self.params)
  
 __thesauri = {}
 AmMoveName = "AM-MovE"
 AATNedName = "AAT-Ned"
 MotName = "MOT"
 
+
+def cachedVersionExists(xmlFilename):
+    '''Determines whether a plaintext file is cached
+    for this xml thesaurus file.'''
+    cachedFile = getCachedVersionFilename(xmlFilename)
+    if not cachedFile:
+        return False
+    return os.path.exists(cachedFile)
+    
+def getCachedVersionFilename(xmlFilename):
+    '''Returns the filename to the plaintext cached version
+    of an XML thesaurus. Will return an empty string if no
+    cached file is found, or if file is not an xml file.'''
+    xmlFilename = utils.ensureUnicode(xmlFilename)
+    if not xmlFilename:
+        return None
+    if not xmlFilename.lower().endswith('.xml'):
+        return None
+    plaintextFilename = utils.ensureUnicode(os.path.basename(xmlFilename))
+    'TODO: use os.path.pathname + basename'
+    return plaintextFilename.replace('.xml', '_cached.txt')
+
+def createCachedVersion(thesaurus, filename):
+    '''Create a cached version of a Thesaurus object
+    that can be loaded much more quickly than an xml file.
+    Cached file will have specified filename.
+    Does nothing if supplied file is not a thesaurus object.'''
+    if not isinstance(thesaurus, Thesaurus):
+        return
+    # Create a copy of this thesaurus, and only keep the important properties
+    minimalThesaurus = copy.deepcopy(thesaurus)
+    for term in minimalThesaurus.getAllTerms():
+        for paramName in term.getFieldNames():
+            if(paramName not in [ "term", "english_term", "use"] ):
+                term.removeField(paramName)
+    # pickler uses the old binary protocol (we don't use new style classes so this is the best choice)
+    pickler = pickle.Pickler(open(getCachedVersionFilename(filename), 'wb'), 1)
+    pickler.dump(minimalThesaurus)
+        
+def loadCachedVersion(filename):
+    '''Loads a thesaurus object from a cached file.
+    Will return None if file does not exist or is not the expected
+    object.'''
+    if not os.path.exists(filename):
+        return None
+    unpickler = pickle.Unpickler(open(getCachedVersionFilename(filename), 'rb'))
+    thesaurus = unpickler.load()
+    if not isinstance(thesaurus, Thesaurus):
+        return None
+    return thesaurus
 
 def getThesauri():
     '''Singleton access point for all thesauri. Upon first
@@ -256,12 +374,10 @@ def getCollectionThesauriReport(collection):
     for f in fields_to_check:
         statusmap = utils.CounterDict()
         for object in collection.objects:
+            'TODO: wat als field niet bestaat voor object?'
             fieldvalue = object[f]
-            if (type(fieldvalue) != list):
-                statusmap.count(getThesauriStatusOfWord(fieldvalue))
-            else:
-                for value in fieldvalue:
-                    statusmap.count(getThesauriStatusOfWord(value))
+            for value in fieldvalue:
+                statusmap.count(getThesauriStatusOfWord(value))
         html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
         html += statusmap.getReport()
     return html
