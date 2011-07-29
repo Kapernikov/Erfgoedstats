@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Translate fields from english to dutch
 

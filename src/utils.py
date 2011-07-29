@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Utility helper functions
 
@@ -6,6 +7,7 @@ Created on Jan 7, 2011
 @author: kervel
 '''
 
+from xml.etree.ElementTree import iselement
 from operator import itemgetter
 
 import tr
@@ -64,7 +66,7 @@ class CounterDict:
     Configuration parameters used globally
 '''
 verbose = False
-testmode = False
+testmode = True
 
     
 def s(message):
@@ -97,10 +99,15 @@ def kv2map(k, v, charset=None):
     If charset is specified strings will be decoded from
     this charset, and converted to unicode.'''
     map = {}
+    if(not isinstance(k, list) or not isinstance(v, list)):
+        return map
     for i in range(len(k)):
         # check of waarde leeg (--> negeren)
-        value = v[i]
-        if value is None:
+        if(i >= len(v)):
+            continue
+        value = ensureUnicode(v[i])
+        'TODO: of voor conversie testen of value niet none is, en wel verdergaan met lege strings?'
+        if not value:
             continue
         value = value.strip()
         if len(value)==0:
@@ -110,14 +117,18 @@ def kv2map(k, v, charset=None):
         key = k[i]
         if key is None:
             continue
+        key = ensureUnicode(key)
         key = key.strip()
         if len(key)==0:
             continue
         
         # beiden zijn significant
         if (charset):
-            key = key.decode(charset).encode("utf-8","ignore")
-            value = value.decode(charset).encode("utf-8","ignore")
+            'TODO: die optie hier laten? wordt dit gebruikt om rechtstreeks naar output file te schrijven?'
+            #key = key.decode(charset).encode("utf-8","ignore")
+            #value = value.decode(charset).encode("utf-8","ignore")
+            key = key.encode("utf-8", "ignore")
+            value = value.encode("utf-8", "ignore")
             
         if (key in map):
             oldv = map[key]
@@ -138,10 +149,12 @@ def unicode_csv_reader(utf8_data, **kwargs):
     Call next() consecutively until an exception is thrown.
     Each next() call will return a new line in the CSV,
     represented as a list, encoded in unicode.'''
+    'TODO: csv reader heeft mooiere methode om encoding te specifiëren? nope, komt rechtstreeks uit python manual'
     csv_reader = csv.reader(utf8_data,  **kwargs)
     for row in csv_reader:
         yield [unicode(cell, 'utf-8') for cell in row]        
 
+'TODO: voor methodes die deze maps gebruiken, testen of de map voldoet (juiste params aanwezig zijn)'
 def doc2map(element):
     '''Convert XML element to a map.
     Map will contain tag, value pairs, encoded in unicode.
@@ -153,28 +166,47 @@ def doc2map(element):
     in which case the a lookup for that key will return a list
     of values.'''
     map = {}
+    if(not iselement(element)):
+        return map
     for f in element:
         value = f.text
         
         # check of waarde leeg (--> negeren)
+        'TODO: dit stuk in originele code is maar vies, was dat echt de bedoeling?'
         if value is None:
             if "value" in f.attrib.keys():
                 value = f.attrib["value"]
-        if value is None:
-            continue
+            else:
+                continue
+        value = ensureUnicode(value)
         value = value.strip()
-        if  len(value) == 0:
+        if len(value) == 0:
             continue
         
         # waarde is niet leeg
-        value = value.encode('utf-8', "ignore")
-        fieldname = f.tag.encode('utf-8', "ignore")
+        #value = value.encode('utf-8', "ignore")
+        #fieldname = f.tag.encode('utf-8', "ignore")
+        fieldname = ensureUnicode(f.tag)
+        'TODO: toch verdergaan als fieldname leeg is?'
+        if(not fieldname):
+            continue
         if (fieldname in map):
-            oldv = map[fieldname]
-            if (type(oldv) is list):
-                oldv.append(value)
-            else:
-                map[fieldname] = [oldv, value]
+            map[fieldname].append(value)
         else:
-            map[fieldname] = value
+            map[fieldname] = [value]
     return map
+
+def ensureUnicode(input, encoding="utf-8"):
+    '''Make sure string is decoded unicode string. If it is
+    a regular bytestring, decode it, using the utf-8 charset
+    by default, unless specified otherwise. Makes sure that
+    the result is a unicode string, also if the specified
+    type of input is not a string or unicode string.'''
+    #print "input: %s (%s)  encoding: %s (%s)\n" % (input, type(input), encoding, type(encoding))
+    if input == None:
+        return unicode("")
+    if(isinstance(input, str)):
+        return unicode(input, encoding)
+    if(isinstance(input, unicode)):
+        return input
+    return unicode("")

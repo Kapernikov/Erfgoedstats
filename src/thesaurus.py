@@ -384,36 +384,42 @@ def getCollectionThesauriReport(collection):
     
     
 def initThesauri():
-    '''Initialize thesauri by parsing them from XML files.'''
+    '''Initialize thesauri by parsing them from XML files. Only thesauri for which
+    the files are found are loaded, so it is safe to call this method when not all reference
+    thesauri are present.'''
     utils.s("INITIALIZING default thesauri (this might take some time) ...")
-    try:
-        utils.s("parsing MOVE thesaurus")
-        thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'reference', 'Am_Move_thesaurus06_10.xml')
-        AmMoveThesaurus = Thesaurus('AM-MovE')
-        AmMoveThesaurus.parseDefaultAdlibDoc(thesauruspad)
-        AmMoveThesaurus.name = AmMoveName
-        __thesauri[AmMoveThesaurus.name] = AmMoveThesaurus
-    except IOError as e:
-        print("({})".format(e))
+    thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'reference', 'Am_Move_thesaurus06_10.xml')
+    if(os.path.exists(thesauruspad)):
+        try:
+            utils.s("parsing MOVE thesaurus")
+            AmMoveThesaurus = Thesaurus('AM-MovE')
+            AmMoveThesaurus.parseDefaultAdlibDoc(thesauruspad)
+            AmMoveThesaurus.name = AmMoveName
+            __thesauri[AmMoveThesaurus.name] = AmMoveThesaurus
+        except IOError as e:
+            print("({})".format(e))
     
-    try:
-        utils.s("parsing AAT thesaurus")
-        thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
-        AAT2000 = Thesaurus('AAT-Ned')
-        AAT2000.parseDefaultAdlibDoc(thesauruspad)
-        AAT2000.name = AATNedName
-        __thesauri[AAT2000.name] = AAT2000
-    except IOError as e:
-        print("({})".format(e))
-        
-    try:
-        utils.s("parsing MOT name list")
-        MOT_name_list =  Thesaurus('MOT')
-        MOT_name_list.parseTextFile(os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt'))
-        MOT_name_list.name = MotName
-        __thesauri[MotName] = MOT_name_list
-    except IOError as e:
-        print("({})".format(e))
+    thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
+    if(os.path.exists(thesauruspad)):
+        try:
+            utils.s("parsing AAT thesaurus")
+            AAT2000 = Thesaurus('AAT-Ned')
+            AAT2000.parseDefaultAdlibDoc(thesauruspad)
+            AAT2000.name = AATNedName
+            __thesauri[AAT2000.name] = AAT2000
+        except IOError as e:
+            print("({})".format(e))
+    
+    thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt')
+    if(os.path.exists(thesauruspad)):
+        try:
+            utils.s("parsing MOT name list")
+            MOT_name_list =  Thesaurus('MOT')
+            MOT_name_list.parseTextFile(thesauruspad)
+            MOT_name_list.name = MotName
+            __thesauri[MotName] = MOT_name_list
+        except IOError as e:
+            print("({})".format(e))
         
     utils.s("DONE thesaurus initialisation")
 

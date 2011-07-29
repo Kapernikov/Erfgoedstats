@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Main module for regenerating stats for all musea.
 
@@ -11,6 +12,7 @@ import utils
 import hashlib
 import os
 import traceback
+import codecs
 
 utils.verbose = True
 
@@ -156,7 +158,6 @@ def main():
     buf+="<ul>\n"
     
     for museumkey in sorted(musea.keys(), key=lambda x: musea[x]["name"] ):
-        'TODO: wat is er mis met Abdijmuseum Ten Duinen'
         if not utils.testmode or museumkey=="AbdijmuseumTenDuinen DB3":
             # In testmode doen we alleen het kleinste museum
             museum = musea[museumkey]
@@ -173,10 +174,10 @@ def main():
         
     buf += "</ul>\n"
     
-    output = file("../out/lijst.html","w")
-    output.write(adlibstats.get_header().encode("utf-8"))
-    output.write(buf.encode("utf-8"))
-    output.write(adlibstats.get_footer().encode("utf-8"))
+    output = codecs.open("../out/lijst.html",encoding="utf-8", mode="w")
+    output.write(adlibstats.get_header())
+    output.write(buf)
+    output.write(adlibstats.get_footer())
     
     
 if __name__ == '__main__':

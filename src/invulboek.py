@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 This module contains the definitions of categories
 of field types and validation criteria for those fields.

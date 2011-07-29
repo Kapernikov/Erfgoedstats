@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Main program for analysing stats of one museum.
 This module generates HTML output reports.
@@ -16,6 +17,7 @@ from xml.etree.ElementTree import ElementTree
 import getopt, sys
 import utils
 import os
+import codecs
 
 def dn(filename):
     '''Turns filename into readable name,
@@ -33,7 +35,7 @@ def generate_report(filename):
     the_doc = ElementTree(file=filename)
     utils.s("generating fieldstats")
     fs = fieldstats.FieldStats(the_doc)
-    html = ""
+    html = u""
     html += '<h1>Records in lijst: %s</h1>' % (dn(filename))
     html += "<p>Aantal records: %s</p>" % (fs.totaldocs)
     html += htmlutils.HelpElement(show="Toon uitleg bij deze tabel", help="""
@@ -79,7 +81,7 @@ def generate_csvreport(filename):
     utils.s("parsing file %s" % (filename))
     utils.s("generating fieldstats")
     fs = fieldstats.FieldStats(filename,type="csv")
-    html = ""
+    html = u""
     html += '<h1>Records in bestand: %s</h1>\n' % dn(filename)
     html += "<p>Aantal records: %s</p>\n" % fs.totaldocs
     html += htmlutils.HelpElement(show="Toon uitleg bij deze tabel", help="""
@@ -123,7 +125,7 @@ def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
     '''Generate thesaurus compliance report for writing to HTML'''
     utils.s("parsing file %s" % filename)
     the_doc = ElementTree(file=filename)
-    html = ""
+    html = u""
     html += '<h1>Collectie: %s</h1>\n' % dn(filename)
     utils.s("generating fieldstats")
     fs = fieldstats.FieldStats(the_doc)
@@ -170,9 +172,9 @@ def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
     html += fs.generateReport()
     
     utils.s("generating collectionstats")
-    fs = collectionstats.Collection(the_doc)
+    collection = collectionstats.Collection(the_doc)
     utils.s("writing report")
-    html += fs.generateReport(no_compliance, no_thesaurus)
+    html += collection.generateReport(no_compliance, no_thesaurus)
     
     return html
 
@@ -248,11 +250,44 @@ def generate_thesaurusreport(filename):
     
     return html
 
+def getFile(filename):
+    return os.path.join(os.path.dirname(__file__), filename)
+
 def get_header():
     '''Retrieve HTML header data from file'''
-    with open(os.path.join(os.path.dirname(__file__),'html/header.html'), 'r') as f:
+    # Read header template
+    with codecs.open(getFile('html/header.html'), mode='r', encoding="utf-8") as f:
         read_data = f.read()
+        #read_data = utils.nencode(read_data)
     f.closed
+    # Read js data to embed
+    with codecs.open(getFile('html/jquery.min_easyTooltip.js'), mode='r', encoding="utf-8") as f:
+        jquery_js_data = f.read()
+        #jquery_js_data = utils.nencode(jquery_js_data)
+    f.closed
+    with codecs.open(getFile('html/sorttable.js'), mode='r', encoding="utf-8") as f:
+        sorttable_js_data = f.read()
+        #sorttable_js_data = unicode(sorttable_js_data, encoding='utf-8', errors="ignore")
+    f.closed
+    # Read CSS data to embed
+    with codecs.open(getFile('html/bluedream.css'), mode='r', encoding="utf-8") as f:
+        bluedream_css_data = f.read()
+        #bluedream_css_data = utils.nencode(bluedream_css_data)
+    f.closed
+    # Read logo base64 data to embed
+    with codecs.open(getFile('html/provinciewestvllogo_base64.txt'), mode='r', encoding="utf-8") as f:
+        westvl_logo_data = f.read()
+        #westvl_logo_data = utils.nencode(westvl_logo_data)
+    f.closed
+    with codecs.open(getFile('html/digiridoologo_base64.txt'), mode='r', encoding="utf-8") as f:
+        digiridoo_logo_data = f.read()
+        #digiridoo_logo_data = utils.nencode(digiridoo_logo_data)
+    f.closed
+    read_data = read_data.replace('%INSERT_BLUEDREAM_CSS%', bluedream_css_data)
+    read_data = read_data.replace('%INSERT_JQUERY_AND_TOOLTIP%', jquery_js_data)
+    read_data = read_data.replace('%INSERT_SORTTABLE%', sorttable_js_data)
+    read_data = read_data.replace('%INSERT_WEST_VLAANDEREN_LOGO%', westvl_logo_data)
+    read_data = read_data.replace('%INSERT_DIGIRIDOO_LOGO%', digiridoo_logo_data) 
     return read_data
 
 def get_footer():
@@ -338,7 +373,7 @@ def ensureList(datamap, key):
 def generateReportFile(reportfilename, datamap, compliance_test=False, thesaurus_test=True, verbose=True):
     '''Obtain all data and write to HTML. This method is called by regenAll.
     datamap is a mapping of museum data files.'''
-    output = file(reportfilename,"w")
+    output = codecs.open(reportfilename, mode="w", encoding="utf-8", errors="ignore")
     output.write(get_header())
     if "name" in datamap:
         output.write("<div class='title'>Statistieken <strong>%s</strong></div>\n" % (datamap['name']))

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Simple GUI of 4 select file boxes
 

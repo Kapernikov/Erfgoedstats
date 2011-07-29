@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Reusable HTML elements, building blocks for HTML reports.
 
@@ -115,7 +116,7 @@ class SortableTable(HtmlElement):
         
         
     def render(self):
-        result = '<table class="%s" id="%s" border="0">\n' % (self.getCssClasses(), self.id)
+        result = u'<table class="%s" id="%s" border="0">\n' % (self.getCssClasses(), self.id)
         result += "<thead><tr>\n"
         
         for cell in self.header.cells:
@@ -125,6 +126,10 @@ class SortableTable(HtmlElement):
         result += "<tbody>\n"
         
         for row in self.rows:
+            print "-----------------------------------------------------------------------------------------------------------------------------"
+            print "type: "+ unicode(type(row.render()))
+            print row.render()
+            print "-----------------------------------------------------------------------------------------------------------------------------"
             result += row.render()
         
         result += "</tbody>"
@@ -161,7 +166,7 @@ class TableRow(HtmlElement):
         return len(self.cells)
     
     def render(self):
-        result = ""
+        result = u""
         result += "<%s class=\"%s\" >\n" % (self.getTagname(), self.getCssClasses())
         for cell in self.cells:
             result += cell.render(self.isTableHead)
@@ -173,10 +178,13 @@ class Cell(HtmlElement):
     def __init__(self, content="", tooltip=None):
         HtmlElement.__init__(self)
         self.content = content
-        self.tooltip = tooltip
+        if tooltip:
+            self.tooltip = unicode(tooltip)
+        else:
+            self.tooltip = None
         
     def render(self, thead=False):
-        result = ""
+        result = u""
         if thead:
             result += '\t<th id="%s" class="%s">' % (self.id, self.getCssClasses())
         else:
@@ -189,14 +197,14 @@ class Cell(HtmlElement):
         else:
             result += "</td>\n"
         
-        if(self.tooltip != None):
+        if(self.tooltip):
             result += self.attachTooltip()    
         
         return result
     
     def attachTooltip(self):
         '''Attach a tooltip popup to this table cell'''
-        return """
+        return u"""
         <script type='text/javascript'>
             $(document).ready(function(){
                 $("#%s").easyTooltip({content: '<div class=tooltip>%s</div>'});

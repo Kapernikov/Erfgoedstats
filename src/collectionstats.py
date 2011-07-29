@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Module that generates statistics about a collection.
 
@@ -6,7 +7,7 @@ Created on Jan 6, 2011
 @author: kervel
 '''
 
-from xml.etree.ElementTree import ElementTree, Element
+from xml.etree.ElementTree import ElementTree, iselement
 
 import htmlutils
 import invulboek
@@ -108,7 +109,7 @@ class CollectionObject(object):
         can either be a singular value, or a list of values.
         '''
         self.params = {}
-        if(not isinstance(element, Element)):
+        if(not iselement(element)):
             return        
         for x in element:   # for all tags in element
             value = x.text
@@ -119,7 +120,7 @@ class CollectionObject(object):
         '''Add param as key-value pair to this object.'''
         if(not value):
             return
-        value = x.text.strip()  # that is not just whitespaces
+        value = value.strip()  # that is not just whitespaces
         if len(value) == 0:
             return
         value = utils.nencode(value)
@@ -134,10 +135,11 @@ class CollectionObject(object):
     
     
     def __getitem__(self,key):
-        '''Get the value of item with specified key. Returns
-        None if key does not exist, else returns a list.''' 
+        '''Get the value of field with specified key. Returns
+        empty list if key does not exist, else returns a list
+        of its values.''' 
         if (not (key in self.params.keys())):
-            return None
+            return u""
         return self.params[key]
     
     def getMissingFields(self,set_of_fields):

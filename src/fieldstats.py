@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import division
 '''
 Generates general fieldstats about occurences of fields in 
@@ -241,7 +242,7 @@ class FieldStats:
         table.addClass("rpt")
         table.setHeader(["veld", "% gebruikt", "aantal", "meervoudige waarde", "gem. veldlengte", "unieke waarden"])
         
-        report_html = ''
+        report_html = u''
 
         sv = self.fields.values()
         valuesTables = ''
