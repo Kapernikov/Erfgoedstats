@@ -25,6 +25,17 @@ fields_to_check = [
                    "object_category"
         ]
 
+valid_filetypes = ['Adlib XML Thesaurus', 'TXT Thesaurus']
+
+'''Order by which thesauri are ranked. The more to the left, the higher the rank.
+This is the default order, will be overwritten when setCustomThesauri() is called.'''
+thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
+
+'''Can be configured by calling setCustomThesauri(). This is an ordered (by importance) list
+of reference thesauri that should be loaded by initThesauri(). List contains dicts with params
+"name", "type" and "path"'''
+customThesauri = []
+
 class Thesaurus:
     '''Represents a thesaurus. Contains a list of terms.'''
     def __init__(self, name=u'Unknown'):
@@ -116,7 +127,8 @@ class Thesaurus:
         return u"Voorkeurterm"
     
     def getCollectionThesaurusReport(self, collection):
-        '''Generate a collection with thesaurus comparison report in HTML format of a specified
+        '''Comparison between this thesaurus and the specified collection.
+        Generate a collection with thesaurus comparison report in HTML format of a specified
         museum collection. This report is structured with a counter dict and creates
         a table per field, for each field in fields_to_check.'''
         html = u""
@@ -135,7 +147,8 @@ class Thesaurus:
     
     
     def getThesaurusThesaurusReport(self,thesaurus_to_check):
-        '''Generate a thesaurus with thesaurus comparison report in HTML format 
+        '''Comparison between this (adlib) thesaurus and another specified reference thesaurus.
+        Generate a thesaurus with thesaurus comparison report in HTML format 
         of a specified adlib thesaurus. This adlib thesaurus was produced by filling in the
         museum collection data in adlib.
         This report is structured with a counter dict and creates one table with the different
@@ -333,10 +346,7 @@ def bestStatus(existingstatus, newstatus):
     if (existingstatus[0] == "voorkeur" and newstatus[0] == "niet_voorkeur"):
         return existingstatus
     
-    # In order of a draw, choose the status from the highest ranked thesaurus
-    '''Order by which thesauri are ranked. The more to the left, the higher the rank.'''
-    thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
-    
+    # In case of a draw, choose the status from the highest ranked thesaurus  
     idx1 = thesaurus_pref_order.index(existingstatus[1])
     idx2 = thesaurus_pref_order.index(newstatus[1])
     
@@ -365,7 +375,8 @@ def getThesauriStatusOfWord(word):
 
 
 def getCollectionThesauriReport(collection):
-    '''Generates a HTML report for each fields_to_check,
+    '''Comparison between all loaded reference thesauri and the specified collection.
+    Generates a HTML report for each fields_to_check,
     of all objects with the best scores of those fields.
     A counterDict style table is created for each
     field. '''
@@ -383,10 +394,55 @@ def getCollectionThesauriReport(collection):
     return html
     
     
+def setCustomThesauri(thesauriDictList):
+    '''Set a custom list of reference thesauri. The param should be a list
+    of dicts containing "name", "path" and "type". The order in which the
+    thesauri are specified counts as the importance of the thesauri.
+    The first thesaurus in the list is the most important, and so on.
+    Calling this method sets custom reference thesauri, which will override
+    the defaults when calling initThesauri(). Should be called before initThesauri()
+    and should not be called more than once. Make sure that thesauri have unique names!'''
+    if not thesauriDictList or not isinstance(thesauriDictList, list) or len(thesauriDictList)==0:
+        return
+    customThesauri = []
+    for thesaurusMap in thesauriDictList:
+        if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
+            continue
+        if thesaurusMap["type"] not in valid_filetypes:
+            print 'ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (thesaurusMap["type"], thesaurusMap["name"])
+            continue
+        if not os.path.exists(thesaurusMap["path"]):
+            print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (thesaurusMap["name"], thesaurusMap["path"])
+            continue
+        customThesauri.append(thesaurusMap)
+    
 def initThesauri():
     '''Initialize thesauri by parsing them from XML files. Only thesauri for which
     the files are found are loaded, so it is safe to call this method when not all reference
     thesauri are present.'''
+    # Custom reference thesauri specified, load those
+    if len(customThesauri) > 0:
+        utils.s("INITIALIZING custom thesauri (this might take some time) ...")
+        thesaurus_pref_order = []
+        for thesaurusMap in customThesauri:
+            if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
+                continue
+            thesaurus = Thesaurus(thesaurusMap["name"])
+            if thesaurusMap["type"] == 'Adlib XML Thesaurus':
+                thesaurus.parseDefaultAdlibDoc(thesaurusMap["path"])
+            elif thesaurusMap["type"] == 'TXT Thesaurus':
+                thesaurus.parseTextFile(thesaurusMap["type"])
+            else:
+                'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (thesaurusMap["name"], thesaurusMap["type"])
+                continue
+            __thesauri[thesaurus.name] = thesaurus
+            thesaurus_pref_order.append(thesaurus.name)
+        
+        utils.s("DONE thesaurus initialisation")
+        # Drop out here, do not load default thesauri
+        return
+    
+    # Else, try loading the defaults
     utils.s("INITIALIZING default thesauri (this might take some time) ...")
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'reference', 'Am_Move_thesaurus06_10.xml')
     if(os.path.exists(thesauruspad)):
@@ -398,6 +454,8 @@ def initThesauri():
             __thesauri[AmMoveThesaurus.name] = AmMoveThesaurus
         except IOError as e:
             print("({})".format(e))
+    else:
+        thesaurus_pref_order.remove('AM-MovE')
     
     thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
     if(os.path.exists(thesauruspad)):
@@ -409,6 +467,8 @@ def initThesauri():
             __thesauri[AAT2000.name] = AAT2000
         except IOError as e:
             print("({})".format(e))
+    else:
+        thesaurus_pref_order.remove("AAT-Ned")
     
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt')
     if(os.path.exists(thesauruspad)):
@@ -420,6 +480,8 @@ def initThesauri():
             __thesauri[MotName] = MOT_name_list
         except IOError as e:
             print("({})".format(e))
+    else:
+        thesaurus_pref_order.remove("MOT")
         
     utils.s("DONE thesaurus initialisation")
 

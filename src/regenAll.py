@@ -166,6 +166,7 @@ def main():
             htmlfile = os.path.join("..", "out", htmlfn)
             buf += "\t<li><a href=\"" + htmlfn + "\">" + museum["name"] + "</a></li>\n"
             try:
+                                                        # Compliance test is always forced to false
                 adlibstats.generateReportFile(htmlfile, museum, compliance_test=False, thesaurus_test=True, verbose=True)
             except Exception as e:
                 'TODO: informatiever maken'

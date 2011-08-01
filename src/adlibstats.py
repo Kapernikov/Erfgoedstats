@@ -122,7 +122,10 @@ def generate_csvreport(filename):
 
 
 def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
-    '''Generate thesaurus compliance report for writing to HTML'''
+    '''Generate thesaurus compliance report for writing to HTML. A compliance report
+    gives fieldstats information about the fields used in the specified adlib XML document.
+    Unless no_thesaurus is set to true, the fields are also compared with reference thesauri,
+    and a report is generated under the fieldstats table.'''
     utils.s("parsing file %s" % filename)
     the_doc = ElementTree(file=filename)
     html = u""
@@ -372,12 +375,13 @@ def ensureList(datamap, key):
 
 def generateReportFile(reportfilename, datamap, compliance_test=False, thesaurus_test=True, verbose=True):
     '''Obtain all data and write to HTML. This method is called by regenAll.
-    datamap is a mapping of museum data files.'''
+    Datamap is a mapping of museum data files. (the museum objects defined in regenAll)'''
     output = codecs.open(reportfilename, mode="w", encoding="utf-8", errors="ignore")
     output.write(get_header())
     if "name" in datamap:
         output.write("<div class='title'>Statistieken <strong>%s</strong></div>\n" % (datamap['name']))
     utils.verbose = verbose
+    thesaurus.setCustomThesauri(ensureList(datamap, "reference_thesauri"))
     for infile in ensureList(datamap,"objects"):
         output.write(generate_compliancereport(infile, not compliance_test, not thesaurus_test))
     for infile in ensureList(datamap,"thesaurus"):
@@ -387,7 +391,6 @@ def generateReportFile(reportfilename, datamap, compliance_test=False, thesaurus
     for infile in ensureList(datamap,"csvfieldstats"):
         output.write(generate_csvreport(infile))
     output.write(get_footer())
-
 
 
 if __name__ == '__main__':

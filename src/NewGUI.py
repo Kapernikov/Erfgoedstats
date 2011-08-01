@@ -11,17 +11,23 @@ import os
 import adlibstats
 import codecs
 import webbrowser
-import thesaurus
 import tkFont
 import pickle
 import utils
+import thesaurus
+from thesaurus import setCustomThesauri
+from gui import generateReport
 
 configFile = "../settings.cfg"
 
-thesaurus_types = ['Adlib XML Thesaurus', 'TXT Thesaurus']
+'''Filetypes that are selectable from the input file tables'''
+thesaurus_types = thesaurus.valid_filetypes
 inputfile_types = ['Adlib XML Objecten', 'XML Fieldstats', 'CSV Fieldstats'] + thesaurus_types
 
 class InputFileTable:
+    '''GUI Widget that allows for defining a table in which each row represents an input file.
+    Each row or input file has a name, a filetype, and a filepath. Optionally a fixed order of
+    rows can be maintained.'''
     def __init__(self, parent):
         self.parent = parent
         self.frame = Tkinter.Frame(parent)
@@ -59,11 +65,12 @@ class InputFileTable:
     
     def getValues(self):
         '''Returns the values of all rows set in this table as a dict. The result will be of the form:
-        result[name]={ "type": type, "path": path  }
+        result[name]={ "type": type, "path": path, "order": order }
         If the same name is used more than once, subsequent names will be renamed to "name#i" with i 
-        an incremental number starting from 1.
+        an incremental number starting from 1. Order defines the order of the rows within the table widget.
         Only entries with a valid path and type will be returned.'''
         result = dict()
+        order = 0
         for inputFileRow in self.rows:
             name = utils.ensureUnicode(inputFileRow.getName())
             type = utils.ensureUnicode(inputFileRow.getType())
@@ -75,12 +82,13 @@ class InputFileTable:
             if not name:
                 continue
             if name not in result:
-                result[name] = { "type": type, "path": path }
+                result[name] = { "type": type, "path": path, "order": order }
             else:
                 i = 1
                 while name+"#"+str(i) in result:
                     i = i+1
-                result[name+"#"+str(i)] = { "type": type, "path": path }
+                result[name+"#"+str(i)] = { "type": type, "path": path, "order": order }
+            order = order+1
         return result
     
     def addRows(self, rowValues):
@@ -89,15 +97,29 @@ class InputFileTable:
         and that have a type that is available for this table.'''
         if not isinstance(rowValues, dict):
             return
-        for name in rowValues:
-            entry = rowValues[name]
-            if "type" not in entry or "path" not in entry:
-                continue
-            type = entry["type"]
-            path = entry["path"]
-            if not os.path.exists(path) or type not in self.getAvailableFiletypes():
-                continue
-            self.addRow(name, type, path)
+        if(dictContainsOrder(rowValues)):
+            # An order is defined, use it in this table
+            orderedRowsList = getDictAsOrderedList(rowValues)
+            for entry in orderedRowsList:
+                if "type" not in entry or "path" not in entry or "name" not in entry:
+                    continue
+                name = entry["name"]
+                type = entry["type"]
+                path = entry["path"]
+                if not os.path.exists(path) or type not in self.getAvailableFiletypes():
+                    continue
+                self.addRow(name, type, path)
+        else:
+            # No order is defined, just add rows in name order
+            for name in rowValues:
+                entry = rowValues[name]
+                if "type" not in entry or "path" not in entry:
+                    continue
+                type = entry["type"]
+                path = entry["path"]
+                if not os.path.exists(path) or type not in self.getAvailableFiletypes():
+                    continue
+                self.addRow(name, type, path)
         
 class InputFileRow:
     def __init__(self, parentTable, name, filetype, filepath):
@@ -137,13 +159,15 @@ class InputFileRow:
         filename = ""
         filetype = self.getType()
         if filetype == 'Adlib XML Objecten':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met objecten", initialdir="../data/musea/", defaultextension="*.xml")
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met objecten", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
         if filetype == 'Adlib XML Thesaurus':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met een thesaurus", initialdir="../data/musea/", defaultextension="*.xml")
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met een thesaurus", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
+        if filetype == 'TXT Thesaurus':
+            filename = tkFileDialog.askopenfilename(title="Kies bestand met TXT thesaurus", initialdir="../data/musea/", defaultextension="*.txt", parent=self.parent)
         if filetype == 'XML Fieldstats':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML voor fieldstats", initialdir="../data/musea/", defaultextension="*.xml")
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML voor fieldstats", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
         if filetype == 'CSV Fieldstats':
-            filename = tkFileDialog.askopenfilename(title="Kies CSV bestand voor fieldstats", initialdir="../data/musea/", defaultextension="*.csv")
+            filename = tkFileDialog.askopenfilename(title="Kies CSV bestand voor fieldstats", initialdir="../data/musea/", defaultextension="*.csv", parent=self.parent)
 
         if not isValidFile(filename):
             return
@@ -237,7 +261,6 @@ class MainWindow:
         self.frame4 = Tkinter.Frame(self.frame)
         self.frame4.pack(pady=10, fill=Tkinter.X, expand=1)
         self.checkThesaurus = Tkinter.IntVar()
-        availableThesauri = self.getConfiguredReferenceThesauri().keys()
         self.checkb = Tkinter.Checkbutton(self.frame4, variable=self.checkThesaurus)
         self.updateThesauriCheckbox()
         self.checkb.pack(side=Tkinter.LEFT, padx=5)
@@ -277,21 +300,55 @@ class MainWindow:
         SettingsDialog(self)
         
     def start(self):
-        waitDialog = WaitDialog(self.parent)
-#        try:
         outputFile = self.outputField.get()
         if not isValidOutputFile(outputFile):
-            waitDialog.close()
             tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Output" bestand is opgegeven.');
             return
+        if os.path.exists(outputFile):
+            doOverwrite = tkMessageBox.askyesno('Bestand overschrijven?', 'Het gekozen "Output" bestand bestaat reeds. Wil je verder gaan en het overschrijven?')
+            if not doOverwrite:
+                return
 
-        # Will only return input files with valid files and names filled in
-        inputFiles = self.inputFilesTable.getValues()
-        if len(inputFiles.keys()) == 0:
+        try:
+            waitDialog = WaitDialog(self.parent)
+            # Will only return input files with valid files and names filled in
+            inputFiles = self.inputFilesTable.getValues()
+            if len(inputFiles.keys()) == 0:
+                waitDialog.close()
+                tkMessageBox.showerror('Fout bij het starten', u'Kon niet starten omdat er geen geldige "Input" bestanden zijn opgegeven.\nEr is minstens één input bestand met ingevulde naam, type en bestandslocatie vereist.');
+
+            if self.checkb["state"] != Tkinter.DISABLED and self.checkThesaurus.get():
+                checkThesaurus = True
+            else:
+                checkThesaurus = False
+
+            # Set configured reference thesauri
+            referenceThesauri = getDictAsOrderedList(self.settings.thesauri)
+            setCustomThesauri(referenceThesauri)
+            
+            # Set specified input files to analyse
+            objects = []
+            thesauri = []
+            fieldstats = []
+            csvfieldstats = []
+            for name in inputFiles.keys():
+                utils.s("%s - %s - %s\n" % (name, inputFiles[name]['type'], inputFiles[name]['path']))
+                if inputFiles[name]["type"] == 'Adlib XML Objecten':
+                    objects.append(inputFiles[name]["path"])
+                elif inputFiles[name]["type"] == 'XML Fieldstats':
+                    fieldstats.append(inputFiles[name]["path"])
+                elif inputFiles[name]["type"] == 'CSV Fieldstats':
+                    csvfieldstats.append(inputFiles[name]["path"])
+                elif inputFiles[name]["type"] == 'Adlib XML Thesaurus':
+                    thesauri.append(inputFiles[name]["path"])
+                else:
+                    print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (name, inputFiles[name]["type"])
+                generateReport(objects, thesauri, fieldstats, csvfieldstats, outputFile, checkThesaurus)
+                 
+        except IOError, e:
             waitDialog.close()
-            tkMessageBox.showerror('Fout bij het starten', u'Kon niet starten omdat er geen geldige "Input" bestanden zijn opgegeven.\nEr is minstens één input bestand met ingevulde naam, type en bestandslocatie vereist.');
-        for (name) in inputFiles.keys():
-            print "%s - %s - %s\n" % (name, inputFiles[name]['type'], inputFiles[name]['path'])
+            raise e
+            tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
         
         '''
         if not isValidFile(self.inputField1.get()):
@@ -306,11 +363,6 @@ class MainWindow:
 
         return
     
-            
-        if os.path.exists(self.inputField3.get()):
-            doOverwrite = tkMessageBox.askyesno('Bestand overschrijven?', 'Het gekozen "Output" bestand bestaat reeds. Wil je verder gaan en het overschrijven?')
-            if not doOverwrite:
-                return
 #        tkMessageBox.showinfo("Bezig met verwerken", "Even geduld, de gegevens worden verwerkt.", parent=self.parent)
         #d = WaitDialog(self.parent)
         #d.top.update()
@@ -400,9 +452,9 @@ def getDefaultSettings():
     '''Return an initial default settings object.
     Will try adding the default thesauri to the settings. Only existing files will be added.'''
     settings= Settings()
-    settings.addReferenceThesaurus('AAT-Ned', '../data/reference/aat2000.xml', 'Adlib XML Thesaurus')
-    settings.addReferenceThesaurus('Am-Move', '../data/reference/Am_Move_thesaurus06_10.xml', 'Adlib XML Thesaurus')
     settings.addReferenceThesaurus('Mot', '../data/MOT/mot-naam.txt', 'TXT Thesaurus')
+    settings.addReferenceThesaurus('Am-Move', '../data/reference/Am_Move_thesaurus06_10.xml', 'Adlib XML Thesaurus')
+    settings.addReferenceThesaurus('AAT-Ned', '../data/reference/aat2000.xml', 'Adlib XML Thesaurus')
     print "Loaded initial default settings."
     return settings
         
@@ -422,7 +474,7 @@ class Settings:
             return
         if not type in thesaurus_types:
             return
-        self.thesauri[thesaurusName] = {"path": thesaurusPath, "type": type}
+        self.thesauri[thesaurusName] = {"path": thesaurusPath, "type": type, "order": len(self.thesauri)}
         
     def removeReferenceThesaurus(self, thesaurusName):
         '''Removes the thesaurus with specified name if it exists'''
@@ -454,7 +506,7 @@ class SettingsDialog:
         self.mainWindow = mainWindow
         self.window = Tkinter.Toplevel(takefocus=True)
         self.window.wm_attributes("-topmost", True)
-        self.window.title = 'Instellingen'
+        self.window.title('Instellingen')
         self.frame = Tkinter.Frame(self.window)
         self.frame.pack(fill=Tkinter.BOTH, expand=1, padx=10, pady=10)
         font = tkFont.Font(weight="bold")
@@ -469,6 +521,9 @@ class SettingsDialog:
         # Input file toevoegen knop
         self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.thesauriTable.addRow)
         self.addRowButton.pack(pady=5)
+        # Description label
+        descrLabel = Tkinter.Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.")
+        descrLabel.pack(pady=5, fill=Tkinter.X, expand=1)
         # Add Ok and Cancel buttons
         buttonsFrame = Tkinter.Frame(self.frame)
         buttonsFrame.pack()
@@ -481,7 +536,7 @@ class SettingsDialog:
         centerWindow(self.window)
         self.window.focus_set()
         self.window.grab_set()
-#        self.window.protocol("WM_DELETE_WINDOW", self.close())
+#       self.window.protocol("WM_DELETE_WINDOW", self.close())
         # Lock all interaction of underlying window and wait until the settigns window is closes
         mainWindow.parent.wait_window(self.window)
         
@@ -502,7 +557,7 @@ class WaitDialog:
     def __init__(self, parent):
         self.top = Tkinter.Toplevel(parent, takefocus=True)
         self.top.wm_attributes("-topmost", True)
-        self.top.title = 'Bezig met verwerken'
+        self.top.title('Bezig met verwerken')
         Tkinter.Label(self.top, text="Even geduld, de gegevens worden verwerkt.").pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
         # Focus and center
         centerWindow(self.top)
@@ -513,15 +568,16 @@ class WaitDialog:
     def close(self):
         self.top.destroy()
         
-def generateReport(objecten, thesaurus, outfile, checkThesaurus):
+def generateReport(objects, thesaurus, fieldstats, csvfieldstats, outputFile, checkThesaurus):
     'TODO: Moet ik ook unicode encoding toepassen op filenames?? voordeel is dat ik dan filenames met vreemde tekens ondersteun, nadeel is dat als OS bijvoorbeeld geen UTF8 filenames ondersteunt dat het wel eens mis kan gaan.'
-    output = codecs.open(outfile, mode="w", encoding="utf-8", errors="ignore")
-    output.write(adlibstats.get_header())
-    if (objecten):
-        output.write(adlibstats.generate_compliancereport(objecten, True, not checkThesaurus))
-    if (thesaurus):   
-        output.write(adlibstats.generate_thesaurusreport(thesaurus))    
-    output.write(adlibstats.get_footer())
+    'TODO: allow setting museum name in GUI?'
+    inputDataMap = {"name" : "Test museum", 
+                    "objects" : objects, 
+                    "thesaurus" : thesaurus, 
+                    "fieldstats" : fieldstats,
+                    "csvfieldstats": csvfieldstats }
+    'TODO: missch verbose op false zetten'
+    adlibstats.generateReportFile(outputFile, inputDataMap, False, True, True)
 
 def isValidFile(filename):
     '''Reports whether this is a valid and existing filename'''
@@ -547,6 +603,35 @@ def centerWindow(window):
         ws,hs = window.winfo_screenwidth(),window.winfo_screenheight()
         window.geometry('%dx%d+%d+%d' % (w, h, (ws/2) - (w/2), (hs/2) - (h/2)))
         window.geometry("") # To enable pack_propagate again (so window dimensions resize with the widgets placed in it)
+        
+def dictContainsOrder(rowValues):
+    '''Determines whether each member of this dict (which should usually be a set of
+    rowValues obtained from an inputFileTable) has an "order" member.
+    '''
+    for name in rowValues.keys():
+        if not "order" in rowValues[name]:
+            return False
+    return True
+
+def getDictAsOrderedList(rowValues):
+    '''Transforms a rowValues dict obtained from an inputFileTable to a list in which
+    the rows are ordered using their defined order. This requires that the dict satisfies
+    dictContainsOrder(). Order values should be unique or rows will be missing from the set.
+    The result will be a list with row dicts similar to those in a rowValues dict, only will
+    they contain a "name" member. Their order will be ascending.'''
+    orderDict = dict()
+    for name in rowValues.keys():
+        order = rowValues[name]["order"]
+        if order not in orderDict:
+            row = rowValues[name]
+            row["name"] = name
+            orderDict[order] = row
+    result = []
+    for i in sorted(orderDict.keys()):
+        result.append(orderDict[i])
+    return result
+        
+        
 
 def main():
     '''Run the GUI'''

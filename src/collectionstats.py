@@ -57,6 +57,9 @@ class Collection:
         return mf
 
     def generateReport(self, no_compliance = False, no_thesaurus = False):
+        '''Generate fieldstats about this collection. Unless specified otherwise, also compliance report
+        (compliance of field values to reference thesauri) and comparison with reference thesaurus
+        will be produced.'''
         html = ""
         if (not no_compliance):
             x = self.getComplianceLevels()
@@ -85,7 +88,9 @@ class Collection:
       <dt>Leeg (niet ingevuld)</dt><dd>Het veld niet ingevuld.</dd>
     </dl>
     """).render()
+            # General comparison summary with all reference thesauri  
             html += thesaurus.getCollectionThesauriReport(self)
+            # Comparisons with individual reference thesauri
             for thesa in thesaurus.getThesauri():
                 html += thesa.getCollectionThesaurusReport(self)
         return html
