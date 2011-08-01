@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 New GUI
 
@@ -187,11 +188,13 @@ class MainWindow:
         
         # Menu
         self.menu = Tkinter.Menu(parent)
-        mainmenu = Tkinter.Menu(self.menu)
+        mainmenu = Tkinter.Menu(self.menu, tearoff=False)
         mainmenu.add_command(label='Opties', command=self.showOptions)
-        mainmenu.add_command(label='Afsluiten', command=self.parent.quit)
+        mainmenu.add_separator()
+        mainmenu.add_command(label='Afsluiten', command=self.quit)
         self.menu.add_cascade(label='Menu', menu=mainmenu)
         parent.config(menu=self.menu)
+        self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
         ## LOGOs ##
         digiridooImg = Tkinter.PhotoImage("Digiridoo logo", file="images/logo-blue-143.gif")
@@ -217,18 +220,18 @@ class MainWindow:
         
         # Input file toevoegen knop
         self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.addInputRow)
-        self.addRowButton.pack()
+        self.addRowButton.pack(pady=5)
         
         # Kies output file
-        self.frame3 = Tkinter.Frame(self.frame)
-        self.frame3.pack(pady=10, fill=Tkinter.X, expand=1)
+        self.outputFrame = Tkinter.Frame(self.frame)
+        self.outputFrame.pack(pady=5, fill=Tkinter.X, expand=1)
         font = tkFont.Font(weight="bold")
-        label3 = Tkinter.Label(self.frame3, text="Output: ", width=8, font=font)
-        label3.pack(side=Tkinter.LEFT)
-        self.inputField3 = Tkinter.Entry(self.frame3)
-        self.inputButton3 = Tkinter.Button(self.frame3, text="Bladeren", command=self.browseFile3)
-        self.inputField3.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1)
-        self.inputButton3.pack(side=Tkinter.RIGHT, padx=5)
+        outputLabel = Tkinter.Label(self.outputFrame, text="Output: ", width=8, font=font)
+        outputLabel.pack(side=Tkinter.LEFT)
+        self.outputField = Tkinter.Entry(self.outputFrame)
+        self.outputButton = Tkinter.Button(self.outputFrame, text="Bladeren", command=self.browseOutputFile)
+        self.outputField.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1)
+        self.outputButton.pack(side=Tkinter.RIGHT, padx=5)
         
         # Vergelijk met thesauri optie
         self.frame4 = Tkinter.Frame(self.frame)
@@ -242,6 +245,7 @@ class MainWindow:
         ## Start button ##
         self.startButton = Tkinter.Button(self.frame, text="Start", command=self.start)
         self.startButton.pack(side=Tkinter.BOTTOM)
+        centerWindow(self.parent)
     
     def addInputRow(self):
         self.inputFilesTable.addRow()
@@ -265,30 +269,44 @@ class MainWindow:
         inputField.insert(0, filename)
         return
     
-    def browseFile1(self):
-        self.browseFile(self.inputField1, "Kies Adlib XML met objecten", "../data/musea/", defaultExt="*.xml")
-        
-    def browseFile2(self):
-        self.browseFile(self.inputField2, "Kies Adlib XML met een thesaurus", "../data/musea/", defaultExt="*.xml")
-    
-    def browseFile3(self):
-        self.browseFile(self.inputField3, "Waar wil je het resultaat opslaan?", "../out/", filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
+    def browseOutputFile(self):
+        self.browseFile(self.outputField, "Waar wil je het resultaat opslaan?", "../out/", filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
         
     def showOptions(self):
         '''Show the settings dialog'''
         SettingsDialog(self)
         
     def start(self):
+        waitDialog = WaitDialog(self.parent)
+#        try:
+        outputFile = self.outputField.get()
+        if not isValidOutputFile(outputFile):
+            waitDialog.close()
+            tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Output" bestand is opgegeven.');
+            return
+
+        # Will only return input files with valid files and names filled in
+        inputFiles = self.inputFilesTable.getValues()
+        if len(inputFiles.keys()) == 0:
+            waitDialog.close()
+            tkMessageBox.showerror('Fout bij het starten', u'Kon niet starten omdat er geen geldige "Input" bestanden zijn opgegeven.\nEr is minstens één input bestand met ingevulde naam, type en bestandslocatie vereist.');
+        for (name) in inputFiles.keys():
+            print "%s - %s - %s\n" % (name, inputFiles[name]['type'], inputFiles[name]['path'])
+        
+        '''
         if not isValidFile(self.inputField1.get()):
             tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Objecten" bestand is opgegeven.');
             return
         if not isValidFile(self.inputField2.get()):
             tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Thesaurus" bestand is opgegeven.');
             return
-        if not isValidOutputFile(self.inputField3.get()):
-            tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Output" bestand is opgegeven.');
-            return
+        '''
         
+        waitDialog.close()
+
+        return
+    
+            
         if os.path.exists(self.inputField3.get()):
             doOverwrite = tkMessageBox.askyesno('Bestand overschrijven?', 'Het gekozen "Output" bestand bestaat reeds. Wil je verder gaan en het overschrijven?')
             if not doOverwrite:
@@ -297,13 +315,14 @@ class MainWindow:
         #d = WaitDialog(self.parent)
         #d.top.update()
         #self.parent.wait_window(d.top)
+        '''
         height = self.frame.winfo_height()
         width = self.frame.winfo_width()
         self.frame.pack_forget()
         waitLabel = Tkinter.Label(self.parent, text="Even geduld, de gegevens worden verwerkt.", height=height, width=width)
         waitLabel.pack(padx=10, pady=10)
         self.parent.update()
-        
+        '''
         objecten = self.inputField1.get()
         thesaurus = self.inputField2.get()
         outfile = self.inputField3.get()
@@ -316,8 +335,10 @@ class MainWindow:
         showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wil je het resultaat tonen?')
         if showHtml:
             webbrowser.open(outfile)
+        '''
         waitLabel.destroy()
         self.frame.pack()
+        '''
         
     def loadConfiguration(self):
         '''Load saved configuration of app. If the config file is
@@ -327,21 +348,24 @@ class MainWindow:
         if not os.path.exists(configFile):
             return getDefaultSettings()
         try:
-            unpickler = pickle.Unpickler(codecs.open(configFile,'ru', encoding="utf-8" ,errors="ignore"))
+            unpickler = pickle.Unpickler(open(configFile, 'rb'))  #codecs.open(configFile,'ru', encoding="utf-8" ,errors="ignore"))
             settings = unpickler.load()
             if not isinstance(settings, Settings):
                 return getDefaultSettings()
             settings.validate()
+            print "Loaded previously saved settings."
             return settings
         except:
+            print "Error loading saved settings."
             return getDefaultSettings()
         
-    def saveConfiguration(self, settings):
-        if not isinstance(settings, Settings):
+    def saveConfiguration(self):
+        if not isinstance(self.settings, Settings):
+            print "error saving settings"
             return
         try:
-            pickler = pickle.Pickler(codecs.open(configFile,'wu', encoding="utf-8" ,errors="ignore"))
-            pickler.dump(settings)
+            pickler = pickle.Pickler(open(configFile, 'wb'))  #codecs.open(configFile,'wu', encoding="utf-8" ,errors="ignore"))
+            pickler.dump(self.settings)
         except:
             print "Error: could not save configuration to file %s" % configFile
             return
@@ -366,9 +390,11 @@ class MainWindow:
         self.checkb.config(state=checkbState, text="Vergelijken met standaard thesauri (%s)" % availableThesauri)
         
     def quit(self):
+        print "Quitting, saving config."
+        self.saveConfiguration()
         self.frame.quit()
         self.logoFrame.quit()
-        'root.quit()'
+        self.parent.quit()
         
 def getDefaultSettings():
     '''Return an initial default settings object.
@@ -377,6 +403,7 @@ def getDefaultSettings():
     settings.addReferenceThesaurus('AAT-Ned', '../data/reference/aat2000.xml', 'Adlib XML Thesaurus')
     settings.addReferenceThesaurus('Am-Move', '../data/reference/Am_Move_thesaurus06_10.xml', 'Adlib XML Thesaurus')
     settings.addReferenceThesaurus('Mot', '../data/MOT/mot-naam.txt', 'TXT Thesaurus')
+    print "Loaded initial default settings."
     return settings
         
 class Settings:
@@ -425,28 +452,36 @@ class Settings:
 class SettingsDialog:
     def __init__(self, mainWindow):
         self.mainWindow = mainWindow
-        self.window = Tkinter.Toplevel()
+        self.window = Tkinter.Toplevel(takefocus=True)
+        self.window.wm_attributes("-topmost", True)
         self.window.title = 'Instellingen'
-        label = Tkinter.Label(self.window, text='Standaard (referentie) thesauri: ')
-        label.pack()
+        self.frame = Tkinter.Frame(self.window)
+        self.frame.pack(fill=Tkinter.BOTH, expand=1, padx=10, pady=10)
+        font = tkFont.Font(weight="bold")
+        label = Tkinter.Label(self.frame, text='Standaard (referentie) thesauri: ', anchor=Tkinter.W, font=font)
+        label.pack(pady=5, fill=Tkinter.X, expand=1)
         # Create an input file table for specifying the thesauri and add configured thesauri to it
-        self.thesauriTable = InputFileTable(self.window)
+        self.thesauriTable = InputFileTable(self.frame)
         self.thesauriTable.setAvailableTypes(thesaurus_types)
         settings = mainWindow.settings
         settings.validate()
         self.thesauriTable.addRows(settings.thesauri)
         # Input file toevoegen knop
-        self.addRowButton = Tkinter.Button(self.window, text="+", command=self.thesauriTable.addRow)
-        self.addRowButton.pack()
+        self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.thesauriTable.addRow)
+        self.addRowButton.pack(pady=5)
         # Add Ok and Cancel buttons
-        okButton = Tkinter.Button(self.window, text="Ok", command=self.okPressed)
-        okButton.pack()
-        cancelButton = Tkinter.Button(self.window, text="Annuleren", command=self.cancelPressed)
-        cancelButton.pack()
-        self.window.transient()
+        buttonsFrame = Tkinter.Frame(self.frame)
+        buttonsFrame.pack()
+        buttonsFrame.pack(fill=Tkinter.X, expand=1)
+        okButton = Tkinter.Button(buttonsFrame, text="Ok", command=self.okPressed)
+        okButton.pack(side=Tkinter.RIGHT)
+        cancelButton = Tkinter.Button(buttonsFrame, text="Annuleren", command=self.cancelPressed)
+        cancelButton.pack(side=Tkinter.RIGHT, padx=5)
+        # Focus and center
+        centerWindow(self.window)
         self.window.focus_set()
         self.window.grab_set()
-        self.window.protocol("WM_DELETE_WINDOW", self.close())
+#        self.window.protocol("WM_DELETE_WINDOW", self.close())
         # Lock all interaction of underlying window and wait until the settigns window is closes
         mainWindow.parent.wait_window(self.window)
         
@@ -465,12 +500,17 @@ class SettingsDialog:
 
 class WaitDialog:
     def __init__(self, parent):
-        self.top = Tkinter.Toplevel(parent)
+        self.top = Tkinter.Toplevel(parent, takefocus=True)
+        self.top.wm_attributes("-topmost", True)
         self.top.title = 'Bezig met verwerken'
-        Tkinter.Label(self.top, text="Even geduld, de gegevens worden verwerkt.", width= 20, height=8).pack(padx=10, pady=10)
+        Tkinter.Label(self.top, text="Even geduld, de gegevens worden verwerkt.").pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
+        # Focus and center
+        centerWindow(self.top)
+        self.top.focus_set()
+        self.top.grab_set()
+        self.top.update()
 
-    def ok(self):
-        print "value is", self.e.get()
+    def close(self):
         self.top.destroy()
         
 def generateReport(objecten, thesaurus, outfile, checkThesaurus):
@@ -499,6 +539,14 @@ def isValidOutputFile(filename):
         return True
     else:
         return False
+
+def centerWindow(window):
+        window.update_idletasks()
+        w= window["width"]!=0 and window["width"] or window.winfo_width()
+        h= window["height"]!=0 and window["height"] or window.winfo_height()
+        ws,hs = window.winfo_screenwidth(),window.winfo_screenheight()
+        window.geometry('%dx%d+%d+%d' % (w, h, (ws/2) - (w/2), (hs/2) - (h/2)))
+        window.geometry("") # To enable pack_propagate again (so window dimensions resize with the widgets placed in it)
 
 def main():
     '''Run the GUI'''
