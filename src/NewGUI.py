@@ -1,3 +1,4 @@
+#!/bin/python
 # -*- coding: utf-8 -*-
 '''
 New GUI
@@ -22,22 +23,24 @@ configFile = "../settings.cfg"
 
 '''Filetypes that are selectable from the input file tables'''
 thesaurus_types = thesaurus.valid_filetypes
-inputfile_types = ['Adlib XML Objecten', 'XML Fieldstats', 'CSV Fieldstats'] + thesaurus_types
+inputfile_types = ['Adlib XML Objecten', 'Adlib XML Thesaurus', 'XML Fieldstats', 'CSV Fieldstats']
 
 class InputFileTable:
     '''GUI Widget that allows for defining a table in which each row represents an input file.
     Each row or input file has a name, a filetype, and a filepath. Optionally a fixed order of
     rows can be maintained.'''
-    def __init__(self, parent):
+    def __init__(self, parent, nameColumn=True):
         self.parent = parent
         self.frame = Tkinter.Frame(parent)
         self.availableTypes = []
         self.rows = []
+        self.nameColumn=nameColumn
         # Init table header
         self.tableHeader = Tkinter.Frame(self.frame)
         self.tableHeader.pack(fill=Tkinter.X, expand=1)
-        nameheader = Tkinter.Label(self.tableHeader, text="Naam", width=15)
-        nameheader.pack(side=Tkinter.LEFT, padx=5)
+        if nameColumn:
+            nameheader = Tkinter.Label(self.tableHeader, text="Naam", width=15)
+            nameheader.pack(side=Tkinter.LEFT, padx=5)
         typeheader = Tkinter.Label(self.tableHeader, text="Type", width=19)
         typeheader.pack(side=Tkinter.LEFT, padx=5)
         pathheader = Tkinter.Label(self.tableHeader, text="Bestandslocatie", width=20)
@@ -49,7 +52,7 @@ class InputFileTable:
         
     def addRow(self, name="", filetype="", filepath=""):
         '''Add a row for a file to this table.'''
-        InputFileRow(self, name, filetype, filepath)
+        InputFileRow(self, name, filetype, filepath, self.nameColumn)
 
     def setAvailableTypes(self, typesList):
         '''Sets the types that will be selectable from the type dropdown.
@@ -79,8 +82,12 @@ class InputFileTable:
                 continue
             if type not in self.getAvailableFiletypes():
                 continue
+            # Name is only required if table shows a name column, otherwise name defaults to order nb
             if not name:
-                continue
+                if self.nameColumn:
+                    continue
+                else:
+                    name=order
             if name not in result:
                 result[name] = { "type": type, "path": path, "order": order }
             else:
@@ -122,19 +129,21 @@ class InputFileTable:
                 self.addRow(name, type, path)
         
 class InputFileRow:
-    def __init__(self, parentTable, name, filetype, filepath):
+    def __init__(self, parentTable, name, filetype, filepath, nameColumn=True):
         self.table = parentTable
         self.parent = parentTable.entries
         self.frame = Tkinter.Frame(self.parent)
         self.frame.pack(fill=Tkinter.X, expand=1)
+        self.nameColumn = nameColumn
         if not filetype or not filetype in self.table.getAvailableFiletypes():
             filetype = self.table.getAvailableFiletypes()[0]
         
         # Name column
-        self.nameField = Tkinter.Entry(self.frame, width=15)
-        self.nameField.pack(side=Tkinter.LEFT)
-        if name and isinstance(name, basestring):
-            self.nameField.insert(0, name)
+        if(nameColumn):
+            self.nameField = Tkinter.Entry(self.frame, width=15)
+            self.nameField.pack(side=Tkinter.LEFT)
+            if name and isinstance(name, basestring):
+                self.nameField.insert(0, name)
         # Type column
         self.filetype = Tkinter.StringVar()
         self.filetype.set(filetype)
@@ -190,7 +199,10 @@ class InputFileRow:
         self.frame.destroy()
         
     def getName(self):
-        return utils.ensureUnicode(self.nameField.get())
+        if self.nameColumn:
+            return utils.ensureUnicode(self.nameField.get())
+        else:
+            return ""
         
     def getType(self):
         return utils.ensureUnicode(self.filetype.get())
@@ -231,12 +243,20 @@ class MainWindow:
         provincieWestVlLogo.photo = provincieWestVlImg
         provincieWestVlLogo.pack(side=Tkinter.RIGHT, padx=10)
         
-        'TODO: kunnen table en logos niet allemaal in 1 frame?'
+        # Kies museum naam
+        self.museumnaamFrame = Tkinter.Frame(self.frame)
+        self.museumnaamFrame.pack(pady=5, fill=Tkinter.X, expand=1)
+        font = tkFont.Font(weight="bold")
+        museumnaamLabel = Tkinter.Label(self.museumnaamFrame, text="Museum naam: ", font=font, anchor=Tkinter.W)
+        museumnaamLabel.pack(side=Tkinter.LEFT, pady=15)
+        self.museumnaamField = Tkinter.Entry(self.museumnaamFrame)
+        self.museumnaamField.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1)
+        
         ## Input files ##
         font = tkFont.Font(weight="bold")
         inputsLabel = Tkinter.Label(self.frame, text="Input bestanden: ", anchor=Tkinter.W, font=font)
-        inputsLabel.pack(padx=5, pady=5, fill=Tkinter.X, expand=1)
-        self.inputFilesTable = InputFileTable(self.frame)
+        inputsLabel.pack(pady=5, fill=Tkinter.X, expand=1)
+        self.inputFilesTable = InputFileTable(self.frame, nameColumn=False)
         self.inputFilesTable.setAvailableTypes( inputfile_types )
         # Set default input rows
         self.inputFilesTable.addRow(name="Objecten", filetype='Adlib XML Objecten')
@@ -250,7 +270,7 @@ class MainWindow:
         self.outputFrame = Tkinter.Frame(self.frame)
         self.outputFrame.pack(pady=5, fill=Tkinter.X, expand=1)
         font = tkFont.Font(weight="bold")
-        outputLabel = Tkinter.Label(self.outputFrame, text="Output: ", width=8, font=font)
+        outputLabel = Tkinter.Label(self.outputFrame, text="Output: ", anchor=Tkinter.W, font=font)
         outputLabel.pack(side=Tkinter.LEFT)
         self.outputField = Tkinter.Entry(self.outputFrame)
         self.outputButton = Tkinter.Button(self.outputFrame, text="Bladeren", command=self.browseOutputFile)
@@ -293,19 +313,24 @@ class MainWindow:
         return
     
     def browseOutputFile(self):
-        self.browseFile(self.outputField, "Waar wil je het resultaat opslaan?", "../out/", filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
+        self.browseFile(self.outputField, "Waar wilt u het resultaat opslaan?", "../out/", filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
         
     def showOptions(self):
         '''Show the settings dialog'''
         SettingsDialog(self)
         
     def start(self):
+        museumName = self.museumnaamField.get()
+        museumName = utils.ensureUnicode(museumName)
+        if not museumName.strip():
+            tkMessageBox.showerror('Geen naam voor museum opgegeven', 'Vul de naam van het museum in, aub.');
+            return
         outputFile = self.outputField.get()
         if not isValidOutputFile(outputFile):
             tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Output" bestand is opgegeven.');
             return
         if os.path.exists(outputFile):
-            doOverwrite = tkMessageBox.askyesno('Bestand overschrijven?', 'Het gekozen "Output" bestand bestaat reeds. Wil je verder gaan en het overschrijven?')
+            doOverwrite = tkMessageBox.askyesno('Bestand overschrijven?', 'Het gekozen "Output" bestand bestaat reeds. Wilt u verder gaan en het overschrijven?')
             if not doOverwrite:
                 return
 
@@ -343,23 +368,19 @@ class MainWindow:
                     thesauri.append(inputFiles[name]["path"])
                 else:
                     print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (name, inputFiles[name]["type"])
-                generateReport(objects, thesauri, fieldstats, csvfieldstats, outputFile, checkThesaurus)
+                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, checkThesaurus)
                  
         except IOError, e:
             waitDialog.close()
             raise e
             tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
-        
-        '''
-        if not isValidFile(self.inputField1.get()):
-            tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Objecten" bestand is opgegeven.');
-            return
-        if not isValidFile(self.inputField2.get()):
-            tkMessageBox.showerror('Fout bij het starten', 'Kon niet starten omdat er geen correct "Thesaurus" bestand is opgegeven.');
-            return
-        '''
+            'TODO: toon stacktrace in venster'
         
         waitDialog.close()
+        
+        showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wilt u het resultaat tonen?')
+        if showHtml:
+            webbrowser.open(outputFile)
 
         return
     
@@ -568,10 +589,10 @@ class WaitDialog:
     def close(self):
         self.top.destroy()
         
-def generateReport(objects, thesaurus, fieldstats, csvfieldstats, outputFile, checkThesaurus):
+def generateReport(museumName, objects, thesaurus, fieldstats, csvfieldstats, outputFile, checkThesaurus):
     'TODO: Moet ik ook unicode encoding toepassen op filenames?? voordeel is dat ik dan filenames met vreemde tekens ondersteun, nadeel is dat als OS bijvoorbeeld geen UTF8 filenames ondersteunt dat het wel eens mis kan gaan.'
     'TODO: allow setting museum name in GUI?'
-    inputDataMap = {"name" : "Test museum", 
+    inputDataMap = {"name" : museumName, 
                     "objects" : objects, 
                     "thesaurus" : thesaurus, 
                     "fieldstats" : fieldstats,
