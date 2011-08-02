@@ -321,6 +321,7 @@ class MainWindow:
         SettingsDialog(self)
         
     def start(self):
+        '''
         # This method is rigged to cause an exception for testing
         try:
             # Raise an exception on purpose to test exception dialog
@@ -331,7 +332,7 @@ class MainWindow:
             print stacktrace
             ExceptionDialog(self.parent, stacktrace)
             return
-            
+        '''    
         museumName = self.museumnaamField.get()
         museumName = utils.ensureUnicode(museumName)
         if not museumName.strip():
@@ -386,9 +387,7 @@ class MainWindow:
             waitDialog.close()
             stacktrace = traceback.format_exc()
             ExceptionDialog(self.parent, stacktrace)
-            '''
-            tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
-            '''
+            return
         
         waitDialog.close()
         
