@@ -16,6 +16,7 @@ import tkFont
 import pickle
 import utils
 import thesaurus
+import traceback
 from thesaurus import setCustomThesauri
 from gui import generateReport
 
@@ -320,6 +321,17 @@ class MainWindow:
         SettingsDialog(self)
         
     def start(self):
+        # This method is rigged to cause an exception for testing
+        try:
+            # Raise an exception on purpose to test exception dialog
+            a = dict()
+            b = a["doesnotexist"]
+        except Exception, e:
+            stacktrace = traceback.format_exc()
+            print stacktrace
+            ExceptionDialog(self.parent, stacktrace)
+            return
+            
         museumName = self.museumnaamField.get()
         museumName = utils.ensureUnicode(museumName)
         if not museumName.strip():
@@ -370,11 +382,13 @@ class MainWindow:
                     print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (name, inputFiles[name]["type"])
                 generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, checkThesaurus)
                  
-        except IOError, e:
+        except Exception, e:
             waitDialog.close()
-            raise e
+            stacktrace = traceback.format_exc()
+            ExceptionDialog(self.parent, stacktrace)
+            '''
             tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
-            'TODO: toon stacktrace in venster'
+            '''
         
         waitDialog.close()
         
@@ -543,7 +557,8 @@ class SettingsDialog:
         self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.thesauriTable.addRow)
         self.addRowButton.pack(pady=5)
         # Description label
-        descrLabel = Tkinter.Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.")
+        descrLabel = Tkinter.Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=Tkinter.W)
+        descrLabel.config(justify=Tkinter.LEFT)
         descrLabel.pack(pady=5, fill=Tkinter.X, expand=1)
         # Add Ok and Cancel buttons
         buttonsFrame = Tkinter.Frame(self.frame)
@@ -589,9 +604,55 @@ class WaitDialog:
     def close(self):
         self.top.destroy()
         
+class ExceptionDialog:
+    '''Shows an exception message with detailed stacktrace. User has the option
+    to copy the stacktrace to clipboard for mailing it to the developers.'''
+    def __init__(self, parent, stacktrace):
+        self.stacktrace = stacktrace
+        self.top = Tkinter.Toplevel(parent, takefocus=True)
+        self.top.wm_attributes("-topmost", True)
+        self.top.title('Fout')
+        # User understandable message
+        userMsg = Tkinter.Label(self.top, text="Er heeft zich een fout voorgedaan.\nHieronder vindt u een gedetailleerde beschrijving van de fout.\nGelieve deze te rapporteren door ze te kopiëren en in een email bericht te plakken.", anchor=Tkinter.W)
+        userMsg.config(justify=Tkinter.LEFT)
+        userMsg.pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
+        # Stacktrace frame
+        self.stacktraceFrame = Tkinter.Frame(self.top)
+        self.stacktraceFrame.pack(padx=10, pady=10, fill=Tkinter.BOTH, expand=1)
+        self.stacktraceBox = Tkinter.Text(self.stacktraceFrame)
+        scroll = Tkinter.Scrollbar(self.stacktraceFrame)
+        self.stacktraceBox.pack(fill=Tkinter.BOTH, expand=1, side=Tkinter.LEFT)
+        self.stacktraceBox.insert(Tkinter.END, self.stacktrace)
+        self.stacktraceBox.config(state=Tkinter.DISABLED) # Prohibit any further changes to the textbox
+        scroll.pack(side=Tkinter.RIGHT, fill=Tkinter.Y, expand=1)
+        scroll.config(command=self.stacktraceBox.yview)
+        self.stacktraceBox.config(yscrollcommand=scroll.set)
+        # Copy to clipboard button
+        self.clipbCopyButton = Tkinter.Button(self.top, text=u"Kopiëer naar klembord", command=self.copyStacktraceToClipboard)
+        self.clipbCopyButton.pack(pady=10)
+        # Ok button
+        self.buttonsFrame = Tkinter.Frame(self.top)
+        self.buttonsFrame.pack(fill=Tkinter.X, expand=1, padx=10, pady=10)
+        self.okButton = Tkinter.Button(self.buttonsFrame, text="Ok", command=self.close)
+        self.okButton.pack(side=Tkinter.RIGHT)
+        # Focus and center
+        centerWindow(self.top)
+        self.top.focus_set()
+        self.top.grab_set()
+        self.top.update()
+        # Let the rest of the GUI wait until this dialog is closed
+        parent.wait_window(self.top)
+
+    def copyStacktraceToClipboard(self):
+        self.top.clipboard_clear()
+        self.top.clipboard_append(self.stacktrace)
+        tkMessageBox.showinfo(u"Beschrijving naar klembord gekopiëerd", u'De gedetailleerde foutbeschrijving is naar het klembord gekopiëerd.\n\nGelieve een email te sturen naar support@digiridoo.be met een beschrijving van uw instellingen en de invoerbestanden die u gebruikte.\nPlak ook de foutboodschap die in uw klembord staat in de mail (dat doet u door in het tekstveld van de email op de rechtermuisknop te klikken en "Plakken" te selecteren.', parent=self.top)
+
+    def close(self):
+        self.top.destroy()
+        
 def generateReport(museumName, objects, thesaurus, fieldstats, csvfieldstats, outputFile, checkThesaurus):
     'TODO: Moet ik ook unicode encoding toepassen op filenames?? voordeel is dat ik dan filenames met vreemde tekens ondersteun, nadeel is dat als OS bijvoorbeeld geen UTF8 filenames ondersteunt dat het wel eens mis kan gaan.'
-    'TODO: allow setting museum name in GUI?'
     inputDataMap = {"name" : museumName, 
                     "objects" : objects, 
                     "thesaurus" : thesaurus, 
