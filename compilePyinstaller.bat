@@ -5,6 +5,10 @@
 :: Also pywin32 needs to be installed. I recommend using python
 :: 2.7 as pywin32 had problems installing with python 2.6.
 :: Will compress the distributable with UPX if it is installed
+:: (to install it, copy upx.exe to C:\WINDOWS\system32)
+:: NOTE: you will need at least UPX 1.92 beta due to incompatibilites
+:: with the Visual Studio compiler, with which newer versions of
+:: python are compiled on windows.
 
 cd pyinstaller
 
