@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-content=\
+_content=\
 "R0lGODlhjwA7APZEAAAAAAoNAgEKDA8PDxUaBAMUGBodEhEZHB8fHyAnBis1CSUqFAQeJQYoMQgy"\
 "PSotIi8vLz8/PzVCC0BPDUtdEFZqEmB3FAk8SgtGVg1QYw5abxBke09PT19fX29vb39/f2uFF3aS"\
 "GYGfG4utHpa6IKHHIqzVJRFuiBN4lBWCoBaMrRiWuRqgxiilyTarzUSx0FO31GG912/D237J3o+P"\
@@ -106,3 +106,6 @@ content=\
 "8ha1vMym5BTNi8sCjnu3Wq5d5NXtYfWrY9qkW69H18NOdq4HsOxof4cgNJf2tqdDCGsPRSZ08IpZ"\
 "tMAYyUgFL1rBA7n3N4AIhRBCKHzQChmkoht5l8UqfNGJWOgCFXffnSUmT3lGCN7vf6+85jfP+c57"\
 "/vOgD73oR3+IQAAAOw=="
+
+def getContent():
+    return _content

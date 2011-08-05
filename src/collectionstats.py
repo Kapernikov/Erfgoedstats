@@ -32,8 +32,6 @@ class Collection:
         to this collection as Collection Objects.'''
         if(not isinstance(doc, ElementTree)):
             return
-        
-        assert isinstance(doc, ElementTree)
         for x in doc.findall(".//record"):
             self.objects.append(CollectionObject(x))
 

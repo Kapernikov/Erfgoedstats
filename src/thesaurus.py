@@ -14,6 +14,7 @@ import os
 import codecs
 import pickle
 import copy
+import adlibstats
 
 '''The fields for which a thesaurus simularities
 report should be created. For each of these fields
@@ -77,7 +78,7 @@ class Thesaurus:
             self.terms = cachedThesaurus.terms
             self.name = cachedThesaurus.name
             return
-        the_doc = ElementTree(file=filename)
+        the_doc = adlibstats.getAdlibXml(filename)
         self.parseAdlibDoc(the_doc)
         print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
         createCachedVersion(self, filename)
@@ -93,21 +94,16 @@ class Thesaurus:
             
     def parseTextFile(self, filename):
         '''Parse thesaurus from plain text file with given filename, with auto detection'''
-        fil = codecs.open(filename, mode='r', encoding='latin-1')
-        'TODO: put in standard read mechanism'''
-        #x = fil.readline().decode("iso-8859-15").encode("utf-8")
-        x = fil.readline()
-        x = utils.ensureUnicode(x)
-        while x:
+        fil = adlibstats.getFileContents(filename)
+        lines = fil.split('\n')
+        for x in lines:
+            'TODO: test if this works, and isnt it better te replace the newline chars explicitly?'
+            # leave off newline characters
             word = x[:-1]
             if (word != ''):
                 t = Term()
                 t.addField(u"term", word)
                 self.addTerm(t)
-            #x = fil.readline().decode("iso-8859-15").encode("utf-8")
-            x = fil.readline()
-            x = utils.ensureUnicode(x)
-        fil.close()
 
     def getStatusOfWord(self,word):
         '''Compare a specified word with the thesaurus. It will

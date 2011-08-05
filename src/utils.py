@@ -206,7 +206,7 @@ def ensureUnicode(input, encoding="utf-8"):
     if input == None:
         return unicode("")
     if(isinstance(input, str)):
-        return unicode(input, encoding)
+        return unicode(input, encoding=encoding, errors="replace")
     if(isinstance(input, unicode)):
         return input
     return unicode("")

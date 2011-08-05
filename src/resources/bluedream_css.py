@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import utils
 
-content = '''
+_content=u'''
 /* 
 	Blue Dream
 	Written by Teylor Feliz  http://www.admixweb.com
@@ -121,3 +122,6 @@ dt {
     margin-left: 15px;
 }
 '''
+
+def getContent():
+	return utils.ensureUnicode(_content)

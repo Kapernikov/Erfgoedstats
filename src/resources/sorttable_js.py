@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import utils
 
-content='''
+_content=u'''
 /*
   SortTable
   version 2
@@ -494,3 +495,6 @@ var forEach = function(object, block, context) {
 };
 
 '''
+
+def getContent():
+    return utils.ensureUnicode(_content)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import utils
 
-content='''
+_content=u'''
 /*!
  * jQuery JavaScript Library v1.4.4
  * http://jquery.com/
@@ -238,3 +239,6 @@ b],f.body["scroll"+b],f.documentElement["scroll"+b],f.body["offset"+b],f.documen
 
 })(jQuery);
 '''
+
+def getContent():
+	return utils.ensureUnicode(_content)

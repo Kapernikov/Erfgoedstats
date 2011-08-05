@@ -12,12 +12,23 @@ import fieldstats
 import htmlutils
 import thesaurus
 import collectionstats
+import AdLibXMLConversion
 
 from xml.etree.ElementTree import ElementTree
+import xml.etree.ElementTree as etree
 import getopt, sys
 import utils
 import os
 import codecs
+
+import resources.bluedream_css
+import resources.digiridoologo_base64
+import resources.provinciewestvllogo_base64
+import resources.header_html
+import resources.footer_html
+import resources.jquery_min_easyTooltip_js
+import resources.sorttable_js
+
 
 def dn(filename):
     '''Turns filename into readable name,
@@ -28,11 +39,12 @@ def dn(filename):
     return path
 
 def generate_report(filename):
-    '''Write HTML report of fieldstats using XML file with given name.
+    '''Adlib fieldstats XML report.
+    Write HTML report of fieldstats using XML file with given name.
     These fieldstats are a general statistic about the occurence of fields
     in a dataset.'''
     utils.s("parsing file %s" % (filename))
-    the_doc = ElementTree(file=filename)
+    the_doc = getAdlibXml(filename)
     utils.s("generating fieldstats")
     fs = fieldstats.FieldStats(the_doc)
     html = u""
@@ -75,7 +87,8 @@ def generate_report(filename):
     return html
 
 def generate_csvreport(filename):
-    '''Write HTML report of fieldstats using CSV input file with given name.
+    '''Adlib fieldstats CSV report.
+    Write HTML report of fieldstats using CSV input file with given name.
     These fieldstats are a general statistic about the occurence of fields
     in a dataset.'''
     utils.s("parsing file %s" % (filename))
@@ -120,14 +133,42 @@ def generate_csvreport(filename):
     html += fs.generateReport()
     return html
 
+'TODO: use this everywhere where codecs.open, read, open is used, maybe put this method in other helper module, ask encoding as arg'
+def getFileContents(filename):
+    '''Returns the contents of the file with specified path. Returned string is guaranteed
+    to be unicode. Will attempt to determine the encoding scheme used in the file as good
+    as possible for decoding the file.'''
+    'TODO: auto detect file encoding'
+    file = codecs.open(filename, mode='rb', encoding="utf-8", errors="replace")
+    fileContents = file.read()
+    fileContents = utils.ensureUnicode(fileContents)
+    return fileContents
+
+def getAdlibXml(filename, isObjectXML=False):
+    '''Returns an xml ElementTree of the contents of the XML file at specified path.
+    When neccessary, a conversion to a standard adlib XML format as defined in 
+    AdlibXMLConversion is done. When isObjectXML is true, extra mappings specific for
+    object collection XML files is done.'''
+    xmlStr = getFileContents(filename)
+    AdLibXMLConversion.convertToCommonAdlibXML(xmlStr, isObjectXML=isObjectXML)
+    # ElementTree only supports parsing from regular (encoded) strings, not from unicode objects
+    rootElement = etree.fromstring(xmlStr.encode("utf-8"))
+    the_doc = ElementTree(element=rootElement)
+    return the_doc
+
+def getOutputFile(filename, encoding="utf-8"):
+    '''Return a file object reference for writing to an output file
+    with given path name. Writing mode supports unicode support.'''
+    return codecs.open(filename, mode="wb", encoding=encoding, errors="replace")
 
 def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
-    '''Generate thesaurus compliance report for writing to HTML. A compliance report
+    '''Adlib Object XML report. 
+    Generate thesaurus compliance report for writing to HTML. A compliance report
     gives fieldstats information about the fields used in the specified adlib XML document.
     Unless no_thesaurus is set to true, the fields are also compared with reference thesauri,
     and a report is generated under the fieldstats table.'''
     utils.s("parsing file %s" % filename)
-    the_doc = ElementTree(file=filename)
+    the_doc = getAdlibXml(filename, isObjectXML=True)
     html = u""
     html += '<h1>Collectie: %s</h1>\n' % dn(filename)
     utils.s("generating fieldstats")
@@ -187,7 +228,7 @@ def generate_thesaurusreport(filename):
     th = thesaurus.Thesaurus()
     th.name = dn(filename)
     utils.s("parsing file %s" % (filename))
-    the_doc = ElementTree(file=filename)
+    the_doc = getAdlibXml(filename)
     utils.s("parsing thesaurus")
     th.parseAdlibDoc(the_doc)
     html = ""
@@ -257,55 +298,25 @@ def getFile(filename):
     return os.path.join(os.path.dirname(__file__), filename)
 
 def get_header():
-    '''Retrieve HTML header data from file'''
-    # Read header template
-    with codecs.open(getFile('html/header.html'), mode='r', encoding="utf-8") as f:
-        read_data = f.read()
-        #read_data = utils.nencode(read_data)
-    f.closed
-    # Read js data to embed
-    with codecs.open(getFile('html/jquery.min_easyTooltip.js'), mode='r', encoding="utf-8") as f:
-        jquery_js_data = f.read()
-        #jquery_js_data = utils.nencode(jquery_js_data)
-    f.closed
-    with codecs.open(getFile('html/sorttable.js'), mode='r', encoding="utf-8") as f:
-        sorttable_js_data = f.read()
-        #sorttable_js_data = unicode(sorttable_js_data, encoding='utf-8', errors="ignore")
-    f.closed
-    # Read CSS data to embed
-    with codecs.open(getFile('html/bluedream.css'), mode='r', encoding="utf-8") as f:
-        bluedream_css_data = f.read()
-        #bluedream_css_data = utils.nencode(bluedream_css_data)
-    f.closed
-    # Read logo base64 data to embed
-    with codecs.open(getFile('html/provinciewestvllogo_base64.txt'), mode='r', encoding="utf-8") as f:
-        westvl_logo_data = f.read()
-        #westvl_logo_data = utils.nencode(westvl_logo_data)
-    f.closed
-    with codecs.open(getFile('html/digiridoologo_base64.txt'), mode='r', encoding="utf-8") as f:
-        digiridoo_logo_data = f.read()
-        #digiridoo_logo_data = utils.nencode(digiridoo_logo_data)
-    f.closed
-    read_data = read_data.replace('%INSERT_BLUEDREAM_CSS%', bluedream_css_data)
-    read_data = read_data.replace('%INSERT_JQUERY_AND_TOOLTIP%', jquery_js_data)
-    read_data = read_data.replace('%INSERT_SORTTABLE%', sorttable_js_data)
-    read_data = read_data.replace('%INSERT_WEST_VLAANDEREN_LOGO%', westvl_logo_data)
-    read_data = read_data.replace('%INSERT_DIGIRIDOO_LOGO%', digiridoo_logo_data) 
-    return read_data
+    '''Retrieve HTML header data'''
+    data = resources.header_html.getContent()
+    data = data.replace('%INSERT_BLUEDREAM_CSS%', resources.bluedream_css.getContent())
+    data = data.replace('%INSERT_JQUERY_AND_TOOLTIP%', resources.jquery_min_easyTooltip_js.getContent())
+    data = data.replace('%INSERT_SORTTABLE%', resources.sorttable_js.getContent())
+    data = data.replace('%INSERT_WEST_VLAANDEREN_LOGO%', resources.provinciewestvllogo_base64.getContent())
+    data = data.replace('%INSERT_DIGIRIDOO_LOGO%', resources.digiridoologo_base64.getContent()) 
+    return data
 
 def get_footer():
-    '''Retrieve HTML footer data from file'''
-    with open(os.path.join(os.path.dirname(__file__),'html/footer.html'), 'r') as f:
-        read_data = f.read()
-    f.closed
-    return read_data
+    '''Retrieve HTML footer data'''
+    return resources.footer_html.getContent()
 
 def usage():
     '''Print usage help message to console'''
     print "usage: adlibstats [--verbose] [--no-compliance-test] [--no-thesaurus-test] --csvfieldstats=FILENAME --fieldstats=FILENAME --objectstats=FILENAME --thesaurusstats=FILENAME"
 
 def main():
-    '''Main method of this program. Generate stats for one museum, with options supplied on commandline.'''
+    '''Main method of the commandline program. Generate stats for one museum, with options supplied on commandline.'''
     output = sys.stdout
     try:
         opts, args = getopt.getopt(sys.argv[1:], "", ["verbose", "no-thesaurus-test", "no-compliance-test", "csvfieldstats=" ,"fieldstats=", "objectstats=", "outputfile=", "thesaurusstats=", "help"])
@@ -323,7 +334,7 @@ def main():
             usage()
             sys.exit(2)
         if o == "--outputfile":
-            output = file(a,"w")
+            output = getOutputFile(a)
         if o == "--verbose":
             utils.verbose = True
         if o == "--no-compliance-test":
@@ -359,7 +370,7 @@ def main():
     output.write(buf)
     output.write(get_footer())
 
-
+'TODO: in utils gooien?'
 def ensureList(datamap, key):
     '''Ensure that datamap[key] exists and is a list.
     The returned object is always a list, that could
@@ -376,7 +387,7 @@ def ensureList(datamap, key):
 def generateReportFile(reportfilename, datamap, compliance_test=False, thesaurus_test=True, verbose=True):
     '''Obtain all data and write to HTML. This method is called by regenAll.
     Datamap is a mapping of museum data files. (the museum objects defined in regenAll)'''
-    output = codecs.open(reportfilename, mode="w", encoding="utf-8", errors="ignore")
+    output = getOutputFile(reportfilename)
     output.write(get_header())
     if "name" in datamap:
         output.write("<div class='title'>Statistieken <strong>%s</strong></div>\n" % (datamap['name']))

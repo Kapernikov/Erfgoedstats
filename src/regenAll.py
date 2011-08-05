@@ -175,7 +175,7 @@ def main():
         
     buf += "</ul>\n"
     
-    output = codecs.open("../out/lijst.html",encoding="utf-8", mode="w")
+    output = adlibstats.getOutputFile("../out/lijst.html")
     output.write(adlibstats.get_header())
     output.write(buf)
     output.write(adlibstats.get_footer())

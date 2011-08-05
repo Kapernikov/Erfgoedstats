@@ -7,20 +7,29 @@ Created on 26-jul-2011
 
 @author: duststorm
 '''
-import Tkinter,tkFileDialog,tkMessageBox
-import os
 import adlibstats
-import codecs
 import webbrowser
 import tkFont
 import pickle
 import utils
 import thesaurus
 import traceback
+import copy
 from thesaurus import setCustomThesauri
 from gui import generateReport
+# tkinter module was renamed in some python versions
+try: from Tkinter import *
+except: from tkinter import *
+# Override default Tkinter widgets with themed ttk ones (necessary for windows, for GTK they are already themed)
+from pyttk import *
+# These widgets are by default themed by the OS' window manager
+import tkFileDialog
+import tkMessageBox
 
-configFile = "../settings.cfg"
+import resources.digiridoologo_base64
+import resources.provinciewestvllogo_base64
+
+configFile = "settings.cfg"
 
 '''Filetypes that are selectable from the input file tables'''
 thesaurus_types = thesaurus.valid_filetypes
@@ -32,24 +41,24 @@ class InputFileTable:
     rows can be maintained.'''
     def __init__(self, parent, nameColumn=True):
         self.parent = parent
-        self.frame = Tkinter.Frame(parent)
+        self.frame = Frame(parent)
         self.availableTypes = []
         self.rows = []
         self.nameColumn=nameColumn
         # Init table header
-        self.tableHeader = Tkinter.Frame(self.frame)
-        self.tableHeader.pack(fill=Tkinter.X, expand=1)
+        self.tableHeader = Frame(self.frame)
+        self.tableHeader.pack(fill=X, expand=1)
         if nameColumn:
-            nameheader = Tkinter.Label(self.tableHeader, text="Naam", width=15)
-            nameheader.pack(side=Tkinter.LEFT, padx=5)
-        typeheader = Tkinter.Label(self.tableHeader, text="Type", width=19)
-        typeheader.pack(side=Tkinter.LEFT, padx=5)
-        pathheader = Tkinter.Label(self.tableHeader, text="Bestandslocatie", width=20)
-        pathheader.pack(side=Tkinter.LEFT, padx=5)
+            nameheader = Label(self.tableHeader, text="Naam", width=15)
+            nameheader.pack(side=LEFT, padx=5)
+        typeheader = Label(self.tableHeader, text="Type", width=19)
+        typeheader.pack(side=LEFT, padx=5)
+        pathheader = Label(self.tableHeader, text="Bestandslocatie", width=20)
+        pathheader.pack(side=LEFT, padx=5)
         # Frame containing the entries
-        self.entries = Tkinter.Frame(self.frame)
-        self.entries.pack(fill=Tkinter.X, expand=1)
-        self.frame.pack(fill=Tkinter.BOTH, expand=1)
+        self.entries = Frame(self.frame)
+        self.entries.pack(fill=X, expand=1)
+        self.frame.pack(fill=BOTH, expand=1)
         
     def addRow(self, name="", filetype="", filepath=""):
         '''Add a row for a file to this table.'''
@@ -133,56 +142,66 @@ class InputFileRow:
     def __init__(self, parentTable, name, filetype, filepath, nameColumn=True):
         self.table = parentTable
         self.parent = parentTable.entries
-        self.frame = Tkinter.Frame(self.parent)
-        self.frame.pack(fill=Tkinter.X, expand=1)
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill=X, expand=1)
         self.nameColumn = nameColumn
         if not filetype or not filetype in self.table.getAvailableFiletypes():
             filetype = self.table.getAvailableFiletypes()[0]
         
         # Name column
         if(nameColumn):
-            self.nameField = Tkinter.Entry(self.frame, width=15)
-            self.nameField.pack(side=Tkinter.LEFT)
+            self.nameField = Entry(self.frame, width=15)
+            self.nameField.pack(side=LEFT)
             if name and isinstance(name, basestring):
                 self.nameField.insert(0, name)
         # Type column
-        self.filetype = Tkinter.StringVar()
-        self.filetype.set(filetype)
-        self.typeSelect = Tkinter.OptionMenu(self.frame, self.filetype, *self.table.getAvailableFiletypes())
-        self.typeSelect["width"] = 15
-        self.typeSelect.pack(side=Tkinter.LEFT, padx=5)
+        # Prepare values so combobox interprets them correctly (escape spaces)
+        # This is due to some dirty TCL remains in the pyttk wrapper library
+        values = copy.deepcopy(self.table.getAvailableFiletypes())
+        i=0
+        for v in values:
+            v = '{'+v+'}'
+            values[i] = v 
+            i = i+1
+        values = " ".join(values)
+        # use ttk.Combobox (please ignore pydev error on this line)
+        self.typeSelect = Combobox(self.frame, values=values, parent=self.parent)
+        self.typeSelect["state"] = "readonly" # only allow selection of predefined values
+        self.typeSelect.current(self.table.availableTypes.index(filetype))
+        self.typeSelect.pack(side=LEFT, padx=5)
         # Path column
-        self.pathField = Tkinter.Entry(self.frame, width=20)
-        self.pathField.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1, padx=5)
+        self.pathField = Entry(self.frame, width=20)
+        self.pathField.pack(side=LEFT, fill=X, expand=1, padx=5)
         if filepath and isinstance(filepath, basestring):
             self.pathField.insert(0, filepath)
         # Browse button
-        self.browseButton = Tkinter.Button(self.frame, text="Bladeren", command=self.browseFile)
-        self.browseButton.pack(side=Tkinter.LEFT, padx=5)
+        self.browseButton = Button(self.frame, text="Bladeren", command=self.browseFile)
+        self.browseButton.pack(side=LEFT, padx=5)
         # Remove row button
-        self.removeButton = Tkinter.Button(self.frame, text="-", command=self.remove)
-        self.removeButton.pack(side=Tkinter.LEFT)
+        self.removeButton = Button(self.frame, text="-", command=self.remove)
+        self.removeButton.pack(side=LEFT)
         # Add to rows list
         parentTable.rows.append(self)
         
     def browseFile(self):
+        initialDir = getDefaultDirectory(path='../data/musea/')
         filename = ""
         filetype = self.getType()
         if filetype == 'Adlib XML Objecten':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met objecten", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met objecten", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
         if filetype == 'Adlib XML Thesaurus':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met een thesaurus", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met een thesaurus", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
         if filetype == 'TXT Thesaurus':
-            filename = tkFileDialog.askopenfilename(title="Kies bestand met TXT thesaurus", initialdir="../data/musea/", defaultextension="*.txt", parent=self.parent)
+            filename = tkFileDialog.askopenfilename(title="Kies bestand met TXT thesaurus", initialdir=initialDir, defaultextension="*.txt", parent=self.parent)
         if filetype == 'XML Fieldstats':
-            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML voor fieldstats", initialdir="../data/musea/", defaultextension="*.xml", parent=self.parent)
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML voor fieldstats", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
         if filetype == 'CSV Fieldstats':
-            filename = tkFileDialog.askopenfilename(title="Kies CSV bestand voor fieldstats", initialdir="../data/musea/", defaultextension="*.csv", parent=self.parent)
+            filename = tkFileDialog.askopenfilename(title="Kies CSV bestand voor fieldstats", initialdir=initialDir, defaultextension="*.csv", parent=self.parent)
 
         if not isValidFile(filename):
             return
         # In path field, remove current text and replace with selected filename
-        self.pathField.delete(0, Tkinter.END)
+        self.pathField.delete(0, END)
         self.pathField.insert(0, filename)
         'TODO: zijn XML objecten en XML fieldstats hetzelfde?'
         
@@ -206,7 +225,7 @@ class InputFileRow:
             return ""
         
     def getType(self):
-        return utils.ensureUnicode(self.filetype.get())
+        return utils.ensureUnicode(self.typeSelect.get())
         
     def getPath(self):
         return utils.ensureUnicode(self.pathField.get()) 
@@ -217,15 +236,15 @@ class MainWindow:
         
         self.settings = self.loadConfiguration()
         
-        self.logoFrame = Tkinter.Frame(parent)
-        self.logoFrame.pack(side=Tkinter.TOP, fill=Tkinter.BOTH, expand=1)
+        self.logoFrame = Frame(parent)
+        self.logoFrame.pack(side=TOP, fill=BOTH, expand=1)
         
-        self.frame = Tkinter.Frame(parent)
-        self.frame.pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
+        self.frame = Frame(parent)
+        self.frame.pack(padx=10, pady=10, fill=X, expand=1)
         
         # Menu
-        self.menu = Tkinter.Menu(parent)
-        mainmenu = Tkinter.Menu(self.menu, tearoff=False)
+        self.menu = Menu(parent)
+        mainmenu = Menu(self.menu, tearoff=False)
         mainmenu.add_command(label='Opties', command=self.showOptions)
         mainmenu.add_separator()
         mainmenu.add_command(label='Afsluiten', command=self.quit)
@@ -233,30 +252,26 @@ class MainWindow:
         parent.config(menu=self.menu)
         self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
-        ## LOGOs ##
-        digiridooImg = Tkinter.PhotoImage("Digiridoo logo", file="images/logo-blue-143.gif")
-        digiridooLogo = Tkinter.Label(self.logoFrame, image=digiridooImg)
-        digiridooLogo.photo = digiridooImg 
-        digiridooLogo.pack(side=Tkinter.LEFT, padx=10, pady=10)
+        ## LOGOs (supplied as base64 encoded strings) ##
+        digiridooLogo = Label(self.logoFrame, image=resources.digiridoologo_base64.content)
+        digiridooLogo.pack(side=LEFT, padx=10, pady=10)
         
-        provincieWestVlImg = Tkinter.PhotoImage("Provincie West Vlaanderen logo", file="images/logo_pwv.gif")
-        provincieWestVlLogo = Tkinter.Label(self.logoFrame, image=provincieWestVlImg)
-        provincieWestVlLogo.photo = provincieWestVlImg
-        provincieWestVlLogo.pack(side=Tkinter.RIGHT, padx=10)
+        provincieWestVlLogo = Label(self.logoFrame, image=resources.provinciewestvllogo_base64.content)
+        provincieWestVlLogo.pack(side=RIGHT, padx=10)
         
         # Kies museum naam
-        self.museumnaamFrame = Tkinter.Frame(self.frame)
-        self.museumnaamFrame.pack(pady=5, fill=Tkinter.X, expand=1)
+        self.museumnaamFrame = Frame(self.frame)
+        self.museumnaamFrame.pack(pady=5, fill=X, expand=1)
         font = tkFont.Font(weight="bold")
-        museumnaamLabel = Tkinter.Label(self.museumnaamFrame, text="Museum naam: ", font=font, anchor=Tkinter.W)
-        museumnaamLabel.pack(side=Tkinter.LEFT, pady=15)
-        self.museumnaamField = Tkinter.Entry(self.museumnaamFrame)
-        self.museumnaamField.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1)
+        museumnaamLabel = Label(self.museumnaamFrame, text="Museum naam: ", font=font, anchor=W)
+        museumnaamLabel.pack(side=LEFT, pady=15)
+        self.museumnaamField = Entry(self.museumnaamFrame)
+        self.museumnaamField.pack(side=LEFT, fill=X, expand=1)
         
         ## Input files ##
         font = tkFont.Font(weight="bold")
-        inputsLabel = Tkinter.Label(self.frame, text="Input bestanden: ", anchor=Tkinter.W, font=font)
-        inputsLabel.pack(pady=5, fill=Tkinter.X, expand=1)
+        inputsLabel = Label(self.frame, text="Input bestanden: ", anchor=W, font=font)
+        inputsLabel.pack(pady=5, fill=X, expand=1)
         self.inputFilesTable = InputFileTable(self.frame, nameColumn=False)
         self.inputFilesTable.setAvailableTypes( inputfile_types )
         # Set default input rows
@@ -264,36 +279,37 @@ class MainWindow:
         self.inputFilesTable.addRow(name="Thesaurus", filetype='Adlib XML Thesaurus')
         
         # Input file toevoegen knop
-        self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.addInputRow)
+        self.addRowButton = Button(self.frame, text="Bestand toevoegen", command=self.addInputRow)
         self.addRowButton.pack(pady=5)
         
         # Kies output file
-        self.outputFrame = Tkinter.Frame(self.frame)
-        self.outputFrame.pack(pady=5, fill=Tkinter.X, expand=1)
+        self.outputFrame = Frame(self.frame)
+        self.outputFrame.pack(pady=5, fill=X, expand=1)
         font = tkFont.Font(weight="bold")
-        outputLabel = Tkinter.Label(self.outputFrame, text="Output: ", anchor=Tkinter.W, font=font)
-        outputLabel.pack(side=Tkinter.LEFT)
-        self.outputField = Tkinter.Entry(self.outputFrame)
-        self.outputButton = Tkinter.Button(self.outputFrame, text="Bladeren", command=self.browseOutputFile)
-        self.outputField.pack(side=Tkinter.LEFT, fill=Tkinter.X, expand=1)
-        self.outputButton.pack(side=Tkinter.RIGHT, padx=5)
+        outputLabel = Label(self.outputFrame, text="Output: ", anchor=W, font=font)
+        outputLabel.pack(side=LEFT)
+        self.outputField = Entry(self.outputFrame)
+        self.outputButton = Button(self.outputFrame, text="Bladeren", command=self.browseOutputFile)
+        self.outputField.pack(side=LEFT, fill=X, expand=1)
+        self.outputButton.pack(side=RIGHT, padx=5)
         
         # Vergelijk met thesauri optie
-        self.frame4 = Tkinter.Frame(self.frame)
-        self.frame4.pack(pady=10, fill=Tkinter.X, expand=1)
-        self.checkThesaurus = Tkinter.IntVar()
-        self.checkb = Tkinter.Checkbutton(self.frame4, variable=self.checkThesaurus)
+        self.frame4 = Frame(self.frame)
+        self.frame4.pack(pady=10, fill=X, expand=1)
+        self.checkThesaurus = IntVar()
+        self.checkb = Checkbutton(self.frame4, variable=self.checkThesaurus)
         self.updateThesauriCheckbox()
-        self.checkb.pack(side=Tkinter.LEFT, padx=5)
+        self.checkb.pack(side=LEFT, padx=5)
         
         ## Start button ##
-        self.startButton = Tkinter.Button(self.frame, text="Start", command=self.start)
-        self.startButton.pack(side=Tkinter.BOTTOM)
+        self.startButton = Button(self.frame, text="Start", command=self.start)
+        self.startButton.pack(side=BOTTOM)
         centerWindow(self.parent)
     
     def addInputRow(self):
         self.inputFilesTable.addRow()
     
+    'TODO: unused?'
     def browseFile(self, inputField, title, initialdir, defaultExt=None, filetypes=None, isOutputFile=False):
         '''TODO: maybe filter for filetype'''
         if defaultExt:
@@ -309,12 +325,13 @@ class MainWindow:
             if not isValidFile(filename):
                 return
         # Remove current text and replace with selected filename
-        inputField.delete(0, Tkinter.END)
+        inputField.delete(0, END)
         inputField.insert(0, filename)
         return
     
     def browseOutputFile(self):
-        self.browseFile(self.outputField, "Waar wilt u het resultaat opslaan?", "../out/", filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
+        defaultDir = getDefaultDirectory(path="../out/")
+        self.browseFile(self.outputField, "Waar wilt u het resultaat opslaan?", defaultDir, filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
         
     def showOptions(self):
         '''Show the settings dialog'''
@@ -355,7 +372,7 @@ class MainWindow:
                 waitDialog.close()
                 tkMessageBox.showerror('Fout bij het starten', u'Kon niet starten omdat er geen geldige "Input" bestanden zijn opgegeven.\nEr is minstens één input bestand met ingevulde naam, type en bestandslocatie vereist.');
 
-            if self.checkb["state"] != Tkinter.DISABLED and self.checkThesaurus.get():
+            if self.checkb["state"] != DISABLED and self.checkThesaurus.get():
                 checkThesaurus = True
             else:
                 checkThesaurus = False
@@ -466,12 +483,15 @@ class MainWindow:
         self.updateThesauriCheckbox()
             
     def updateThesauriCheckbox(self):
-        availableThesauri = self.getConfiguredReferenceThesauri().keys()
+        availableThesauri = getDictAsOrderedList(self.getConfiguredReferenceThesauri())
         if(len(availableThesauri) > 0):
-            availableThesauri = ', '.join(availableThesauri)
-            checkbState = Tkinter.NORMAL
+            result = []
+            for thesaurus in availableThesauri:
+                result.append(thesaurus["name"])
+            availableThesauri = ', '.join(result)
+            checkbState = NORMAL
         else:
-            checkbState = Tkinter.DISABLED
+            checkbState = DISABLED
             availableThesauri = "Geen thesauri gevonden"
         self.checkb.config(state=checkbState, text="Vergelijken met standaard thesauri (%s)" % availableThesauri)
         
@@ -538,35 +558,38 @@ class Settings:
 class SettingsDialog:
     def __init__(self, mainWindow):
         self.mainWindow = mainWindow
-        self.window = Tkinter.Toplevel(takefocus=True)
-        self.window.wm_attributes("-topmost", True)
+        self.window = Toplevel(takefocus=True)
+        #self.window.wm_attributes("-topmost", True)    # This option does not play well with ttk comboboxes
         self.window.title('Instellingen')
-        self.frame = Tkinter.Frame(self.window)
-        self.frame.pack(fill=Tkinter.BOTH, expand=1, padx=10, pady=10)
+        self.frame = Frame(self.window)
+        self.frame.pack(fill=BOTH, expand=1, padx=10, pady=10)
         font = tkFont.Font(weight="bold")
-        label = Tkinter.Label(self.frame, text='Standaard (referentie) thesauri: ', anchor=Tkinter.W, font=font)
-        label.pack(pady=5, fill=Tkinter.X, expand=1)
+        label = Label(self.frame, text='Standaard (referentie) thesauri: ', anchor=W, font=font)
+        label.pack(pady=5, fill=X, expand=1)
         # Create an input file table for specifying the thesauri and add configured thesauri to it
         self.thesauriTable = InputFileTable(self.frame)
         self.thesauriTable.setAvailableTypes(thesaurus_types)
         settings = mainWindow.settings
         settings.validate()
         self.thesauriTable.addRows(settings.thesauri)
+        if len(settings.thesauri) == 0:
+            # Add an empty row to GUI if no thesauri are configured, as a visual cue of what the purpose of this menu is
+            self.thesauriTable.addRow()
         # Input file toevoegen knop
-        self.addRowButton = Tkinter.Button(self.frame, text="+", command=self.thesauriTable.addRow)
+        self.addRowButton = Button(self.frame, text="Thesaurus toevoegen", command=self.thesauriTable.addRow)
         self.addRowButton.pack(pady=5)
         # Description label
-        descrLabel = Tkinter.Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=Tkinter.W)
-        descrLabel.config(justify=Tkinter.LEFT)
-        descrLabel.pack(pady=5, fill=Tkinter.X, expand=1)
+        descrLabel = Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=W)
+        descrLabel.config(justify=LEFT)
+        descrLabel.pack(pady=5, fill=X, expand=1)
         # Add Ok and Cancel buttons
-        buttonsFrame = Tkinter.Frame(self.frame)
+        buttonsFrame = Frame(self.frame)
         buttonsFrame.pack()
-        buttonsFrame.pack(fill=Tkinter.X, expand=1)
-        okButton = Tkinter.Button(buttonsFrame, text="Ok", command=self.okPressed)
-        okButton.pack(side=Tkinter.RIGHT)
-        cancelButton = Tkinter.Button(buttonsFrame, text="Annuleren", command=self.cancelPressed)
-        cancelButton.pack(side=Tkinter.RIGHT, padx=5)
+        buttonsFrame.pack(fill=X, expand=1)
+        okButton = Button(buttonsFrame, text="Ok", command=self.okPressed)
+        okButton.pack(side=RIGHT)
+        cancelButton = Button(buttonsFrame, text="Annuleren", command=self.cancelPressed)
+        cancelButton.pack(side=RIGHT, padx=5)
         # Focus and center
         centerWindow(self.window)
         self.window.focus_set()
@@ -590,10 +613,10 @@ class SettingsDialog:
 
 class WaitDialog:
     def __init__(self, parent):
-        self.top = Tkinter.Toplevel(parent, takefocus=True)
+        self.top = Toplevel(parent, takefocus=True)
         self.top.wm_attributes("-topmost", True)
         self.top.title('Bezig met verwerken')
-        Tkinter.Label(self.top, text="Even geduld, de gegevens worden verwerkt.").pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
+        Label(self.top, text="Even geduld, de gegevens worden verwerkt.").pack(padx=10, pady=10, fill=X, expand=1)
         # Focus and center
         centerWindow(self.top)
         self.top.focus_set()
@@ -608,32 +631,32 @@ class ExceptionDialog:
     to copy the stacktrace to clipboard for mailing it to the developers.'''
     def __init__(self, parent, stacktrace):
         self.stacktrace = stacktrace
-        self.top = Tkinter.Toplevel(parent, takefocus=True)
+        self.top = Toplevel(parent, takefocus=True)
         self.top.wm_attributes("-topmost", True)
         self.top.title('Fout')
         # User understandable message
-        userMsg = Tkinter.Label(self.top, text="Er heeft zich een fout voorgedaan.\nHieronder vindt u een gedetailleerde beschrijving van de fout.\nGelieve deze te rapporteren door ze te kopiëren en in een email bericht te plakken.", anchor=Tkinter.W)
-        userMsg.config(justify=Tkinter.LEFT)
-        userMsg.pack(padx=10, pady=10, fill=Tkinter.X, expand=1)
+        userMsg = Label(self.top, text="Er heeft zich een fout voorgedaan.\nHieronder vindt u een gedetailleerde beschrijving van de fout.\nGelieve deze te rapporteren door ze te kopiëren en in een email bericht te plakken.", anchor=W)
+        userMsg.config(justify=LEFT)
+        userMsg.pack(padx=10, pady=10, fill=X, expand=1)
         # Stacktrace frame
-        self.stacktraceFrame = Tkinter.Frame(self.top)
-        self.stacktraceFrame.pack(padx=10, pady=10, fill=Tkinter.BOTH, expand=1)
-        self.stacktraceBox = Tkinter.Text(self.stacktraceFrame)
-        scroll = Tkinter.Scrollbar(self.stacktraceFrame)
-        self.stacktraceBox.pack(fill=Tkinter.BOTH, expand=1, side=Tkinter.LEFT)
-        self.stacktraceBox.insert(Tkinter.END, self.stacktrace)
-        self.stacktraceBox.config(state=Tkinter.DISABLED) # Prohibit any further changes to the textbox
-        scroll.pack(side=Tkinter.RIGHT, fill=Tkinter.Y, expand=1)
+        self.stacktraceFrame = Frame(self.top)
+        self.stacktraceFrame.pack(padx=10, pady=10, fill=BOTH, expand=1)
+        self.stacktraceBox = Text(self.stacktraceFrame)
+        scroll = Scrollbar(self.stacktraceFrame)
+        self.stacktraceBox.pack(fill=BOTH, expand=1, side=LEFT)
+        self.stacktraceBox.insert(END, self.stacktrace)
+        self.stacktraceBox.config(state=DISABLED) # Prohibit any further changes to the textbox
+        scroll.pack(side=RIGHT, fill=Y, expand=1)
         scroll.config(command=self.stacktraceBox.yview)
         self.stacktraceBox.config(yscrollcommand=scroll.set)
         # Copy to clipboard button
-        self.clipbCopyButton = Tkinter.Button(self.top, text=u"Kopiëer naar klembord", command=self.copyStacktraceToClipboard)
+        self.clipbCopyButton = Button(self.top, text=u"Kopiëer naar klembord", command=self.copyStacktraceToClipboard)
         self.clipbCopyButton.pack(pady=10)
         # Ok button
-        self.buttonsFrame = Tkinter.Frame(self.top)
-        self.buttonsFrame.pack(fill=Tkinter.X, expand=1, padx=10, pady=10)
-        self.okButton = Tkinter.Button(self.buttonsFrame, text="Ok", command=self.close)
-        self.okButton.pack(side=Tkinter.RIGHT)
+        self.buttonsFrame = Frame(self.top)
+        self.buttonsFrame.pack(fill=X, expand=1, padx=10, pady=10)
+        self.okButton = Button(self.buttonsFrame, text="Ok", command=self.close)
+        self.okButton.pack(side=RIGHT)
         # Focus and center
         centerWindow(self.top)
         self.top.focus_set()
@@ -712,11 +735,16 @@ def getDictAsOrderedList(rowValues):
         result.append(orderDict[i])
     return result
         
+def getDefaultDirectory(path=""):
+    if not path or not os.path.exists(path):
+        # Works on linux and windows
+        return os.path.expanduser('~')
+    return path
         
 
 def main():
     '''Run the GUI'''
-    root= Tkinter.Tk()
+    root= Tk()
     root.title('Erfgoedstats')
     
     # Populate window with widgets

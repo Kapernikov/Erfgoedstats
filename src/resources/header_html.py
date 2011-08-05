@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import utils
 
-content='''
+_content=u'''
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -47,3 +48,6 @@ content='''
 
 <a href="http://www.digiridoo.be/" target="_blank"><img src="data:image/png;base64,%INSERT_DIGIRIDOO_LOGO%" width="143" height="59" alt="Digiridoo logo" style="padding:10px 20px 10px 0px; border: none;" /></a>
 '''
+
+def getContent():
+	return utils.ensureUnicode(_content)
