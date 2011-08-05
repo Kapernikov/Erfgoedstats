@@ -9,12 +9,14 @@
 :: NOTE: you will need at least UPX 1.92 beta due to incompatibilites
 :: with the Visual Studio compiler, with which newer versions of
 :: python are compiled on windows.
+::
+:: Remove the --windowed parameter for debugging.
 
 cd pyinstaller
 
 c:\python27\python.exe Configure.py
 
-c:\python27\python.exe Makespec.py --onefile --windowed --upx --name=erfgoedstats ..\src\NewGUI.py
+c:\python27\python.exe Makespec.py --onefile --tk --windowed --upx --name=erfgoedstats ..\src\NewGUI.py
 
 c:\python27\python.exe Build.py erfgoedstats\erfgoedstats.spec
 

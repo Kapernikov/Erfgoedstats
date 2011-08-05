@@ -6,6 +6,11 @@
 # folder.
 # Known to work with python 2.6
 # Will compress the distributable with UPX if it is installed.
+#
+# Packing of tcl/tk files with the executable is left out because of 
+# this bug http://www.pyinstaller.org/ticket/141
+# It won't find the tcl/tk libraries. Until this is fixed, linux users
+# will have to install libtcl and libtk to run the executable.
 ##
 
 pushd pyinstaller
@@ -17,7 +22,7 @@ mkdir erfgoedstats/dist
 
 python Configure.py
 
-python Makespec.py --onefile --windowed --upx --name=erfgoedstats ../src/NewGUI.py
+python Makespec.py --onefile --tk --upx --name=erfgoedstats ../src/NewGUI.py
 
 python Build.py erfgoedstats/erfgoedstats.spec
 
