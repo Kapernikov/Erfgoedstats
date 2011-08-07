@@ -253,10 +253,10 @@ class MainWindow:
         self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
         ## LOGOs (supplied as base64 encoded strings) ##
-        digiridooLogo = Label(self.logoFrame, image=resources.digiridoologo_base64.content)
+        digiridooLogo = Label(self.logoFrame, image=resources.digiridoologo_base64.getContent())
         digiridooLogo.pack(side=LEFT, padx=10, pady=10)
         
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.provinciewestvllogo_base64.content)
+        provincieWestVlLogo = Label(self.logoFrame, image=resources.provinciewestvllogo_base64.getContent())
         provincieWestVlLogo.pack(side=RIGHT, padx=10)
         
         # Kies museum naam

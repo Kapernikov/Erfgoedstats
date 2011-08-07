@@ -58,7 +58,7 @@ class Collection:
         '''Generate fieldstats about this collection. Unless specified otherwise, also compliance report
         (compliance of field values to reference thesauri) and comparison with reference thesaurus
         will be produced.'''
-        html = ""
+        html = u""
         if (not no_compliance):
             x = self.getComplianceLevels()
             html += "<h2>Aan welke registraties voldoen de objecten</h2>\n";
@@ -91,7 +91,7 @@ class Collection:
             # Comparisons with individual reference thesauri
             for thesa in thesaurus.getThesauri():
                 html += thesa.getCollectionThesaurusReport(self)
-        return html
+        return utils.ensureUnicode(html)
 
 class CollectionObject(object):
     '''Represents an object in a Collection. This would generally be

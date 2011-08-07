@@ -93,7 +93,8 @@ def generate_csvreport(filename):
     in a dataset.'''
     utils.s("parsing file %s" % (filename))
     utils.s("generating fieldstats")
-    fs = fieldstats.FieldStats(filename,type="csv")
+    the_doc = getCSV(filename)
+    fs = fieldstats.FieldStats(the_doc,type="csv")
     html = u""
     html += '<h1>Records in bestand: %s</h1>\n' % dn(filename)
     html += "<p>Aantal records: %s</p>\n" % fs.totaldocs
@@ -133,13 +134,22 @@ def generate_csvreport(filename):
     html += fs.generateReport()
     return html
 
+def autoDetectEncodingFromFile(filename):
+    'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets?'
+    'TODO: implement '
+    result = u"utf-8"
+    print "Auto detecting used charset encoding for file %s, found %s." % (filename, result)
+    return result
+
 'TODO: use this everywhere where codecs.open, read, open is used, maybe put this method in other helper module, ask encoding as arg'
-def getFileContents(filename):
+def getFileContents(filename, encoding=None):
     '''Returns the contents of the file with specified path. Returned string is guaranteed
     to be unicode. Will attempt to determine the encoding scheme used in the file as good
     as possible for decoding the file.'''
     'TODO: auto detect file encoding'
-    file = codecs.open(filename, mode='rb', encoding="utf-8", errors="replace")
+    if not encoding:
+        encoding=autoDetectEncodingFromFile(filename)
+    file = codecs.open(filename, mode='rb', encoding=encoding, errors="replace")
     fileContents = file.read()
     fileContents = utils.ensureUnicode(fileContents)
     return fileContents
@@ -152,8 +162,16 @@ def getAdlibXml(filename, isObjectXML=False):
     xmlStr = getFileContents(filename)
     AdLibXMLConversion.convertToCommonAdlibXML(xmlStr, isObjectXML=isObjectXML)
     # ElementTree only supports parsing from regular (encoded) strings, not from unicode objects
+    utils.s("Parsing XML file %s." % filename)
     rootElement = etree.fromstring(xmlStr.encode("utf-8"))
     the_doc = ElementTree(element=rootElement)
+    return the_doc
+
+def getCSV(filename):
+    import csv
+    'TODO: geen excel dialect selecteren?'
+    csv.re
+    the_doc = csv.reader(getFileContents(filename).split("\n"), delimiter=";")
     return the_doc
 
 def getOutputFile(filename, encoding="utf-8"):
@@ -295,6 +313,7 @@ def generate_thesaurusreport(filename):
     return html
 
 def getFile(filename):
+    '''Returns path to filename in current directory.'''
     return os.path.join(os.path.dirname(__file__), filename)
 
 def get_header():

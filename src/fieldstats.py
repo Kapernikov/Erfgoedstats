@@ -198,16 +198,15 @@ class FieldStats:
     def getSize(self):
         return self.totaldocs
         
-    def _parseCSV(self,filename):
-        import csv
-        x = csv.reader(file(filename, "r"), delimiter=";")
-        headers = x.next()
-        for row in x:
+    def _parseCSV(self,csvDoc):
+        headers = csvDoc.next()
+        for row in csvDoc:
             map = utils.kv2map(headers, row, charset='utf-8')
             self._parseDocMap(map)
 
     def _parseDocument(self, doc):
-        assert isinstance(doc, ElementTree)
+        if not isinstance(doc, ElementTree):
+            return
         for x in doc.findall(".//record"):
             map = utils.doc2map(x)
             self._parseDocMap(map)

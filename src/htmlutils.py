@@ -40,7 +40,8 @@ class HtmlElement():
     
     def addClass(self, cssclass):
         '''Add a CSS class to this element'''
-        assert isinstance(cssclass, str)
+        if not isinstance(cssclass, str):
+            return
         self.classes.append(cssclass)
 
 class HelpElement(HtmlElement):
@@ -126,10 +127,6 @@ class SortableTable(HtmlElement):
         result += "<tbody>\n"
         
         for row in self.rows:
-            print "-----------------------------------------------------------------------------------------------------------------------------"
-            print "type: "+ unicode(type(row.render()))
-            print row.render()
-            print "-----------------------------------------------------------------------------------------------------------------------------"
             result += row.render()
         
         result += "</tbody>"

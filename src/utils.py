@@ -66,7 +66,7 @@ class CounterDict:
     Configuration parameters used globally
 '''
 verbose = False
-testmode = True
+testmode = False
 
     
 def s(message):

@@ -86,7 +86,8 @@ class Thesaurus:
     def parseAdlibDoc(self, doc):
         '''Parse records from XML adlib doc at specified
         filename.'''
-        assert isinstance(doc, ElementTree)
+        if not isinstance(doc, ElementTree):
+            return
         for x in doc.findall(".//record"):
             t = Term()
             t.parseAdlibDoc(x)
@@ -111,10 +112,8 @@ class Thesaurus:
         not exist in thesaurus.'''
         'TODO: lots of input testing here, verify why'
         word = utils.ensureUnicode(word)
-        #if (word is None or len(word) == 0):
         if (not word):
             return u"Leeg (niet ingevuld)"
-        #assert isinstance(word, str) or isinstance(word, unicode)
         if (not self.containsTerm(word)):
             return u"Niet in de %s thesaurus" % (self.name)
         term = self.getTerm(word)
@@ -356,9 +355,9 @@ def getThesauriStatusOfWord(word):
     '''Get best status from hightest rated thesaurus for the given word.'''
     tmpstatus = None
     for th in getThesauri():
-        if (word is None or len(word) == 0):
-            return "Leeg (niet ingevuld)"
-        assert isinstance(word, str) or isinstance(word, unicode)
+        word = utils.ensureUnicode(word)
+        if not word:
+            return u"Leeg (niet ingevuld)"
         if (th.containsTerm(word)):
             term = th.getTerm(word)
             if (term.getUse() is not None):
@@ -366,8 +365,8 @@ def getThesauriStatusOfWord(word):
             else:
                 tmpstatus = bestStatus(tmpstatus,("voorkeur",th.name,"Voorkeursterm %s" % (th.name)))
     if (tmpstatus is None):
-        return "Eigen term"
-    return tmpstatus[2]
+        return u"Eigen term"
+    return utils.ensureUnicode(tmpstatus[2])
 
 
 def getCollectionThesauriReport(collection):
@@ -376,7 +375,7 @@ def getCollectionThesauriReport(collection):
     of all objects with the best scores of those fields.
     A counterDict style table is created for each
     field. '''
-    html = ""
+    html = u""
     html += "<h2>Thesaurus samenvattingen</h2>\n"
     for f in fields_to_check:
         statusmap = utils.CounterDict()
@@ -387,7 +386,7 @@ def getCollectionThesauriReport(collection):
                 statusmap.count(getThesauriStatusOfWord(value))
         html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
         html += statusmap.getReport()
-    return html
+    return utils.ensureUnicode(html)
     
     
 def setCustomThesauri(thesauriDictList):
