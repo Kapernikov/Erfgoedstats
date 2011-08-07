@@ -141,12 +141,10 @@ def autoDetectEncodingFromFile(filename):
     print "Auto detecting used charset encoding for file %s, found %s." % (filename, result)
     return result
 
-'TODO: use this everywhere where codecs.open, read, open is used, maybe put this method in other helper module, ask encoding as arg'
 def getFileContents(filename, encoding=None):
     '''Returns the contents of the file with specified path. Returned string is guaranteed
     to be unicode. Will attempt to determine the encoding scheme used in the file as good
     as possible for decoding the file.'''
-    'TODO: auto detect file encoding'
     if not encoding:
         encoding=autoDetectEncodingFromFile(filename)
     file = codecs.open(filename, mode='rb', encoding=encoding, errors="replace")
@@ -155,7 +153,8 @@ def getFileContents(filename, encoding=None):
     return fileContents
 
 def getAdlibXml(filename, isObjectXML=False):
-    '''Returns an xml ElementTree of the contents of the XML file at specified path.
+    '''Returns an xml ElementTree with utf-8 encoded strings of the contents of 
+    the XML file at specified path.
     When neccessary, a conversion to a standard adlib XML format as defined in 
     AdlibXMLConversion is done. When isObjectXML is true, extra mappings specific for
     object collection XML files is done.'''
@@ -168,15 +167,17 @@ def getAdlibXml(filename, isObjectXML=False):
     return the_doc
 
 def getCSV(filename):
+    '''Parse specified file as CSV file. Returns a CSV reader object
+    that returns utf-8 encoded strings.'''
     import csv
     'TODO: geen excel dialect selecteren?'
-    csv.re
-    the_doc = csv.reader(getFileContents(filename).split("\n"), delimiter=";")
+    the_doc = csv.reader(getFileContents(filename).encode("utf-8").split("\n"), delimiter=";")
     return the_doc
 
 def getOutputFile(filename, encoding="utf-8"):
     '''Return a file object reference for writing to an output file
-    with given path name. Writing mode supports unicode support.'''
+    with given path name. Writing mode supports unicode and output is
+    written as utf-8 encoded strings.'''
     return codecs.open(filename, mode="wb", encoding=encoding, errors="replace")
 
 def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):

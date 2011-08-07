@@ -121,15 +121,11 @@ class CollectionObject(object):
             
     def addParam(self, fieldname, value):
         '''Add param as key-value pair to this object.'''
+        value = utils.ensureUnicode(value)
+        value = value.strip()
         if(not value):
             return
-        value = value.strip()  # that is not just whitespaces
-        if len(value) == 0:
-            return
-        value = utils.nencode(value)
-        #@@@TEST
-        #fieldname = utils.nencode(x.tag)
-        fieldname = utils.nencode(fieldname)
+        fieldname = utils.ensureUnicode(fieldname)
         if fieldname in self.params:
             # append value to existing param 
             self.params[fieldname].append(value)

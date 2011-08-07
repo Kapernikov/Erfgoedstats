@@ -158,7 +158,7 @@ def main():
     buf+="<ul>\n"
     
     for museumkey in sorted(musea.keys(), key=lambda x: musea[x]["name"] ):
-        if not utils.testmode or museumkey=="AbdijmuseumTenDuinen DB3":
+        if not utils.testmode or museumkey=="AbdijmuseumTenDuinen DB3" or museumkey=="Visserijmuseum":
             # In testmode doen we alleen het kleinste museum
             museum = musea[museumkey]
             print "Regenerating " + museum["name"]

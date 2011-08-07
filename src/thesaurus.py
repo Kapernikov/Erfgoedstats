@@ -94,14 +94,14 @@ class Thesaurus:
             self.addTerm(t)
             
     def parseTextFile(self, filename):
-        '''Parse thesaurus from plain text file with given filename, with auto detection'''
+        '''Parse thesaurus from plain text file with given filename.'''
         fil = adlibstats.getFileContents(filename)
         lines = fil.split('\n')
         for x in lines:
-            'TODO: test if this works, and isnt it better te replace the newline chars explicitly?'
+            'TODO: test if this works, or is one char too much cut off'
             # leave off newline characters
-            word = x[:-1]
-            if (word != ''):
+            word = utils.ensureUnicode(x)
+            if word:
                 t = Term()
                 t.addField(u"term", word)
                 self.addTerm(t)
@@ -186,9 +186,6 @@ class Term:
             value = value.strip()
             if len(value) == 0:
                 continue
-            #value = utils.nencode(value)
-            #@@@TEST
-            #fieldname = utils.nencode(x.tag)
             fieldname = utils.ensureUnicode(x.tag)
             if not fieldname:
                 continue

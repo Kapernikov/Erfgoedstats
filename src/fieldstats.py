@@ -201,7 +201,7 @@ class FieldStats:
     def _parseCSV(self,csvDoc):
         headers = csvDoc.next()
         for row in csvDoc:
-            map = utils.kv2map(headers, row, charset='utf-8')
+            map = utils.kv2map(headers, row)
             self._parseDocMap(map)
 
     def _parseDocument(self, doc):

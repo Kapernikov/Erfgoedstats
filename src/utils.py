@@ -66,7 +66,7 @@ class CounterDict:
     Configuration parameters used globally
 '''
 verbose = False
-testmode = False
+testmode = True
 
     
 def s(message):
@@ -90,14 +90,13 @@ def nencode_list(x):
 
 
 
-def kv2map(k, v, charset=None):
+def kv2map(k, v):
     '''Convert a list of keys and list of values to
     a map with a one-to-one mapping of keys and values.
     Entries with empty key or value will be ignored.
     This map can contain multiple values for one key, 
     in which case that key will have a list as value.
-    If charset is specified strings will be decoded from
-    this charset, and converted to unicode.'''
+    '''
     map = {}
     if(not isinstance(k, list) or not isinstance(v, list)):
         return map
@@ -113,22 +112,11 @@ def kv2map(k, v, charset=None):
         if len(value)==0:
             continue
 
-        # check of key leeg (--> negeren)
-        key = k[i]
-        if key is None:
-            continue
-        key = ensureUnicode(key)
+        key = ensureUnicode(k[i])
         key = key.strip()
-        if len(key)==0:
+        # check of key leeg (--> negeren)
+        if not key:
             continue
-        
-        # beiden zijn significant
-        if (charset):
-            'TODO: die optie hier laten? wordt dit gebruikt om rechtstreeks naar output file te schrijven?'
-            #key = key.decode(charset).encode("utf-8","ignore")
-            #value = value.decode(charset).encode("utf-8","ignore")
-            key = key.encode("utf-8", "ignore")
-            value = value.encode("utf-8", "ignore")
             
         if (key in map):
             oldv = map[key]
@@ -209,4 +197,18 @@ def ensureUnicode(input, encoding="utf-8"):
         return unicode(input, encoding=encoding, errors="replace")
     if(isinstance(input, unicode)):
         return input
+    '''
+    if(isinstance(input, list)):
+        i = 0
+        while i < len(input):
+            input[i] = ensureUnicode(input[i], encoding)
+        return input
+    if(isinstance(input, dict)):
+        keys = input.keys()
+        for key in keys:
+            entry = input[key]
+            del input[key]
+            key = ensureUnicode(key, encoding)
+            input[key] = ensureUnicode(entry, encoding)
+    '''
     return unicode("")
