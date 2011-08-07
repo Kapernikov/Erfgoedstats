@@ -27,10 +27,10 @@ sorttable = {
     
     if (!document.createElement || !document.getElementsByTagName) return;
     
-    sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
+    sorttable.DATE_RE = /^(\\d\\d?)[\\/\\.-](\\d\\d?)[\\/\\.-]((\\d\\d)?\\d\\d)$/;
     
     forEach(document.getElementsByTagName('table'), function(table) {
-      if (table.className.search(/\bsortable\b/) != -1) {
+      if (table.className.search(/\\bsortable\\b/) != -1) {
         sorttable.makeSortable(table);
       }
     });
@@ -56,7 +56,7 @@ sorttable = {
     // for backwards compatibility, move them to tfoot (creating it if needed).
     sortbottomrows = [];
     for (var i=0; i<table.rows.length; i++) {
-      if (table.rows[i].className.search(/\bsortbottom\b/) != -1) {
+      if (table.rows[i].className.search(/\\bsortbottom\\b/) != -1) {
         sortbottomrows[sortbottomrows.length] = table.rows[i];
       }
     }
@@ -76,8 +76,8 @@ sorttable = {
     headrow = table.tHead.rows[0].cells;
     for (var i=0; i<headrow.length; i++) {
       // manually override the type with a sorttable_type attribute
-      if (!headrow[i].className.match(/\bsorttable_nosort\b/)) { // skip this col
-        mtch = headrow[i].className.match(/\bsorttable_([a-z0-9]+)\b/);
+      if (!headrow[i].className.match(/\\bsorttable_nosort\\b/)) { // skip this col
+        mtch = headrow[i].className.match(/\\bsorttable_([a-z0-9]+)\\b/);
         if (mtch) { override = mtch[1]; }
 	      if (mtch && typeof sorttable["sort_"+override] == 'function') {
 	        headrow[i].sorttable_sortfunction = sorttable["sort_"+override];
@@ -89,7 +89,7 @@ sorttable = {
 	      headrow[i].sorttable_tbody = table.tBodies[0];
 	      dean_addEvent(headrow[i],"click", function(e) {
 
-          if (this.className.search(/\bsorttable_sorted\b/) != -1) {
+          if (this.className.search(/\\bsorttable_sorted\\b/) != -1) {
             // if we're already sorted by this column, just 
             // reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
@@ -102,7 +102,7 @@ sorttable = {
             this.appendChild(sortrevind);
             return;
           }
-          if (this.className.search(/\bsorttable_sorted_reverse\b/) != -1) {
+          if (this.className.search(/\\bsorttable_sorted_reverse\\b/) != -1) {
             // if we're already sorted by this column in reverse, just 
             // re-reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
@@ -167,7 +167,7 @@ sorttable = {
     for (var i=0; i<table.tBodies[0].rows.length; i++) {
       text = sorttable.getInnerText(table.tBodies[0].rows[i].cells[column]);
       if (text != '') {
-        if (text.match(/^-?[£$€]?[\d,.]+%?$/)) {
+        if (text.match(/^-?[£$€]?[\\d,.]+%?$/)) {
           return sorttable.sort_numeric;
         }
         // check for a date: dd/mm/yyyy or dd/mm/yy 
@@ -213,22 +213,22 @@ sorttable = {
     	return node.sorttable_customkey;
     }
     else if (typeof node.textContent != 'undefined' && !hasInputs) {
-      return node.textContent.replace(/^\s+|\s+$/g, '');
+      return node.textContent.replace(/^\\s+|\\s+$/g, '');
     }
     else if (typeof node.innerText != 'undefined' && !hasInputs) {
-      return node.innerText.replace(/^\s+|\s+$/g, '');
+      return node.innerText.replace(/^\\s+|\\s+$/g, '');
     }
     else if (typeof node.text != 'undefined' && !hasInputs) {
-      return node.text.replace(/^\s+|\s+$/g, '');
+      return node.text.replace(/^\\s+|\\s+$/g, '');
     }
     else {
       switch (node.nodeType) {
         case 3:
           if (node.nodeName.toLowerCase() == 'input') {
-            return node.value.replace(/^\s+|\s+$/g, '');
+            return node.value.replace(/^\\s+|\\s+$/g, '');
           }
         case 4:
-          return node.nodeValue.replace(/^\s+|\s+$/g, '');
+          return node.nodeValue.replace(/^\\s+|\\s+$/g, '');
           break;
         case 1:
         case 11:
@@ -236,7 +236,7 @@ sorttable = {
           for (var i = 0; i < node.childNodes.length; i++) {
             innerText += sorttable.getInnerText(node.childNodes[i]);
           }
-          return innerText.replace(/^\s+|\s+$/g, '');
+          return innerText.replace(/^\\s+|\\s+$/g, '');
           break;
         default:
           return '';
@@ -348,7 +348,7 @@ if (document.addEventListener) {
 /* for Internet Explorer */
 /*@cc_on @*/
 /*@if (@_win32)
-    document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
+    document.write("<script id=__ie_onload defer src=javascript:void(0)><\\/script>");
     var script = document.getElementById("__ie_onload");
     script.onreadystatechange = function() {
         if (this.readyState == "complete") {
