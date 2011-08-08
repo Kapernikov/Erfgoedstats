@@ -1,0 +1,22 @@
+'''
+Created on 8-aug-2011
+
+@author: duststorm
+'''
+
+add=\
+'''R0lGODlhGAAYAKU1AGmUNWmVNmqVNWqWN2uWN2yWN2yXN5e0Mpa0PZm1PZu3Np25RJ+7OaC6RKS+
+PaO9S6a/S6nCQajCUavDUa3GRK3FWLHHWLHJSLTKX7bNS7fMYLrQT7zQZr7UUsHUbcPYVsbYc8fb
+WcrbeMzfXc/fftDiYNPjhNTmZNXkidfoZtfmitjmjtzpkNzpk+Dsld/smeHtneLuoOPvm+bwnufx
+of///////////////////////////////////////////yH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5
+BAEKAD8ALAAAAAAYABgAAAatwJ9wSCwaj8ik8hdoOpvLoiFGq1YDUaIBluqmZtis0PA6mU+ysLjQ
+KrlLLnW2sBrZRyy58elEhf4hKnxQQwEmh4gmH4sfiYhyASQdk5SVlh0kkCIbnJ2enxsikCAZpaan
+qBkgkB4Xrq+wsRcekBy2txwUuhS4t5CDGBHCERqDekUEFQ7LDhbHSgMSDNMME89JAw8K2woQ10gC
+CwfjBw3fRwAICevr53vGYvHyS0EAOw==
+'''
+
+remove=\
+'''R0lGODlhGAAYAOMLAKU3OM83ONI+PNZFQNpMRNRVWdlfYNxoZ+BxbeN6dOaBev//////////////
+/////yH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAA8ALAAAAAAYABgAAARP8MlJq7046827/2Ao
+jhRgnmialkrrvrALlAlh33hOJPMEIIOgcEgcIHoSwEHAbDqfggPyATAErtisNmCYAgrgsHgc9qrO
+KpJ6zW6733BLBAA7'''
