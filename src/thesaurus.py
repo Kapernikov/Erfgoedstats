@@ -72,7 +72,7 @@ class Thesaurus:
         already. If so, this will be parsed instead of the XML version,
         because this is a lot faster.'''
         filename = utils.ensureUnicode(filename)
-        if cachedVersionExists(filename):
+        if utils.cacheThesauri and cachedVersionExists(filename):
             print "Loading thesaurus from previously cached file %s" % getCachedVersionFilename(filename)
             cachedThesaurus = loadCachedVersion(filename)
             self.terms = cachedThesaurus.terms
@@ -80,8 +80,9 @@ class Thesaurus:
             return
         the_doc = adlibstats.getAdlibXml(filename)
         self.parseAdlibDoc(the_doc)
-        print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
-        createCachedVersion(self, filename)
+        if utils.cacheThesauri:
+            print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
+            createCachedVersion(self, filename)
         
     def parseAdlibDoc(self, doc):
         '''Parse records from XML adlib doc at specified

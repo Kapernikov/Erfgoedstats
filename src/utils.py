@@ -67,6 +67,7 @@ class CounterDict:
 '''
 verbose = False
 testmode = True
+cacheThesauri = True
 
     
 def s(message):

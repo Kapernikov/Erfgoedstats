@@ -28,12 +28,13 @@ import tkMessageBox
 
 import resources.digiridoologo_base64
 import resources.provinciewestvllogo_base64
+import resources.ButtonIcons_base64
 
 configFile = "settings.cfg"
 
 '''Filetypes that are selectable from the input file tables'''
 thesaurus_types = thesaurus.valid_filetypes
-inputfile_types = ['Adlib XML Objecten', 'Adlib XML Thesaurus', 'XML Fieldstats', 'CSV Fieldstats']
+inputfile_types = ['Adlib XML Objecten', 'Adlib XML Thesaurus', 'Adlib XML Personen', 'XML Fieldstats', 'CSV Fieldstats']
 
 class InputFileTable:
     '''GUI Widget that allows for defining a table in which each row represents an input file.
@@ -178,7 +179,7 @@ class InputFileRow:
         self.browseButton = Button(self.frame, text="Bladeren", command=self.browseFile)
         self.browseButton.pack(side=LEFT, padx=5)
         # Remove row button
-        self.removeButton = Button(self.frame, text="-", command=self.remove)
+        self.removeButton = Button(self.frame, image=resources.ButtonIcons_base64.remove, command=self.remove)
         self.removeButton.pack(side=LEFT)
         # Add to rows list
         parentTable.rows.append(self)
@@ -191,6 +192,8 @@ class InputFileRow:
             filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met objecten", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
         if filetype == 'Adlib XML Thesaurus':
             filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met een thesaurus", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
+        if filetype == 'Adlib XML Personen':
+            filename = tkFileDialog.askopenfilename(title="Kies Adlib XML met personen en instellingen", initialdir=initialDir, defaultextension="*.xml", parent=self.parent)
         if filetype == 'TXT Thesaurus':
             filename = tkFileDialog.askopenfilename(title="Kies bestand met TXT thesaurus", initialdir=initialDir, defaultextension="*.txt", parent=self.parent)
         if filetype == 'XML Fieldstats':
@@ -277,9 +280,10 @@ class MainWindow:
         # Set default input rows
         self.inputFilesTable.addRow(name="Objecten", filetype='Adlib XML Objecten')
         self.inputFilesTable.addRow(name="Thesaurus", filetype='Adlib XML Thesaurus')
+        self.inputFilesTable.addRow(name="Personen", filetype='Adlib XML Personen')
         
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, text="Bestand toevoegen", command=self.addInputRow)
+        self.addRowButton = Button(self.frame, image=resources.ButtonIcons_base64.add, command=self.addInputRow)
         self.addRowButton.pack(pady=5)
         
         # Kies output file
@@ -390,7 +394,7 @@ class MainWindow:
                 utils.s("%s - %s - %s\n" % (name, inputFiles[name]['type'], inputFiles[name]['path']))
                 if inputFiles[name]["type"] == 'Adlib XML Objecten':
                     objects.append(inputFiles[name]["path"])
-                elif inputFiles[name]["type"] == 'XML Fieldstats':
+                elif inputFiles[name]["type"] == 'XML Fieldstats' or inputFiles[name]["type"] == "Adlib XML Personen":
                     fieldstats.append(inputFiles[name]["path"])
                 elif inputFiles[name]["type"] == 'CSV Fieldstats':
                     csvfieldstats.append(inputFiles[name]["path"])

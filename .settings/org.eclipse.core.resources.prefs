@@ -1,4 +1,4 @@
-#Mon Aug 01 11:42:27 CEST 2011
+#Wed Aug 03 19:49:28 CEST 2011
 eclipse.preferences.version=1
 encoding//src/NewGUI.py=utf-8
 encoding//src/UnitTests.py=utf-8
@@ -9,6 +9,13 @@ encoding//src/gui.py=utf-8
 encoding//src/htmlutils.py=utf-8
 encoding//src/invulboek.py=utf-8
 encoding//src/regenAll.py=utf-8
+encoding//src/resources/bluedream_css.py=utf-8
+encoding//src/resources/digiridoologo_base64.py=utf-8
+encoding//src/resources/footer_html.py=utf-8
+encoding//src/resources/header_html.py=utf-8
+encoding//src/resources/jquery_min_easyTooltip_js.py=utf-8
+encoding//src/resources/provinciewestvllogo_base64.py=utf-8
+encoding//src/resources/sorttable_js.py=utf-8
 encoding//src/sorttable.py=utf-8
 encoding//src/thesaurus.py=utf-8
 encoding//src/tr.py=utf-8

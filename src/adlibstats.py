@@ -21,6 +21,8 @@ import utils
 import os
 import codecs
 
+import chardet
+
 import resources.bluedream_css
 import resources.digiridoologo_base64
 import resources.provinciewestvllogo_base64
@@ -137,9 +139,11 @@ def generate_csvreport(filename):
 def autoDetectEncodingFromFile(filename):
     'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets?'
     'TODO: implement '
-    result = u"utf-8"
-    print "Auto detecting used charset encoding for file %s, found %s." % (filename, result)
-    return result
+    result = chardet.detect(open(filename, mode="rb").read())
+    encoding = result["encoding"]
+    confidence = result["confidence"]
+    print "Auto detecting used charset encoding for file %s, found %s with confidence %f." % (filename, encoding, confidence)
+    return encoding
 
 def getFileContents(filename, encoding=None):
     '''Returns the contents of the file with specified path. Returned string is guaranteed
