@@ -1,0 +1,780 @@
+__main__: None -> <Module __main__ support/_mountzlib.py imports=[('archive', 0, 0, -1), ('iu', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+archive: None -> <Module archive /home/duststorm/projects/erfgoedstats/pyinstaller/archive.pyc imports=[('marshal', 0, 0, -1), ('struct', 0, 0, -1), ('imp', 0, 0, -1), ('sys', 0, 0, -1), ('iu', 0, 0, -1), ('imp', 1, 0, -1), ('os', 1, 1, -1), ('zlib', 1, 1, -1), ('AES', 1, 1, -1), ('os', 1, 1, -1)] binaries=[] datas=[]>
+iu: None -> <Module iu /home/duststorm/projects/erfgoedstats/pyinstaller/iu.pyc imports=[('sys', 0, 0, -1), ('imp', 0, 0, -1), ('marshal', 0, 0, -1), ('zipimport', 0, 0, -1), ('win32api', 1, 0, -1), ('__builtin__', 1, 0, -1), ('posix', 1, 1, -1), ('posix.stat', 1, 1, -1), ('posix.getcwd', 1, 1, -1), ('posix.environ', 1, 1, -1), ('posix.listdir', 1, 1, -1), ('nt', 1, 1, -1), ('nt.stat', 1, 1, -1), ('nt.getcwd', 1, 1, -1), ('nt.environ', 1, 1, -1), ('nt.listdir', 1, 1, -1), ('dos', 1, 1, -1), ('dos.stat', 1, 1, -1), ('dos.getcwd', 1, 1, -1), ('dos.environ', 1, 1, -1), ('dos.listdir', 1, 1, -1), ('os2', 1, 1, -1), ('os2.stat', 1, 1, -1), ('os2.getcwd', 1, 1, -1), ('os2.environ', 1, 1, -1), ('os2.listdir', 1, 1, -1), ('mac', 1, 1, -1), ('mac.stat', 1, 1, -1), ('mac.getcwd', 1, 1, -1), ('mac.environ', 1, 1, -1), ('mac.listdir', 1, 1, -1)] binaries=[] datas=[]>
+sys: None -> <Module sys None imports=[] binaries=[] datas=[]>
+marshal: None -> <Module marshal None imports=[] binaries=[] datas=[]>
+struct: None -> <Module struct /usr/lib/python2.6/struct.pyc imports=[('_struct', 0, 0, -1), ('_struct.*', 0, 0, -1), ('_struct', 0, 0, -1), ('_struct._clearcache', 0, 0, -1), ('_struct', 0, 0, -1), ('_struct.__doc__', 0, 0, -1)] binaries=[] datas=[]>
+imp: None -> <Module imp None imports=[] binaries=[] datas=[]>
+os: None -> <Module os /usr/lib/python2.6/os.pyc imports=[('sys', 0, 0, -1), ('errno', 0, 0, -1), ('posix', 0, 1, -1), ('posix.*', 0, 1, -1), ('posix', 0, 1, -1), ('posix._exit', 0, 1, -1), ('posixpath', 0, 1, -1), ('posix', 0, 1, -1), ('nt', 0, 1, -1), ('nt.*', 0, 1, -1), ('nt', 0, 1, -1), ('nt._exit', 0, 1, -1), ('ntpath', 0, 1, -1), ('nt', 0, 1, -1), ('os2', 0, 1, -1), ('os2.*', 0, 1, -1), ('os2', 0, 1, -1), ('os2._exit', 0, 1, -1), ('ntpath', 0, 1, -1), ('os2emxpath', 0, 1, -1), ('_emx_link', 0, 1, -1), ('_emx_link.link', 0, 1, -1), ('os2', 0, 1, -1), ('ce', 0, 1, -1), ('ce.*', 0, 1, -1), ('ce', 0, 1, -1), ('ce._exit', 0, 1, -1), ('ntpath', 0, 1, -1), ('ce', 0, 1, -1), ('riscos', 0, 1, -1), ('riscos.*', 0, 1, -1), ('riscos', 0, 1, -1), ('riscos._exit', 0, 1, -1), ('riscospath', 0, 1, -1), ('riscos', 0, 1, -1), ('os.path', 0, 0, -1), ('os.path.curdir', 0, 0, -1), ('os.path.pardir', 0, 0, -1), ('os.path.sep', 0, 0, -1), ('os.path.pathsep', 0, 0, -1), ('os.path.defpath', 0, 0, -1), ('os.path.extsep', 0, 0, -1), ('os.path.altsep', 0, 0, -1), ('os.path.devnull', 0, 0, -1), ('UserDict', 0, 1, -1), ('riscosenviron', 0, 1, -1), ('riscosenviron._Environ', 0, 1, -1), ('copy_reg', 0, 0, -1), ('os.path', 1, 0, -1), ('os.path.join', 1, 0, -1), ('os.path.isdir', 1, 0, -1), ('os.path.islink', 1, 0, -1), ('warnings', 1, 0, -1), ('subprocess', 1, 0, -1), ('warnings', 1, 0, -1), ('subprocess', 1, 0, -1), ('warnings', 1, 0, -1), ('subprocess', 1, 0, -1)] binaries=[] datas=[]>
+zlib: None -> <Module zlib None imports=[] binaries=[] datas=[]>
+AES: None -> None
+  DEL AES
+_struct: None -> <Module _struct None imports=[] binaries=[] datas=[]>
+zipimport: None -> <Module zipimport None imports=[] binaries=[] datas=[]>
+__builtin__: None -> <Module __builtin__ None imports=[] binaries=[] datas=[]>
+posix: None -> <Module posix None imports=[] binaries=[] datas=[]>
+errno: None -> <Module errno None imports=[] binaries=[] datas=[]>
+posixpath: None -> <Module posixpath /usr/lib/python2.6/posixpath.pyc imports=[('os', 0, 0, -1), ('stat', 0, 0, -1), ('genericpath', 0, 0, -1), ('warnings', 0, 0, -1), ('genericpath', 0, 0, -1), ('genericpath.*', 0, 0, -1), ('pwd', 1, 1, -1), ('pwd', 1, 1, -1), ('re', 1, 1, -1)] binaries=[] datas=[]>
+os2emxpath: None -> <Module os2emxpath /usr/lib/python2.6/os2emxpath.pyc imports=[('os', 0, 0, -1), ('stat', 0, 0, -1), ('genericpath', 0, 0, -1), ('genericpath.*', 0, 0, -1), ('ntpath', 0, 0, -1), ('ntpath.expanduser', 0, 0, -1), ('ntpath.expandvars', 0, 0, -1), ('ntpath.isabs', 0, 0, -1), ('ntpath.islink', 0, 0, -1), ('ntpath.splitdrive', 0, 0, -1), ('ntpath.splitext', 0, 0, -1), ('ntpath.split', 0, 0, -1), ('ntpath.walk', 0, 0, -1)] binaries=[] datas=[]>
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+UserDict: None -> <Module UserDict /usr/lib/python2.6/UserDict.pyc imports=[('_abcoll', 0, 0, -1), ('copy', 1, 0, -1)] binaries=[] datas=[]>
+copy_reg: None -> <Module copy_reg /usr/lib/python2.6/copy_reg.pyc imports=[('types', 0, 0, -1), ('types.ClassType', 0, 0, -1)] binaries=[] datas=[]>
+warnings: None -> <Module warnings /usr/lib/python2.6/warnings.pyc imports=[('linecache', 0, 0, -1), ('sys', 0, 0, -1), ('types', 0, 0, -1), ('_warnings', 0, 0, -1), ('_warnings.filters', 0, 0, -1), ('_warnings.default_action', 0, 0, -1), ('_warnings.once_registry', 0, 0, -1), ('_warnings.warn', 0, 0, -1), ('_warnings.warn_explicit', 0, 0, -1), ('re', 1, 0, -1), ('re', 1, 0, -1), ('re', 1, 0, -1)] binaries=[] datas=[]>
+subprocess: None -> <Module subprocess /usr/lib/python2.6/subprocess.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('traceback', 0, 0, -1), ('gc', 0, 0, -1), ('signal', 0, 0, -1), ('threading', 0, 1, -1), ('msvcrt', 0, 1, -1), ('_subprocess', 0, 1, -1), ('_subprocess.*', 0, 1, -1), ('select', 0, 1, -1), ('errno', 0, 1, -1), ('fcntl', 0, 1, -1), ('pickle', 0, 1, -1)] binaries=[] datas=[]>
+stat: None -> <Module stat /usr/lib/python2.6/stat.pyc imports=[] binaries=[] datas=[]>
+genericpath: None -> <Module genericpath /usr/lib/python2.6/genericpath.pyc imports=[('os', 0, 0, -1), ('stat', 0, 0, -1)] binaries=[] datas=[]>
+pwd: None -> <Module pwd None imports=[] binaries=[] datas=[]>
+re: None -> <Module re /usr/lib/python2.6/re.pyc imports=[('sys', 0, 0, -1), ('sre_compile', 0, 0, -1), ('sre_parse', 0, 0, -1), ('copy_reg', 0, 0, -1), ('sre_constants', 1, 0, -1), ('sre_constants.BRANCH', 1, 0, -1), ('sre_constants.SUBPATTERN', 1, 0, -1)] binaries=[] datas=[]>
+linecache: None -> <Module linecache /usr/lib/python2.6/linecache.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
+types: None -> <Module types /usr/lib/python2.6/types.pyc imports=[('sys', 0, 0, -1)] binaries=[] datas=[]>
+_warnings: None -> <Module _warnings None imports=[] binaries=[] datas=[]>
+sre_compile: None -> <Module sre_compile /usr/lib/python2.6/sre_compile.pyc imports=[('_sre', 0, 0, -1), ('sys', 0, 0, -1), ('sre_parse', 0, 0, -1), ('sre_constants', 0, 0, -1), ('sre_constants.*', 0, 0, -1), ('array', 1, 0, -1)] binaries=[] datas=[]>
+sre_parse: None -> <Module sre_parse /usr/lib/python2.6/sre_parse.pyc imports=[('sys', 0, 0, -1), ('sre_constants', 0, 0, -1), ('sre_constants.*', 0, 0, -1)] binaries=[] datas=[]>
+sre_constants: None -> <Module sre_constants /usr/lib/python2.6/sre_constants.pyc imports=[] binaries=[] datas=[]>
+_sre: None -> <Module _sre None imports=[] binaries=[] datas=[]>
+array: None -> <Module array None imports=[] binaries=[] datas=[]>
+ntpath: None -> <Module ntpath /usr/lib/python2.6/ntpath.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('stat', 0, 0, -1), ('genericpath', 0, 0, -1), ('warnings', 0, 0, -1), ('genericpath', 0, 0, -1), ('genericpath.*', 0, 0, -1), ('nt', 0, 0, -1), ('nt._getfullpathname', 0, 0, -1), ('string', 1, 0, -1)] binaries=[] datas=[]>
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+string: None -> <Module string /usr/lib/python2.6/string.pyc imports=[('re', 0, 0, -1), ('strop', 0, 0, -1), ('strop.maketrans', 0, 0, -1), ('strop.lowercase', 0, 0, -1), ('strop.uppercase', 0, 0, -1), ('strop.whitespace', 0, 0, -1)] binaries=[] datas=[]>
+strop: None -> <Module strop None imports=[] binaries=[] datas=[]>
+_abcoll: None -> <Module _abcoll /usr/lib/python2.6/_abcoll.pyc imports=[('abc', 0, 0, -1), ('abc.ABCMeta', 0, 0, -1), ('abc.abstractmethod', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+copy: None -> <Module copy /usr/lib/python2.6/copy.pyc imports=[('types', 0, 0, -1), ('copy_reg', 0, 0, -1), ('copy_reg.dispatch_table', 0, 0, -1), ('org.python.core', 0, 0, -1), ('org.python.core.PyStringMap', 0, 0, -1), ('repr', 1, 0, -1), ('repr', 1, 0, -1), ('sys', 1, 1, -1)] binaries=[] datas=[]>
+abc: None -> <Module abc /usr/lib/python2.6/abc.pyc imports=[] binaries=[] datas=[]>
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+repr: None -> <Module repr /usr/lib/python2.6/repr.pyc imports=[('__builtin__', 0, 0, -1), ('itertools', 0, 0, -1), ('itertools.islice', 0, 0, -1)] binaries=[] datas=[]>
+itertools: None -> <Module itertools None imports=[] binaries=[] datas=[]>
+traceback: None -> <Module traceback /usr/lib/python2.6/traceback.pyc imports=[('linecache', 0, 0, -1), ('sys', 0, 0, -1), ('types', 0, 0, -1)] binaries=[] datas=[]>
+gc: None -> <Module gc None imports=[] binaries=[] datas=[]>
+signal: None -> <Module signal None imports=[] binaries=[] datas=[]>
+threading: None -> <Module threading /usr/lib/python2.6/threading.pyc imports=[('sys', 0, 0, -1), ('thread', 0, 0, -1), ('warnings', 0, 0, -1), ('functools', 0, 0, -1), ('functools.wraps', 0, 0, -1), ('time', 0, 0, -1), ('time.time', 0, 0, -1), ('time.sleep', 0, 0, -1), ('traceback', 0, 0, -1), ('traceback.format_exc', 0, 0, -1), ('collections', 0, 0, -1), ('collections.deque', 0, 0, -1), ('thread', 0, 0, -1), ('thread.stack_size', 0, 0, -1), ('thread', 0, 0, -1), ('thread._local', 0, 0, -1), ('_threading_local', 0, 1, -1), ('_threading_local.local', 0, 1, -1), ('random', 1, 0, -1), ('random.random', 1, 0, -1)] binaries=[] datas=[]>
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+select: None -> <Module select None imports=[] binaries=[] datas=[]>
+fcntl: None -> <Module fcntl None imports=[] binaries=[] datas=[]>
+pickle: None -> <Module pickle /usr/lib/python2.6/pickle.pyc imports=[('types', 0, 0, -1), ('types.*', 0, 0, -1), ('copy_reg', 0, 0, -1), ('copy_reg.dispatch_table', 0, 0, -1), ('copy_reg', 0, 0, -1), ('copy_reg._extension_registry', 0, 0, -1), ('copy_reg._inverted_registry', 0, 0, -1), ('copy_reg._extension_cache', 0, 0, -1), ('marshal', 0, 0, -1), ('sys', 0, 0, -1), ('struct', 0, 0, -1), ('re', 0, 0, -1), ('org.python.core', 0, 0, -1), ('org.python.core.PyStringMap', 0, 0, -1), ('binascii', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('doctest', 1, 0, -1)] binaries=[] datas=[]>
+thread: None -> <Module thread None imports=[] binaries=[] datas=[]>
+functools: None -> <Module functools /usr/lib/python2.6/functools.pyc imports=[('_functools', 0, 0, -1), ('_functools.partial', 0, 0, -1), ('_functools.reduce', 0, 0, -1)] binaries=[] datas=[]>
+time: None -> <Module time None imports=[] binaries=[] datas=[]>
+collections: None -> <Module collections /usr/lib/python2.6/collections.pyc imports=[('_abcoll', 0, 0, -1), ('_abcoll.*', 0, 0, -1), ('_abcoll', 0, 0, -1), ('_collections', 0, 0, -1), ('_collections.deque', 0, 0, -1), ('_collections.defaultdict', 0, 0, -1), ('operator', 0, 0, -1), ('operator.itemgetter', 0, 0, -1), ('keyword', 0, 0, -1), ('keyword.iskeyword', 0, 0, -1), ('sys', 0, 0, -1), ('cPickle', 0, 1, -1), ('cPickle.loads', 0, 1, -1), ('cPickle.dumps', 0, 1, -1), ('doctest', 0, 1, -1)] binaries=[] datas=[]>
+_threading_local: None -> <Module _threading_local /usr/lib/python2.6/_threading_local.pyc imports=[('threading', 0, 0, -1), ('threading.current_thread', 0, 0, -1), ('threading.RLock', 0, 0, -1), ('threading', 1, 0, -1)] binaries=[] datas=[]>
+random: None -> <Module random /usr/lib/python2.6/random.pyc imports=[('__future__', 0, 0, -1), ('__future__.division', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.warn', 0, 0, -1), ('types', 0, 0, -1), ('types.MethodType', 0, 0, -1), ('types.BuiltinMethodType', 0, 0, -1), ('math', 0, 0, -1), ('math.log', 0, 0, -1), ('math.exp', 0, 0, -1), ('math.pi', 0, 0, -1), ('math.e', 0, 0, -1), ('math.ceil', 0, 0, -1), ('math', 0, 0, -1), ('math.sqrt', 0, 0, -1), ('math.acos', 0, 0, -1), ('math.cos', 0, 0, -1), ('math.sin', 0, 0, -1), ('os', 0, 0, -1), ('os.urandom', 0, 0, -1), ('binascii', 0, 0, -1), ('binascii.hexlify', 0, 0, -1), ('_random', 0, 0, -1), ('time', 1, 1, -1), ('time', 1, 1, -1), ('time', 1, 1, -1), ('time', 1, 0, -1)] binaries=[] datas=[]>
+_functools: None -> <Module _functools None imports=[] binaries=[] datas=[]>
+_strptime: None -> <Module _strptime /usr/lib/python2.6/_strptime.pyc imports=[('time', 0, 0, -1), ('locale', 0, 0, -1), ('calendar', 0, 0, -1), ('re', 0, 0, -1), ('re.compile', 0, 0, -1), ('re', 0, 0, -1), ('re.IGNORECASE', 0, 0, -1), ('re', 0, 0, -1), ('re.escape', 0, 0, -1), ('datetime', 0, 0, -1), ('datetime.date', 0, 0, -1), ('thread', 0, 0, -1), ('thread.allocate_lock', 0, 0, -1), ('dummy_thread', 0, 0, -1), ('dummy_thread.allocate_lock', 0, 0, -1)] binaries=[] datas=[]>
+locale: None -> <Module locale /usr/lib/python2.6/locale.pyc imports=[('sys', 0, 0, -1), ('encodings', 0, 0, -1), ('encodings.aliases', 0, 0, -1), ('functools', 0, 0, -1), ('_locale', 0, 0, -1), ('_locale.*', 0, 0, -1), ('re', 0, 0, -1), ('operator', 0, 0, -1), ('_locale', 1, 0, -1), ('os', 1, 0, -1), ('_locale', 1, 0, -1)] binaries=[] datas=[]>
+calendar: None -> <Module calendar /usr/lib/python2.6/calendar.pyc imports=[('sys', 0, 0, -1), ('datetime', 0, 0, -1), ('locale', 0, 0, -1), ('optparse', 1, 0, -1)] binaries=[] datas=[]>
+datetime: None -> <Module datetime /usr/lib/python2.6/lib-dynload/datetime.so imports=[] binaries=[] datas=[]>
+dummy_thread: None -> <Module dummy_thread /usr/lib/python2.6/dummy_thread.pyc imports=[('traceback', 0, 0, -1)] binaries=[] datas=[]>
+encodings: None -> <Module encodings /usr/lib/python2.6/encodings/__init__.pyc imports=[('codecs', 0, 0, -1), ('encodings', 0, 0, -1), ('encodings.aliases', 0, 0, -1), ('__builtin__', 0, 0, -1)] binaries=[] datas=[]>
+encodings.aliases: None -> <Module encodings.aliases /usr/lib/python2.6/encodings/aliases.pyc imports=[] binaries=[] datas=[]>
+_locale: None -> <Module _locale None imports=[] binaries=[] datas=[]>
+operator: None -> <Module operator None imports=[] binaries=[] datas=[]>
+encodings.codecs: None -> None
+codecs: None -> <Module codecs /usr/lib/python2.6/codecs.pyc imports=[('__builtin__', 0, 0, -1), ('sys', 0, 0, -1), ('_codecs', 0, 0, -1), ('_codecs.*', 0, 0, -1), ('encodings', 0, 1, -1)] binaries=[] datas=[]>
+encodings.encodings: None -> None
+encodings.__builtin__: None -> None
+encodings.hex_codec: None -> <Module encodings.hex_codec /usr/lib/python2.6/encodings/hex_codec.pyc imports=[('codecs', 0, 0, -1), ('binascii', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp875: None -> <Module encodings.cp875 /usr/lib/python2.6/encodings/cp875.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.ptcp154: None -> <Module encodings.ptcp154 /usr/lib/python2.6/encodings/ptcp154.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_arabic: None -> <Module encodings.mac_arabic /usr/lib/python2.6/encodings/mac_arabic.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_9: None -> <Module encodings.iso8859_9 /usr/lib/python2.6/encodings/iso8859_9.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_32_be: None -> <Module encodings.utf_32_be /usr/lib/python2.6/encodings/utf_32_be.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.zlib_codec: None -> <Module encodings.zlib_codec /usr/lib/python2.6/encodings/zlib_codec.pyc imports=[('codecs', 0, 0, -1), ('zlib', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_latin2: None -> <Module encodings.mac_latin2 /usr/lib/python2.6/encodings/mac_latin2.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.unicode_internal: None -> <Module encodings.unicode_internal /usr/lib/python2.6/encodings/unicode_internal.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_32_le: None -> <Module encodings.utf_32_le /usr/lib/python2.6/encodings/utf_32_le.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_16: None -> <Module encodings.iso8859_16 /usr/lib/python2.6/encodings/iso8859_16.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_5: None -> <Module encodings.iso8859_5 /usr/lib/python2.6/encodings/iso8859_5.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1254: None -> <Module encodings.cp1254 /usr/lib/python2.6/encodings/cp1254.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_15: None -> <Module encodings.iso8859_15 /usr/lib/python2.6/encodings/iso8859_15.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp861: None -> <Module encodings.cp861 /usr/lib/python2.6/encodings/cp861.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_4: None -> <Module encodings.iso8859_4 /usr/lib/python2.6/encodings/iso8859_4.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp932: None -> <Module encodings.cp932 /usr/lib/python2.6/encodings/cp932.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_roman: None -> <Module encodings.mac_roman /usr/lib/python2.6/encodings/mac_roman.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1255: None -> <Module encodings.cp1255 /usr/lib/python2.6/encodings/cp1255.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mbcs: None -> <Module encodings.mbcs /usr/lib/python2.6/encodings/mbcs.pyc imports=[('codecs', 0, 0, -1), ('codecs.mbcs_encode', 0, 0, -1), ('codecs.mbcs_decode', 0, 0, -1), ('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.shift_jis_2004: None -> <Module encodings.shift_jis_2004 /usr/lib/python2.6/encodings/shift_jis_2004.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.idna: None -> <Module encodings.idna /usr/lib/python2.6/encodings/idna.pyc imports=[('stringprep', 0, 0, -1), ('re', 0, 0, -1), ('codecs', 0, 0, -1), ('unicodedata', 0, 0, -1), ('unicodedata.ucd_3_2_0', 0, 0, -1)] binaries=[] datas=[]>
+encodings.undefined: None -> <Module encodings.undefined /usr/lib/python2.6/encodings/undefined.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_8_sig: None -> <Module encodings.utf_8_sig /usr/lib/python2.6/encodings/utf_8_sig.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_3: None -> <Module encodings.iso8859_3 /usr/lib/python2.6/encodings/iso8859_3.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.gbk: None -> <Module encodings.gbk /usr/lib/python2.6/encodings/gbk.pyc imports=[('_codecs_cn', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp856: None -> <Module encodings.cp856 /usr/lib/python2.6/encodings/cp856.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_7: None -> <Module encodings.utf_7 /usr/lib/python2.6/encodings/utf_7.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.euc_jisx0213: None -> <Module encodings.euc_jisx0213 /usr/lib/python2.6/encodings/euc_jisx0213.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp850: None -> <Module encodings.cp850 /usr/lib/python2.6/encodings/cp850.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1258: None -> <Module encodings.cp1258 /usr/lib/python2.6/encodings/cp1258.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_greek: None -> <Module encodings.mac_greek /usr/lib/python2.6/encodings/mac_greek.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_kr: None -> <Module encodings.iso2022_kr /usr/lib/python2.6/encodings/iso2022_kr.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_16_be: None -> <Module encodings.utf_16_be /usr/lib/python2.6/encodings/utf_16_be.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.bz2_codec: None -> <Module encodings.bz2_codec /usr/lib/python2.6/encodings/bz2_codec.pyc imports=[('codecs', 0, 0, -1), ('bz2', 0, 0, -1)] binaries=[] datas=[]>
+encodings.string_escape: None -> <Module encodings.string_escape /usr/lib/python2.6/encodings/string_escape.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.tis_620: None -> <Module encodings.tis_620 /usr/lib/python2.6/encodings/tis_620.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_6: None -> <Module encodings.iso8859_6 /usr/lib/python2.6/encodings/iso8859_6.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.charmap: None -> <Module encodings.charmap /usr/lib/python2.6/encodings/charmap.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp_1: None -> <Module encodings.iso2022_jp_1 /usr/lib/python2.6/encodings/iso2022_jp_1.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.euc_kr: None -> <Module encodings.euc_kr /usr/lib/python2.6/encodings/euc_kr.pyc imports=[('_codecs_kr', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.ascii: None -> <Module encodings.ascii /usr/lib/python2.6/encodings/ascii.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp864: None -> <Module encodings.cp864 /usr/lib/python2.6/encodings/cp864.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp: None -> <Module encodings.iso2022_jp /usr/lib/python2.6/encodings/iso2022_jp.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp860: None -> <Module encodings.cp860 /usr/lib/python2.6/encodings/cp860.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp865: None -> <Module encodings.cp865 /usr/lib/python2.6/encodings/cp865.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp862: None -> <Module encodings.cp862 /usr/lib/python2.6/encodings/cp862.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.euc_jis_2004: None -> <Module encodings.euc_jis_2004 /usr/lib/python2.6/encodings/euc_jis_2004.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.unicode_escape: None -> <Module encodings.unicode_escape /usr/lib/python2.6/encodings/unicode_escape.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1026: None -> <Module encodings.cp1026 /usr/lib/python2.6/encodings/cp1026.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_10: None -> <Module encodings.iso8859_10 /usr/lib/python2.6/encodings/iso8859_10.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp500: None -> <Module encodings.cp500 /usr/lib/python2.6/encodings/cp500.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1250: None -> <Module encodings.cp1250 /usr/lib/python2.6/encodings/cp1250.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp_ext: None -> <Module encodings.iso2022_jp_ext /usr/lib/python2.6/encodings/iso2022_jp_ext.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1252: None -> <Module encodings.cp1252 /usr/lib/python2.6/encodings/cp1252.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_farsi: None -> <Module encodings.mac_farsi /usr/lib/python2.6/encodings/mac_farsi.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_14: None -> <Module encodings.iso8859_14 /usr/lib/python2.6/encodings/iso8859_14.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_13: None -> <Module encodings.iso8859_13 /usr/lib/python2.6/encodings/iso8859_13.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.raw_unicode_escape: None -> <Module encodings.raw_unicode_escape /usr/lib/python2.6/encodings/raw_unicode_escape.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_16_le: None -> <Module encodings.utf_16_le /usr/lib/python2.6/encodings/utf_16_le.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.uu_codec: None -> <Module encodings.uu_codec /usr/lib/python2.6/encodings/uu_codec.pyc imports=[('codecs', 0, 0, -1), ('binascii', 0, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('binascii', 1, 0, -1), ('binascii.b2a_uu', 1, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('binascii', 1, 0, -1), ('binascii.a2b_uu', 1, 0, -1)] binaries=[] datas=[]>
+encodings.utf_16: None -> <Module encodings.utf_16 /usr/lib/python2.6/encodings/utf_16.pyc imports=[('codecs', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_croatian: None -> <Module encodings.mac_croatian /usr/lib/python2.6/encodings/mac_croatian.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_11: None -> <Module encodings.iso8859_11 /usr/lib/python2.6/encodings/iso8859_11.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.shift_jisx0213: None -> <Module encodings.shift_jisx0213 /usr/lib/python2.6/encodings/shift_jisx0213.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp_2: None -> <Module encodings.iso2022_jp_2 /usr/lib/python2.6/encodings/iso2022_jp_2.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.palmos: None -> <Module encodings.palmos /usr/lib/python2.6/encodings/palmos.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.gb2312: None -> <Module encodings.gb2312 /usr/lib/python2.6/encodings/gb2312.pyc imports=[('_codecs_cn', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.big5hkscs: None -> <Module encodings.big5hkscs /usr/lib/python2.6/encodings/big5hkscs.pyc imports=[('_codecs_hk', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.hp_roman8: None -> <Module encodings.hp_roman8 /usr/lib/python2.6/encodings/hp_roman8.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.quopri_codec: None -> <Module encodings.quopri_codec /usr/lib/python2.6/encodings/quopri_codec.pyc imports=[('codecs', 0, 0, -1), ('quopri', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1)] binaries=[] datas=[]>
+encodings.cp855: None -> <Module encodings.cp855 /usr/lib/python2.6/encodings/cp855.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1006: None -> <Module encodings.cp1006 /usr/lib/python2.6/encodings/cp1006.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1253: None -> <Module encodings.cp1253 /usr/lib/python2.6/encodings/cp1253.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp874: None -> <Module encodings.cp874 /usr/lib/python2.6/encodings/cp874.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp037: None -> <Module encodings.cp037 /usr/lib/python2.6/encodings/cp037.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.rot_13: None -> <Module encodings.rot_13 /usr/lib/python2.6/encodings/rot_13.pyc imports=[('codecs', 0, 0, -1), ('sys', 0, 1, -1)] binaries=[] datas=[]>
+encodings.cp775: None -> <Module encodings.cp775 /usr/lib/python2.6/encodings/cp775.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp852: None -> <Module encodings.cp852 /usr/lib/python2.6/encodings/cp852.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1140: None -> <Module encodings.cp1140 /usr/lib/python2.6/encodings/cp1140.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_iceland: None -> <Module encodings.mac_iceland /usr/lib/python2.6/encodings/mac_iceland.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_8: None -> <Module encodings.iso8859_8 /usr/lib/python2.6/encodings/iso8859_8.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.euc_jp: None -> <Module encodings.euc_jp /usr/lib/python2.6/encodings/euc_jp.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp863: None -> <Module encodings.cp863 /usr/lib/python2.6/encodings/cp863.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1257: None -> <Module encodings.cp1257 /usr/lib/python2.6/encodings/cp1257.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_8: None -> <Module encodings.utf_8 /usr/lib/python2.6/encodings/utf_8.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.punycode: None -> <Module encodings.punycode /usr/lib/python2.6/encodings/punycode.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.base64_codec: None -> <Module encodings.base64_codec /usr/lib/python2.6/encodings/base64_codec.pyc imports=[('codecs', 0, 0, -1), ('base64', 0, 0, -1)] binaries=[] datas=[]>
+encodings.shift_jis: None -> <Module encodings.shift_jis /usr/lib/python2.6/encodings/shift_jis.pyc imports=[('_codecs_jp', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp737: None -> <Module encodings.cp737 /usr/lib/python2.6/encodings/cp737.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.gb18030: None -> <Module encodings.gb18030 /usr/lib/python2.6/encodings/gb18030.pyc imports=[('_codecs_cn', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp949: None -> <Module encodings.cp949 /usr/lib/python2.6/encodings/cp949.pyc imports=[('_codecs_kr', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_2: None -> <Module encodings.iso8859_2 /usr/lib/python2.6/encodings/iso8859_2.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_centeuro: None -> <Module encodings.mac_centeuro /usr/lib/python2.6/encodings/mac_centeuro.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp437: None -> <Module encodings.cp437 /usr/lib/python2.6/encodings/cp437.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.koi8_u: None -> <Module encodings.koi8_u /usr/lib/python2.6/encodings/koi8_u.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_cyrillic: None -> <Module encodings.mac_cyrillic /usr/lib/python2.6/encodings/mac_cyrillic.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp857: None -> <Module encodings.cp857 /usr/lib/python2.6/encodings/cp857.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp_2004: None -> <Module encodings.iso2022_jp_2004 /usr/lib/python2.6/encodings/iso2022_jp_2004.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1256: None -> <Module encodings.cp1256 /usr/lib/python2.6/encodings/cp1256.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.johab: None -> <Module encodings.johab /usr/lib/python2.6/encodings/johab.pyc imports=[('_codecs_kr', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.utf_32: None -> <Module encodings.utf_32 /usr/lib/python2.6/encodings/utf_32.pyc imports=[('codecs', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_7: None -> <Module encodings.iso8859_7 /usr/lib/python2.6/encodings/iso8859_7.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso8859_1: None -> <Module encodings.iso8859_1 /usr/lib/python2.6/encodings/iso8859_1.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp950: None -> <Module encodings.cp950 /usr/lib/python2.6/encodings/cp950.pyc imports=[('_codecs_tw', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.big5: None -> <Module encodings.big5 /usr/lib/python2.6/encodings/big5.pyc imports=[('_codecs_tw', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp1251: None -> <Module encodings.cp1251 /usr/lib/python2.6/encodings/cp1251.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp869: None -> <Module encodings.cp869 /usr/lib/python2.6/encodings/cp869.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.hz: None -> <Module encodings.hz /usr/lib/python2.6/encodings/hz.pyc imports=[('_codecs_cn', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_romanian: None -> <Module encodings.mac_romanian /usr/lib/python2.6/encodings/mac_romanian.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.mac_turkish: None -> <Module encodings.mac_turkish /usr/lib/python2.6/encodings/mac_turkish.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.koi8_r: None -> <Module encodings.koi8_r /usr/lib/python2.6/encodings/koi8_r.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp424: None -> <Module encodings.cp424 /usr/lib/python2.6/encodings/cp424.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.latin_1: None -> <Module encodings.latin_1 /usr/lib/python2.6/encodings/latin_1.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+encodings.iso2022_jp_3: None -> <Module encodings.iso2022_jp_3 /usr/lib/python2.6/encodings/iso2022_jp_3.pyc imports=[('_codecs_iso2022', 0, 0, -1), ('codecs', 0, 0, -1), ('_multibytecodec', 0, 0, -1)] binaries=[] datas=[]>
+encodings.cp866: None -> <Module encodings.cp866 /usr/lib/python2.6/encodings/cp866.pyc imports=[('codecs', 0, 0, -1)] binaries=[] datas=[]>
+_codecs: None -> <Module _codecs None imports=[] binaries=[] datas=[]>
+encodings.binascii: None -> None
+binascii: None -> <Module binascii None imports=[] binaries=[] datas=[]>
+encodings.zlib: None -> None
+encodings._codecs_jp: None -> None
+_codecs_jp: None -> <Module _codecs_jp /usr/lib/python2.6/lib-dynload/_codecs_jp.so imports=[] binaries=[] datas=[]>
+encodings._multibytecodec: None -> None
+_multibytecodec: None -> <Module _multibytecodec /usr/lib/python2.6/lib-dynload/_multibytecodec.so imports=[] binaries=[] datas=[]>
+encodings.stringprep: None -> None
+stringprep: None -> <Module stringprep /usr/lib/python2.6/stringprep.pyc imports=[('unicodedata', 0, 0, -1), ('unicodedata.ucd_3_2_0', 0, 0, -1)] binaries=[] datas=[]>
+encodings.re: None -> None
+encodings.unicodedata: None -> None
+unicodedata: None -> <Module unicodedata None imports=[] binaries=[] datas=[]>
+encodings._codecs_cn: None -> None
+_codecs_cn: None -> <Module _codecs_cn /usr/lib/python2.6/lib-dynload/_codecs_cn.so imports=[] binaries=[] datas=[]>
+encodings._codecs_iso2022: None -> None
+_codecs_iso2022: None -> <Module _codecs_iso2022 /usr/lib/python2.6/lib-dynload/_codecs_iso2022.so imports=[] binaries=[] datas=[]>
+encodings.bz2: None -> None
+bz2: None -> <Module bz2 /usr/lib/python2.6/lib-dynload/bz2.so imports=[] binaries=[] datas=[]>
+encodings._codecs_kr: None -> None
+_codecs_kr: None -> <Module _codecs_kr /usr/lib/python2.6/lib-dynload/_codecs_kr.so imports=[] binaries=[] datas=[]>
+encodings.cStringIO: None -> None
+cStringIO: None -> <Module cStringIO None imports=[] binaries=[] datas=[]>
+encodings.sys: None -> None
+encodings._codecs_hk: None -> None
+_codecs_hk: None -> <Module _codecs_hk /usr/lib/python2.6/lib-dynload/_codecs_hk.so imports=[] binaries=[] datas=[]>
+encodings.quopri: None -> None
+quopri: None -> <Module quopri /usr/lib/python2.6/quopri.pyc imports=[('binascii', 0, 0, -1), ('binascii.a2b_qp', 0, 0, -1), ('binascii.b2a_qp', 0, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('sys', 1, 0, -1), ('getopt', 1, 0, -1)] binaries=[] datas=[]>
+encodings.StringIO: None -> None
+StringIO: None -> <Module StringIO /usr/lib/python2.6/StringIO.pyc imports=[('errno', 0, 0, -1), ('errno.EINVAL', 0, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+getopt: None -> <Module getopt /usr/lib/python2.6/getopt.pyc imports=[('os', 0, 0, -1), ('sys', 0, 1, -1)] binaries=[] datas=[]>
+encodings.base64: None -> None
+base64: None -> <Module base64 /usr/lib/python2.6/base64.pyc imports=[('re', 0, 0, -1), ('struct', 0, 0, -1), ('binascii', 0, 0, -1), ('sys', 1, 0, -1), ('getopt', 1, 0, -1)] binaries=[] datas=[]>
+encodings._codecs_tw: None -> None
+_codecs_tw: None -> <Module _codecs_tw /usr/lib/python2.6/lib-dynload/_codecs_tw.so imports=[] binaries=[] datas=[]>
+optparse: None -> <Module optparse /usr/lib/python2.6/optparse.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('textwrap', 0, 0, -1), ('gettext', 0, 0, -1), ('gettext.gettext', 0, 0, -1), ('__builtin__', 1, 1, -1)] binaries=[] datas=[]>
+textwrap: None -> <Module textwrap /usr/lib/python2.6/textwrap.pyc imports=[('string', 0, 0, -1), ('re', 0, 0, -1)] binaries=[] datas=[]>
+gettext: None -> <Module gettext /usr/lib/python2.6/gettext.pyc imports=[('locale', 0, 0, -1), ('copy', 0, 0, -1), ('os', 0, 0, -1), ('re', 0, 0, -1), ('struct', 0, 0, -1), ('sys', 0, 0, -1), ('errno', 0, 0, -1), ('errno.ENOENT', 0, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1), ('token', 1, 0, -1), ('tokenize', 1, 0, -1), ('locale', 1, 0, -1), ('locale.normalize', 1, 0, -1), ('__builtin__', 1, 0, -1)] binaries=[] datas=[]>
+token: None -> <Module token /usr/lib/python2.6/token.pyc imports=[('re', 1, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+tokenize: None -> <Module tokenize /usr/lib/python2.6/tokenize.pyc imports=[('string', 0, 0, -1), ('re', 0, 0, -1), ('token', 0, 0, -1), ('token.*', 0, 0, -1), ('token', 0, 0, -1), ('sys', 0, 1, -1)] binaries=[] datas=[]>
+_collections: None -> <Module _collections None imports=[] binaries=[] datas=[]>
+keyword: None -> <Module keyword /usr/lib/python2.6/keyword.pyc imports=[('sys', 1, 0, -1), ('re', 1, 0, -1)] binaries=[] datas=[]>
+cPickle: None -> <Module cPickle None imports=[] binaries=[] datas=[]>
+doctest: None -> <Module doctest /usr/lib/python2.6/doctest.pyc imports=[('__future__', 0, 0, -1), ('sys', 0, 0, -1), ('traceback', 0, 0, -1), ('inspect', 0, 0, -1), ('linecache', 0, 0, -1), ('os', 0, 0, -1), ('re', 0, 0, -1), ('unittest', 0, 0, -1), ('difflib', 0, 0, -1), ('pdb', 0, 0, -1), ('tempfile', 0, 0, -1), ('warnings', 0, 0, -1), ('StringIO', 0, 0, -1), ('StringIO.StringIO', 0, 0, -1), ('collections', 0, 0, -1), ('collections.namedtuple', 0, 0, -1), ('types', 1, 0, -1), ('types', 1, 0, -1), ('pdb', 1, 0, -1)] binaries=[] datas=[]>
+__future__: None -> <Module __future__ /usr/lib/python2.6/__future__.pyc imports=[] binaries=[] datas=[]>
+inspect: None -> <Module inspect /usr/lib/python2.6/inspect.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('string', 0, 0, -1), ('re', 0, 0, -1), ('dis', 0, 0, -1), ('imp', 0, 0, -1), ('tokenize', 0, 0, -1), ('linecache', 0, 0, -1), ('operator', 0, 0, -1), ('operator.attrgetter', 0, 0, -1), ('collections', 0, 0, -1), ('collections.namedtuple', 0, 0, -1)] binaries=[] datas=[]>
+unittest: None -> <Module unittest /usr/lib/python2.6/unittest.pyc imports=[('time', 0, 0, -1), ('sys', 0, 0, -1), ('traceback', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('__builtin__', 1, 0, -1), ('getopt', 1, 0, -1)] binaries=[] datas=[]>
+difflib: None -> <Module difflib /usr/lib/python2.6/difflib.pyc imports=[('heapq', 0, 0, -1), ('collections', 0, 0, -1), ('collections.namedtuple', 0, 0, -1), ('functools', 0, 0, -1), ('functools.reduce', 0, 0, -1), ('re', 0, 0, -1), ('re', 1, 0, -1), ('doctest', 1, 0, -1), ('difflib', 1, 0, -1)] binaries=[] datas=[]>
+pdb: None -> <Module pdb /usr/lib/python2.6/pdb.pyc imports=[('sys', 0, 0, -1), ('linecache', 0, 0, -1), ('cmd', 0, 0, -1), ('bdb', 0, 0, -1), ('repr', 0, 0, -1), ('repr.Repr', 0, 0, -1), ('os', 0, 0, -1), ('re', 0, 0, -1), ('pprint', 0, 0, -1), ('traceback', 0, 0, -1), ('pdb', 0, 1, -1), ('readline', 1, 0, -1), ('shlex', 1, 1, -1), ('__main__', 1, 0, -1)] binaries=[] datas=[]>
+tempfile: None -> <Module tempfile /usr/lib/python2.6/tempfile.pyc imports=[('os', 0, 0, -1), ('errno', 0, 0, -1), ('random', 0, 0, -1), ('random.Random', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('fcntl', 0, 0, -1), ('thread', 0, 0, -1), ('dummy_thread', 0, 1, -1)] binaries=[] datas=[]>
+dis: None -> <Module dis /usr/lib/python2.6/dis.pyc imports=[('sys', 0, 0, -1), ('types', 0, 0, -1), ('opcode', 0, 0, -1), ('opcode.*', 0, 0, -1), ('opcode', 0, 0, -1), ('opcode.__all__', 0, 0, -1)] binaries=[] datas=[]>
+opcode: None -> <Module opcode /usr/lib/python2.6/opcode.pyc imports=[] binaries=[] datas=[]>
+heapq: None -> <Module heapq /usr/lib/python2.6/heapq.pyc imports=[('itertools', 0, 0, -1), ('itertools.islice', 0, 0, -1), ('itertools.repeat', 0, 0, -1), ('itertools.count', 0, 0, -1), ('itertools.imap', 0, 0, -1), ('itertools.izip', 0, 0, -1), ('itertools.tee', 0, 0, -1), ('operator', 0, 0, -1), ('operator.itemgetter', 0, 0, -1), ('operator.neg', 0, 0, -1), ('bisect', 0, 0, -1), ('_heapq', 0, 0, -1), ('_heapq.heappush', 0, 0, -1), ('_heapq.heappop', 0, 0, -1), ('_heapq.heapify', 0, 0, -1), ('_heapq.heapreplace', 0, 0, -1), ('_heapq.nlargest', 0, 0, -1), ('_heapq.nsmallest', 0, 0, -1), ('_heapq.heappushpop', 0, 0, -1), ('doctest', 0, 1, -1)] binaries=[] datas=[]>
+bisect: None -> <Module bisect /usr/lib/python2.6/bisect.pyc imports=[('_bisect', 0, 0, -1), ('_bisect.bisect_right', 0, 0, -1), ('_bisect.bisect_left', 0, 0, -1), ('_bisect.insort_left', 0, 0, -1), ('_bisect.insort_right', 0, 0, -1), ('_bisect.insort', 0, 0, -1), ('_bisect.bisect', 0, 0, -1)] binaries=[] datas=[]>
+_heapq: None -> <Module _heapq /usr/lib/python2.6/lib-dynload/_heapq.so imports=[] binaries=[] datas=[]>
+_bisect: None -> <Module _bisect None imports=[] binaries=[] datas=[]>
+cmd: None -> <Module cmd /usr/lib/python2.6/cmd.pyc imports=[('string', 0, 0, -1), ('sys', 1, 0, -1), ('readline', 1, 1, -1), ('readline', 1, 1, -1), ('readline', 1, 1, -1)] binaries=[] datas=[]>
+bdb: None -> <Module bdb /usr/lib/python2.6/bdb.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('linecache', 1, 0, -1), ('linecache', 1, 0, -1), ('linecache', 1, 0, -1), ('repr', 1, 0, -1), ('__main__', 1, 1, -1), ('__main__', 1, 1, -1), ('linecache', 1, 0, -1)] binaries=[] datas=[]>
+pprint: None -> <Module pprint /usr/lib/python2.6/pprint.pyc imports=[('sys', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('time', 1, 0, -1)] binaries=[] datas=[]>
+readline: None -> <Module readline /usr/lib/python2.6/lib-dynload/readline.so imports=[] binaries=[] datas=[]>
+shlex: None -> <Module shlex /usr/lib/python2.6/shlex.pyc imports=[('os.path', 0, 0, -1), ('sys', 0, 0, -1), ('collections', 0, 0, -1), ('collections.deque', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1)] binaries=[] datas=[]>
+math: None -> <Module math None imports=[] binaries=[] datas=[]>
+_random: None -> <Module _random None imports=[] binaries=[] datas=[]>
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+__main__: <Module __main__ support/_mountzlib.py imports=[('archive', 0, 0, -1), ('iu', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/unpackTK.py imports=[('carchive', 0, 0, -1), ('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
+carchive: None -> <Module carchive /home/duststorm/projects/erfgoedstats/pyinstaller/carchive.pyc imports=[('archive', 0, 0, -1), ('struct', 0, 0, -1), ('zlib', 0, 0, -1), ('sys', 0, 0, -1), ('strop', 0, 1, -1), ('string', 1, 0, -1), ('AES', 1, 1, -1), ('AES', 1, 1, -1), ('Crypt', 1, 1, -1)] binaries=[] datas=[]>
+AES: None -> None
+  DEL AES
+AES: None -> None
+  DEL AES
+Crypt: None -> <Module Crypt /home/duststorm/projects/erfgoedstats/pyinstaller/Crypt.pyc imports=[('sys', 0, 0, -1), ('os', 1, 0, -1), ('Crypto.Util.randpool', 1, 0, -1), ('Crypto.Util.randpool.RandomPool', 1, 0, -1), ('Crypto.Hash', 1, 0, -1), ('Crypto.Hash.SHA256', 1, 0, -1), ('random', 1, 1, -1), ('pprint', 1, 0, -1), ('pyi_optparse', 1, 0, -1)] binaries=[] datas=[]>
+AES: None -> None
+  DEL AES
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+Crypto: None -> <Module Crypto /usr/lib/python2.6/dist-packages/Crypto/__init__.pyc imports=[] binaries=[] datas=[]>
+Crypto.Util: None -> <Module Crypto.Util /usr/lib/python2.6/dist-packages/Crypto/Util/__init__.pyc imports=[] binaries=[] datas=[]>
+Crypto.Util.randpool: None -> <Module Crypto.Util.randpool /usr/lib/python2.6/dist-packages/Crypto/Util/randpool.pyc imports=[('time', 0, 0, -1), ('array', 0, 0, -1), ('types', 0, 0, -1), ('warnings', 0, 0, -1), ('os.path', 0, 0, -1), ('Crypto.Util.number', 0, 0, -1), ('Crypto.Util.number.long_to_bytes', 0, 0, -1), ('Crypto.Util.winrandom', 0, 0, -1), ('msvcrt', 0, 1, -1), ('termios', 0, 1, -1), ('tempfile', 0, 1, -1), ('os', 0, 1, -1), ('Crypto.Hash', 1, 1, -1), ('Crypto.Hash.SHA', 1, 1, -1), ('os', 1, 0, -1), ('string', 1, 0, -1), ('time', 1, 0, -1)] binaries=[] datas=[]>
+Crypto.Hash: None -> <Module Crypto.Hash /usr/lib/python2.6/dist-packages/Crypto/Hash/__init__.pyc imports=[] binaries=[] datas=[]>
+Crypto.Hash.SHA256: None -> <Module Crypto.Hash.SHA256 /usr/lib/python2.6/dist-packages/Crypto/Hash/SHA256.so imports=[] binaries=[] datas=[]>
+pyi_optparse: None -> <Module pyi_optparse /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optparse.pyc imports=[('pyi_optik', 0, 0, -1), ('pyi_optik.__version__', 0, 0, -1), ('pyi_optik.__all__', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.*', 0, 0, -1)] binaries=[] datas=[]>
+Crypto.Util.time: None -> None
+Crypto.Util.array: None -> None
+Crypto.Util.types: None -> None
+Crypto.Util.warnings: None -> None
+Crypto.Util.os: None -> None
+Crypto.Util.Crypto: None -> None
+Crypto.Util.number: None -> <Module Crypto.Util.number /usr/lib/python2.6/dist-packages/Crypto/Util/number.pyc imports=[('Crypto.PublicKey', 0, 0, -1), ('Crypto.PublicKey._fastmath', 0, 0, -1), ('struct', 0, 0, -1), ('warnings', 0, 0, -1)] binaries=[] datas=[]>
+Crypto.Util.winrandom: None -> None
+  DEL Crypto.Util.winrandom
+Crypto.Util.msvcrt: None -> None
+msvcrt: None -> None
+  DEL msvcrt
+Crypto.Util.termios: None -> None
+termios: None -> <Module termios /usr/lib/python2.6/lib-dynload/termios.so imports=[] binaries=[] datas=[]>
+Crypto.Util.tempfile: None -> None
+Crypto.Hash.SHA: None -> <Module Crypto.Hash.SHA /usr/lib/python2.6/dist-packages/Crypto/Hash/SHA.pyc imports=[('hashlib', 0, 0, -1), ('sha', 0, 1, -1), ('sha.*', 0, 1, -1), ('sha', 0, 1, -1)] binaries=[] datas=[]>
+Crypto.Util.string: None -> None
+Crypto.PublicKey: None -> <Module Crypto.PublicKey /usr/lib/python2.6/dist-packages/Crypto/PublicKey/__init__.pyc imports=[] binaries=[] datas=[]>
+Crypto.PublicKey._fastmath: None -> <Module Crypto.PublicKey._fastmath /usr/lib/python2.6/dist-packages/Crypto/PublicKey/_fastmath.so imports=[] binaries=[] datas=[]>
+Crypto.Util.struct: None -> None
+Crypto.Hash.hashlib: None -> None
+hashlib: None -> <Module hashlib /usr/lib/python2.6/hashlib.pyc imports=[('_hashlib', 0, 0, -1), ('_sha', 1, 1, -1), ('_md5', 1, 1, -1), ('_sha256', 1, 1, -1), ('_sha512', 1, 1, -1)] binaries=[] datas=[]>
+Crypto.Hash.sha: None -> None
+sha: None -> <Module sha /usr/lib/python2.6/sha.pyc imports=[('warnings', 0, 0, -1), ('hashlib', 0, 0, -1), ('hashlib.sha1', 0, 0, -1)] binaries=[] datas=[]>
+_hashlib: None -> <Module _hashlib None imports=[] binaries=[] datas=[]>
+_sha: None -> None
+  DEL _sha
+_md5: None -> None
+  DEL _md5
+_sha256: None -> None
+  DEL _sha256
+_sha512: None -> None
+  DEL _sha512
+pyi_optik: None -> <Module pyi_optik /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/__init__.pyc imports=[('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.Option', 0, 0, -1), ('pyi_optik.option_parser', 0, 0, -1), ('pyi_optik.option_parser.*', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.help.*', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.*', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option_parser', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.__version__: None -> None
+  DEL pyi_optik.__version__
+pyi_optik.__all__: None -> None
+  DEL pyi_optik.__all__
+pyi_optik.pyi_optik: None -> None
+pyi_optik.option: None -> <Module pyi_optik.option /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/option.pyc imports=[('sys', 0, 0, -1), ('types', 0, 0, -1), ('string', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.OptionError', 0, 0, -1), ('pyi_optik.errors.OptionValueError', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.option_parser: None -> <Module pyi_optik.option_parser /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/option_parser.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('string', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.Option', 0, 0, -1), ('pyi_optik.option.NO_DEFAULT', 0, 0, -1), ('pyi_optik.option._repr', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.help.IndentedHelpFormatter', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.help: None -> <Module pyi_optik.help /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/help.pyc imports=[('os', 0, 0, -1), ('string', 0, 0, -1), ('textwrap', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.NO_DEFAULT', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.errors: None -> <Module pyi_optik.errors /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/errors.pyc imports=[('string', 0, 0, -1), ('gettext', 0, 0, -1), ('gettext.gettext', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.sys: None -> None
+pyi_optik.types: None -> None
+pyi_optik.string: None -> None
+pyi_optik.gettext: None -> None
+pyi_optik.os: None -> None
+pyi_optik.textwrap: None -> <Module pyi_optik.textwrap /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/textwrap.pyc imports=[('string', 0, 0, -1), ('re', 0, 0, -1), ('types', 0, 0, -1)] binaries=[] datas=[]>
+pyi_optik.re: None -> None
+__main__: <Module __main__ support/unpackTK.py imports=[('carchive', 0, 0, -1), ('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/useTK.py imports=[('os', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+__main__: <Module __main__ support/useTK.py imports=[('os', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]>
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+__main__: <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ ../src/NewGUI.py imports=[('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkFont', 0, 0, -1), ('pickle', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('traceback', 0, 0, -1), ('copy', 0, 0, -1), ('thesaurus', 0, 0, -1), ('thesaurus.setCustomThesauri', 0, 0, -1), ('gui', 0, 0, -1), ('gui.generateReport', 0, 0, -1), ('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1), ('tkinter', 0, 0, -1), ('tkinter.*', 0, 0, -1), ('pyttk', 0, 0, -1), ('pyttk.*', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('tkMessageBox', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1)] binaries=[] datas=[]>
+adlibstats: None -> <Module adlibstats /home/duststorm/projects/erfgoedstats/src/adlibstats.pyc imports=[('fieldstats', 0, 0, -1), ('htmlutils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('collectionstats', 0, 0, -1), ('AdLibXMLConversion', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('getopt', 0, 0, -1), ('sys', 0, 0, -1), ('utils', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('resources.bluedream_css', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1), ('resources.header_html', 0, 0, -1), ('resources.footer_html', 0, 0, -1), ('resources.jquery_min_easyTooltip_js', 0, 0, -1), ('resources.sorttable_js', 0, 0, -1)] binaries=[] datas=[]>
+webbrowser: None -> <Module webbrowser /usr/lib/python2.6/webbrowser.pyc imports=[('os', 0, 0, -1), ('shlex', 0, 0, -1), ('sys', 0, 0, -1), ('stat', 0, 0, -1), ('subprocess', 0, 0, -1), ('time', 0, 0, -1), ('ic', 0, 0, -1), ('copy', 1, 1, -1), ('glob', 1, 0, -1), ('pwd', 1, 0, -1), ('socket', 1, 0, -1), ('tempfile', 1, 0, -1), ('getopt', 1, 0, -1)] binaries=[] datas=[]>
+tkFont: None -> <Module tkFont /usr/lib/python2.6/lib-tk/tkFont.pyc imports=[('Tkinter', 0, 0, -1)] binaries=[] datas=[]>
+utils: None -> <Module utils /home/duststorm/projects/erfgoedstats/src/utils.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('operator', 0, 0, -1), ('operator.itemgetter', 0, 0, -1), ('tr', 0, 0, -1), ('csv', 0, 0, -1)] binaries=[] datas=[]>
+thesaurus: None -> <Module thesaurus /home/duststorm/projects/erfgoedstats/src/thesaurus.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('pickle', 0, 0, -1), ('copy', 0, 0, -1)] binaries=[] datas=[]>
+gui: None -> <Module gui /home/duststorm/projects/erfgoedstats/src/gui.pyc imports=[('Tkinter', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkMessageBox', 0, 0, -1)] binaries=[] datas=[]>
+Tkinter: None -> <Module Tkinter /usr/lib/python2.6/lib-tk/Tkinter.pyc imports=[('sys', 0, 0, -1), ('FixTk', 0, 1, -1), ('_tkinter', 0, 0, -1), ('types', 0, 0, -1), ('types.*', 0, 0, -1), ('Tkconstants', 0, 0, -1), ('Tkconstants.*', 0, 0, -1), ('sys', 1, 0, -1), ('sys', 1, 1, -1), ('os', 1, 1, -1), ('os', 1, 0, -1), ('traceback', 1, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+tkinter: None -> None
+  DEL tkinter
+tkinter: None -> None
+  DEL tkinter
+pyttk: None -> <Module pyttk /home/duststorm/projects/erfgoedstats/src/pyttk/__init__.pyc imports=[('sys', 0, 0, -1), ('Tkinter', 0, 1, -1), ('Tkinter.*', 0, 1, -1), ('pyTtk', 0, 1, -1), ('pyTtk.*', 0, 1, -1), ('megawidget', 0, 1, -1), ('tree', 0, 1, -1)] binaries=[] datas=[]>
+tkFileDialog: None -> <Module tkFileDialog /usr/lib/python2.6/lib-tk/tkFileDialog.pyc imports=[('tkCommonDialog', 0, 0, -1), ('tkCommonDialog.Dialog', 0, 0, -1), ('sys', 0, 1, -1), ('locale', 0, 1, -1), ('os', 1, 1, -1), ('os', 1, 1, -1)] binaries=[] datas=[]>
+tkMessageBox: None -> <Module tkMessageBox /usr/lib/python2.6/lib-tk/tkMessageBox.pyc imports=[('tkCommonDialog', 0, 0, -1), ('tkCommonDialog.Dialog', 0, 0, -1)] binaries=[] datas=[]>
+resources: None -> <Module resources /home/duststorm/projects/erfgoedstats/src/resources/__init__.pyc imports=[] binaries=[] datas=[]>
+resources.digiridoologo_base64: None -> <Module resources.digiridoologo_base64 /home/duststorm/projects/erfgoedstats/src/resources/digiridoologo_base64.pyc imports=[] binaries=[] datas=[]>
+resources.provinciewestvllogo_base64: None -> <Module resources.provinciewestvllogo_base64 /home/duststorm/projects/erfgoedstats/src/resources/provinciewestvllogo_base64.pyc imports=[] binaries=[] datas=[]>
+fieldstats: None -> <Module fieldstats /home/duststorm/projects/erfgoedstats/src/fieldstats.pyc imports=[('__future__', 0, 0, -1), ('__future__.division', 0, 0, -1), ('invulboek', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('htmlutils', 0, 0, -1), ('csv', 1, 0, -1)] binaries=[] datas=[]>
+htmlutils: None -> <Module htmlutils /home/duststorm/projects/erfgoedstats/src/htmlutils.pyc imports=[('string', 0, 0, -1)] binaries=[] datas=[]>
+collectionstats: None -> <Module collectionstats /home/duststorm/projects/erfgoedstats/src/collectionstats.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('htmlutils', 0, 0, -1), ('invulboek', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1)] binaries=[] datas=[]>
+AdLibXMLConversion: None -> <Module AdLibXMLConversion /home/duststorm/projects/erfgoedstats/src/AdLibXMLConversion.pyc imports=[('utils', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('codecs', 0, 0, -1)] binaries=[] datas=[]>
+xml: None -> <Module xml /usr/lib/python2.6/xml/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.etree: None -> <Module xml.etree /usr/lib/python2.6/xml/etree/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.etree.ElementTree: None -> <Module xml.etree.ElementTree /usr/lib/python2.6/xml/etree/ElementTree.pyc imports=[('string', 0, 0, -1), ('sys', 0, 0, -1), ('re', 0, 0, -1), ('ElementPath', 0, 0, -1), ('xml.parsers', 1, 0, -1), ('xml.parsers.expat', 1, 0, -1), ('xml.parsers', 1, 1, -1), ('xml.parsers.expat', 1, 1, -1)] binaries=[] datas=[]>
+resources.bluedream_css: None -> <Module resources.bluedream_css /home/duststorm/projects/erfgoedstats/src/resources/bluedream_css.pyc imports=[] binaries=[] datas=[]>
+resources.header_html: None -> <Module resources.header_html /home/duststorm/projects/erfgoedstats/src/resources/header_html.pyc imports=[] binaries=[] datas=[]>
+resources.footer_html: None -> <Module resources.footer_html /home/duststorm/projects/erfgoedstats/src/resources/footer_html.pyc imports=[] binaries=[] datas=[]>
+resources.jquery_min_easyTooltip_js: None -> <Module resources.jquery_min_easyTooltip_js /home/duststorm/projects/erfgoedstats/src/resources/jquery_min_easyTooltip_js.pyc imports=[] binaries=[] datas=[]>
+resources.sorttable_js: None -> <Module resources.sorttable_js /home/duststorm/projects/erfgoedstats/src/resources/sorttable_js.pyc imports=[] binaries=[] datas=[]>
+invulboek: None -> <Module invulboek /home/duststorm/projects/erfgoedstats/src/invulboek.pyc imports=[] binaries=[] datas=[]>
+tr: None -> <Module tr /home/duststorm/projects/erfgoedstats/src/tr.pyc imports=[] binaries=[] datas=[]>
+csv: None -> <Module csv /usr/lib/python2.6/csv.pyc imports=[('re', 0, 0, -1), ('functools', 0, 0, -1), ('functools.reduce', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Error', 0, 0, -1), ('_csv.__version__', 0, 0, -1), ('_csv.writer', 0, 0, -1), ('_csv.reader', 0, 0, -1), ('_csv.register_dialect', 0, 0, -1), ('_csv.unregister_dialect', 0, 0, -1), ('_csv.get_dialect', 0, 0, -1), ('_csv.list_dialects', 0, 0, -1), ('_csv.field_size_limit', 0, 0, -1), ('_csv.QUOTE_MINIMAL', 0, 0, -1), ('_csv.QUOTE_ALL', 0, 0, -1), ('_csv.QUOTE_NONNUMERIC', 0, 0, -1), ('_csv.QUOTE_NONE', 0, 0, -1), ('_csv.__doc__', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Dialect', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1)] binaries=[] datas=[]>
+xml.xml: None -> None
+xml.sax: None -> <Module xml.sax /usr/lib/python2.6/xml/sax/__init__.pyc imports=[('xmlreader', 0, 0, -1), ('xmlreader.InputSource', 0, 0, -1), ('handler', 0, 0, -1), ('handler.ContentHandler', 0, 0, -1), ('handler.ErrorHandler', 0, 0, -1), ('_exceptions', 0, 0, -1), ('_exceptions.SAXException', 0, 0, -1), ('_exceptions.SAXNotRecognizedException', 0, 0, -1), ('_exceptions.SAXParseException', 0, 0, -1), ('_exceptions.SAXNotSupportedException', 0, 0, -1), ('_exceptions.SAXReaderNotAvailable', 0, 0, -1), ('sax2exts', 0, 0, -1), ('sax2exts.make_parser', 0, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1)] binaries=[] datas=[]>
+xml.sax.xmlreader: None -> <Module xml.sax.xmlreader /usr/lib/python2.6/xml/sax/xmlreader.pyc imports=[('handler', 0, 0, -1), ('_exceptions', 0, 0, -1), ('_exceptions.SAXNotSupportedException', 0, 0, -1), ('_exceptions.SAXNotRecognizedException', 0, 0, -1), ('saxutils', 1, 0, -1)] binaries=[] datas=[]>
+xml.sax.expatreader: None -> <Module xml.sax.expatreader /usr/lib/python2.6/xml/sax/expatreader.pyc imports=[('xml.sax._exceptions', 0, 0, -1), ('xml.sax._exceptions.*', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('xml.sax.handler.feature_validation', 0, 0, -1), ('xml.sax.handler.feature_namespaces', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('xml.sax.handler.feature_namespace_prefixes', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('xml.sax.handler.feature_external_ges', 0, 0, -1), ('xml.sax.handler.feature_external_pes', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('xml.sax.handler.feature_string_interning', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('xml.sax.handler.property_xml_string', 0, 0, -1), ('xml.sax.handler.property_interning_dict', 0, 0, -1), ('sys', 0, 0, -1), ('xml.parsers', 0, 0, -1), ('xml.parsers.expat', 0, 0, -1), ('xml.sax', 0, 0, -1), ('xml.sax.xmlreader', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.handler', 0, 0, -1), ('_weakref', 0, 0, -1), ('weakref', 0, 1, -1), ('xml.sax', 0, 1, -1)] binaries=[] datas=[]>
+xml.sax.handler: None -> <Module xml.sax.handler /usr/lib/python2.6/xml/sax/handler.pyc imports=[] binaries=[] datas=[]>
+xml.sax._exceptions: None -> <Module xml.sax._exceptions /usr/lib/python2.6/xml/sax/_exceptions.pyc imports=[('sys', 0, 0, -1), ('java.lang', 0, 1, -1), ('java.lang.Exception', 0, 1, -1)] binaries=[] datas=[]>
+xml.sax.sax2exts: None -> <Module xml.sax.sax2exts /usr/lib/python2.6/xml/sax/sax2exts.pyc imports=[('saxexts', 0, 0, -1), ('saxlib', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.cStringIO: None -> None
+xml.sax.StringIO: None -> None
+xml.sax.saxutils: None -> <Module xml.sax.saxutils /usr/lib/python2.6/xml/sax/saxutils.pyc imports=[('os', 0, 0, -1), ('urlparse', 0, 0, -1), ('urllib2', 0, 0, -1), ('types', 0, 0, -1), ('handler', 0, 0, -1), ('xmlreader', 0, 0, -1), ('sys', 0, 0, -1), ('_exceptions', 0, 0, -1), ('saxlib', 0, 0, -1), ('xmlreader', 0, 0, -1), ('xmlreader.AttributesImpl', 0, 0, -1), ('codecs', 0, 0, -1), ('saxlib', 0, 0, -1), ('sys', 1, 1, -1), ('saxexts', 1, 0, -1)] binaries=[] datas=[]>
+xml.sax.sys: None -> None
+xml.sax.java: None -> None
+java: None -> None
+  DEL java
+java: None -> None
+  DEL java
+xml.sax.os: None -> None
+xml.sax.urlparse: None -> None
+urlparse: None -> <Module urlparse /usr/lib/python2.6/urlparse.pyc imports=[('collections', 0, 0, -1), ('collections.namedtuple', 0, 0, -1), ('sys', 1, 0, -1), ('cStringIO', 1, 1, -1), ('cStringIO.StringIO', 1, 1, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1)] binaries=[] datas=[]>
+xml.sax.urllib2: None -> None
+urllib2: None -> <Module urllib2 /usr/lib/python2.6/urllib2.pyc imports=[('base64', 0, 0, -1), ('hashlib', 0, 0, -1), ('httplib', 0, 0, -1), ('mimetools', 0, 0, -1), ('os', 0, 0, -1), ('posixpath', 0, 0, -1), ('random', 0, 0, -1), ('re', 0, 0, -1), ('socket', 0, 0, -1), ('sys', 0, 0, -1), ('time', 0, 0, -1), ('urlparse', 0, 0, -1), ('bisect', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('urllib', 0, 0, -1), ('urllib.unwrap', 0, 0, -1), ('urllib.unquote', 0, 0, -1), ('urllib.splittype', 0, 0, -1), ('urllib.splithost', 0, 0, -1), ('urllib.quote', 0, 0, -1), ('urllib.addinfourl', 0, 0, -1), ('urllib.splitport', 0, 0, -1), ('urllib.splitattr', 0, 0, -1), ('urllib.ftpwrapper', 0, 0, -1), ('urllib.splituser', 0, 0, -1), ('urllib.splitpasswd', 0, 0, -1), ('urllib.splitvalue', 0, 0, -1), ('urllib', 0, 0, -1), ('urllib.localhost', 0, 0, -1), ('urllib.url2pathname', 0, 0, -1), ('urllib.getproxies', 0, 0, -1), ('urllib.proxy_bypass', 0, 0, -1), ('types', 1, 0, -1), ('cookielib', 1, 0, -1), ('email.utils', 1, 0, -1), ('mimetypes', 1, 0, -1), ('ftplib', 1, 0, -1), ('mimetypes', 1, 0, -1)] binaries=[] datas=[]>
+xml.sax.types: None -> None
+xml.sax.saxlib: None -> <Module xml.sax.saxlib /usr/lib/python2.6/xml/sax/saxlib.pyc imports=[('handler', 0, 0, -1), ('handler.ErrorHandler', 0, 0, -1), ('handler.ContentHandler', 0, 0, -1), ('handler.DTDHandler', 0, 0, -1), ('handler.EntityResolver', 0, 0, -1), ('xmlreader', 0, 0, -1), ('xmlreader.XMLReader', 0, 0, -1), ('xmlreader.InputSource', 0, 0, -1), ('xmlreader.Locator', 0, 0, -1), ('xmlreader.IncrementalParser', 0, 0, -1), ('_exceptions', 0, 0, -1), ('_exceptions.*', 0, 0, -1), ('handler', 0, 0, -1), ('handler.feature_namespaces', 0, 0, -1), ('handler.feature_namespace_prefixes', 0, 0, -1), ('handler.feature_string_interning', 0, 0, -1), ('handler.feature_validation', 0, 0, -1), ('handler.feature_external_ges', 0, 0, -1), ('handler.feature_external_pes', 0, 0, -1), ('handler.all_features', 0, 0, -1), ('handler.property_lexical_handler', 0, 0, -1), ('handler.property_declaration_handler', 0, 0, -1), ('handler.property_dom_node', 0, 0, -1), ('handler.property_xml_string', 0, 0, -1), ('handler.all_properties', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.codecs: None -> None
+xml.sax.saxexts: None -> <Module xml.sax.saxexts /usr/lib/python2.6/xml/sax/saxexts.pyc imports=[('_exceptions', 0, 0, -1), ('handler', 0, 0, -1), ('sys', 0, 0, -1), ('string', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('saxlib', 0, 0, -1), ('org.python.core', 1, 0, -1), ('org.python.core.imp', 1, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+httplib: None -> <Module httplib /usr/lib/python2.6/httplib.pyc imports=[('array', 0, 0, -1), ('array.array', 0, 0, -1), ('socket', 0, 0, -1), ('sys', 0, 0, -1), ('sys.py3kwarning', 0, 0, -1), ('urlparse', 0, 0, -1), ('urlparse.urlsplit', 0, 0, -1), ('warnings', 0, 0, -1), ('mimetools', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('ssl', 0, 0, -1), ('os', 1, 1, -1), ('sys', 1, 0, -1), ('getopt', 1, 0, -1), ('ssl', 1, 0, -1)] binaries=[] datas=[]>
+mimetools: None -> <Module mimetools /usr/lib/python2.6/mimetools.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('tempfile', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.filterwarnings', 0, 0, -1), ('warnings.catch_warnings', 0, 0, -1), ('rfc822', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.warnpy3k', 0, 0, -1), ('thread', 0, 0, -1), ('dummy_thread', 0, 1, -1), ('time', 1, 0, -1), ('socket', 1, 1, -1), ('base64', 1, 1, -1), ('quopri', 1, 1, -1), ('uu', 1, 1, -1), ('base64', 1, 1, -1), ('quopri', 1, 1, -1), ('uu', 1, 1, -1)] binaries=[] datas=[]>
+socket: None -> <Module socket /usr/lib/python2.6/socket.pyc imports=[('_socket', 0, 0, -1), ('_socket', 0, 0, -1), ('_socket.*', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl', 0, 1, -1), ('_ssl.SSLError', 0, 1, -1), ('_ssl', 0, 1, -1), ('_ssl.RAND_add', 0, 1, -1), ('_ssl.RAND_egd', 0, 1, -1), ('_ssl.RAND_status', 0, 1, -1), ('_ssl.SSL_ERROR_ZERO_RETURN', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_READ', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_WRITE', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_X509_LOOKUP', 0, 1, -1), ('_ssl.SSL_ERROR_SYSCALL', 0, 1, -1), ('_ssl.SSL_ERROR_SSL', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_CONNECT', 0, 1, -1), ('_ssl.SSL_ERROR_EOF', 0, 1, -1), ('_ssl.SSL_ERROR_INVALID_ERROR_CODE', 0, 1, -1), ('os', 0, 0, -1), ('sys', 0, 0, -1), ('warnings', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('errno', 0, 0, -1), ('errno.EBADF', 0, 0, -1), ('ssl', 1, 0, -1)] binaries=[] datas=[]>
+urllib: None -> <Module urllib /usr/lib/python2.6/urllib.pyc imports=[('string', 0, 0, -1), ('socket', 0, 0, -1), ('os', 0, 0, -1), ('time', 0, 0, -1), ('sys', 0, 0, -1), ('urlparse', 0, 0, -1), ('urlparse.urljoin', 0, 0, -1), ('macurl2path', 0, 1, -1), ('macurl2path.url2pathname', 0, 1, -1), ('macurl2path.pathname2url', 0, 1, -1), ('nturl2path', 0, 1, -1), ('nturl2path.url2pathname', 0, 1, -1), ('nturl2path.pathname2url', 0, 1, -1), ('rourl2path', 0, 1, -1), ('rourl2path.url2pathname', 0, 1, -1), ('rourl2path.pathname2url', 0, 1, -1), ('ssl', 0, 0, -1), ('_scproxy', 0, 1, -1), ('_scproxy._get_proxy_settings', 0, 1, -1), ('_scproxy._get_proxies', 0, 1, -1), ('warnings', 1, 0, -1), ('warnings.warnpy3k', 1, 0, -1), ('tempfile', 1, 1, -1), ('httplib', 1, 0, -1), ('base64', 1, 1, -1), ('base64', 1, 1, -1), ('httplib', 1, 0, -1), ('base64', 1, 1, -1), ('base64', 1, 1, -1), ('mimetypes', 1, 0, -1), ('mimetools', 1, 0, -1), ('email.utils', 1, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1), ('mimetypes', 1, 0, -1), ('mimetools', 1, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1), ('ftplib', 1, 1, -1), ('mimetools', 1, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1), ('base64', 1, 1, -1), ('re', 1, 0, -1), ('re', 1, 0, -1), ('getpass', 1, 0, -1), ('ftplib', 1, 1, -1), ('mimetools', 1, 1, -1), ('cStringIO', 1, 1, -1), ('cStringIO.StringIO', 1, 1, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1), ('ftplib', 1, 0, -1), ('ftplib', 1, 0, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 1, -1), ('re', 1, 0, -1), ('socket', 1, 0, -1), ('fnmatch', 1, 0, -1), ('fnmatch.fnmatch', 1, 0, -1), ('_winreg', 1, 0, -1), ('re', 1, 1, -1), ('_winreg', 1, 0, -1), ('re', 1, 0, -1), ('getopt', 1, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+cookielib: None -> <Module cookielib /usr/lib/python2.6/cookielib.pyc imports=[('re', 0, 0, -1), ('urlparse', 0, 0, -1), ('copy', 0, 0, -1), ('time', 0, 0, -1), ('urllib', 0, 0, -1), ('threading', 0, 0, -1), ('dummy_threading', 0, 1, -1), ('httplib', 0, 0, -1), ('calendar', 0, 0, -1), ('calendar.timegm', 0, 0, -1), ('_LWPCookieJar', 0, 0, -1), ('_LWPCookieJar.LWPCookieJar', 0, 0, -1), ('_LWPCookieJar.lwp_cookie_str', 0, 0, -1), ('_MozillaCookieJar', 0, 0, -1), ('_MozillaCookieJar.MozillaCookieJar', 0, 0, -1), ('logging', 1, 1, -1), ('warnings', 1, 0, -1), ('traceback', 1, 0, -1), ('StringIO', 1, 0, -1)] binaries=[] datas=[]>
+email: None -> <Module email /usr/lib/python2.6/email/__init__.pyc imports=[('sys', 0, 0, -1), ('email.mime', 0, 0, -1), ('email.parser', 1, 0, -1), ('email.parser.Parser', 1, 0, -1), ('email.parser', 1, 0, -1), ('email.parser.Parser', 1, 0, -1)] binaries=[] datas=[]>
+email.utils: None -> <Module email.utils /usr/lib/python2.6/email/utils.pyc imports=[('os', 0, 0, -1), ('re', 0, 0, -1), ('time', 0, 0, -1), ('base64', 0, 0, -1), ('random', 0, 0, -1), ('socket', 0, 0, -1), ('urllib', 0, 0, -1), ('warnings', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.quote', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.AddressList', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.mktime_tz', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.parsedate', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.parsedate_tz', 0, 0, -1), ('quopri', 0, 0, -1), ('quopri.decodestring', 0, 0, -1), ('email.encoders', 0, 0, -1), ('email.encoders._bencode', 0, 0, -1), ('email.encoders._qencode', 0, 0, -1), ('urllib', 1, 0, -1)] binaries=[] datas=[]>
+mimetypes: None -> <Module mimetypes /usr/lib/python2.6/mimetypes.pyc imports=[('os', 0, 0, -1), ('posixpath', 0, 0, -1), ('urllib', 0, 0, -1), ('sys', 0, 1, -1), ('getopt', 0, 1, -1)] binaries=[] datas=[]>
+ftplib: None -> <Module ftplib /usr/lib/python2.6/ftplib.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('SOCKS', 0, 0, -1), ('socket', 0, 0, -1), ('socket.getfqdn', 0, 0, -1), ('socket', 0, 1, -1), ('socket', 0, 0, -1), ('socket._GLOBAL_DEFAULT_TIMEOUT', 0, 0, -1), ('re', 1, 1, -1), ('re', 1, 1, -1)] binaries=[] datas=[]>
+_sha: None -> None
+  DEL _sha
+_md5: None -> None
+  DEL _md5
+_sha256: None -> None
+  DEL _sha256
+_sha512: None -> None
+  DEL _sha512
+ssl: None -> <Module ssl /usr/lib/python2.6/ssl.pyc imports=[('textwrap', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl.SSLError', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl.CERT_NONE', 0, 0, -1), ('_ssl.CERT_OPTIONAL', 0, 0, -1), ('_ssl.CERT_REQUIRED', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl.PROTOCOL_SSLv2', 0, 0, -1), ('_ssl.PROTOCOL_SSLv3', 0, 0, -1), ('_ssl.PROTOCOL_SSLv23', 0, 0, -1), ('_ssl.PROTOCOL_TLSv1', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl.RAND_status', 0, 0, -1), ('_ssl.RAND_egd', 0, 0, -1), ('_ssl.RAND_add', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl.SSL_ERROR_ZERO_RETURN', 0, 0, -1), ('_ssl.SSL_ERROR_WANT_READ', 0, 0, -1), ('_ssl.SSL_ERROR_WANT_WRITE', 0, 0, -1), ('_ssl.SSL_ERROR_WANT_X509_LOOKUP', 0, 0, -1), ('_ssl.SSL_ERROR_SYSCALL', 0, 0, -1), ('_ssl.SSL_ERROR_SSL', 0, 0, -1), ('_ssl.SSL_ERROR_WANT_CONNECT', 0, 0, -1), ('_ssl.SSL_ERROR_EOF', 0, 0, -1), ('_ssl.SSL_ERROR_INVALID_ERROR_CODE', 0, 0, -1), ('socket', 0, 0, -1), ('socket.socket', 0, 0, -1), ('socket._fileobject', 0, 0, -1), ('socket', 0, 0, -1), ('socket.getnameinfo', 0, 0, -1), ('base64', 0, 0, -1), ('time', 1, 0, -1)] binaries=[] datas=[]>
+_socket: None -> <Module _socket None imports=[] binaries=[] datas=[]>
+_ssl: None -> <Module _ssl None imports=[] binaries=[] datas=[]>
+rfc822: None -> <Module rfc822 /usr/lib/python2.6/rfc822.pyc imports=[('time', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.warnpy3k', 0, 0, -1), ('sys', 0, 1, -1), ('os', 0, 1, -1)] binaries=[] datas=[]>
+uu: None -> <Module uu /usr/lib/python2.6/uu.pyc imports=[('binascii', 0, 0, -1), ('os', 0, 0, -1), ('sys', 0, 0, -1), ('optparse', 1, 0, -1)] binaries=[] datas=[]>
+macurl2path: None -> <Module macurl2path /usr/lib/python2.6/macurl2path.pyc imports=[('urllib', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
+nturl2path: None -> <Module nturl2path /usr/lib/python2.6/nturl2path.pyc imports=[('string', 1, 0, -1), ('urllib', 1, 0, -1), ('urllib', 1, 0, -1)] binaries=[] datas=[]>
+rourl2path: None -> None
+  DEL rourl2path
+rourl2path: None -> None
+  DEL rourl2path
+rourl2path: None -> None
+  DEL rourl2path
+_scproxy: None -> None
+  DEL _scproxy
+_scproxy: None -> None
+  DEL _scproxy
+_scproxy: None -> None
+  DEL _scproxy
+getpass: None -> <Module getpass /usr/lib/python2.6/getpass.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('warnings', 0, 0, -1), ('termios', 0, 0, -1), ('msvcrt', 0, 1, -1), ('EasyDialogs', 0, 1, -1), ('EasyDialogs.AskPassword', 0, 1, -1), ('msvcrt', 1, 0, -1), ('os', 1, 0, -1), ('pwd', 1, 0, -1)] binaries=[] datas=[]>
+fnmatch: None -> <Module fnmatch /usr/lib/python2.6/fnmatch.pyc imports=[('re', 0, 0, -1), ('os', 1, 0, -1), ('os', 1, 0, -1), ('posixpath', 1, 0, -1)] binaries=[] datas=[]>
+_winreg: None -> None
+  DEL _winreg
+_winreg: None -> None
+  DEL _winreg
+email.sys: None -> None
+email.email: None -> None
+email.mime: None -> <Module email.mime /usr/lib/python2.6/email/mime/__init__.pyc imports=[] binaries=[] datas=[]>
+email.parser: None -> <Module email.parser /usr/lib/python2.6/email/parser.pyc imports=[('warnings', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('email.feedparser', 0, 0, -1), ('email.feedparser.FeedParser', 0, 0, -1), ('email.message', 0, 0, -1), ('email.message.Message', 0, 0, -1)] binaries=[] datas=[]>
+email.warnings: None -> None
+email.cStringIO: None -> None
+email.feedparser: None -> <Module email.feedparser /usr/lib/python2.6/email/feedparser.pyc imports=[('re', 0, 0, -1), ('email', 0, 0, -1), ('email.errors', 0, 0, -1), ('email', 0, 0, -1), ('email.message', 0, 0, -1)] binaries=[] datas=[]>
+email.message: None -> <Module email.message /usr/lib/python2.6/email/message.pyc imports=[('re', 0, 0, -1), ('uu', 0, 0, -1), ('binascii', 0, 0, -1), ('warnings', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('email.charset', 0, 0, -1), ('email', 0, 0, -1), ('email.utils', 0, 0, -1), ('email', 0, 0, -1), ('email.errors', 0, 0, -1), ('email.iterators', 1, 0, -1), ('email.iterators.walk', 1, 0, -1), ('email.generator', 1, 0, -1), ('email.generator.Generator', 1, 0, -1)] binaries=[] datas=[]>
+email.re: None -> None
+email.errors: None -> <Module email.errors /usr/lib/python2.6/email/errors.pyc imports=[] binaries=[] datas=[]>
+email.uu: None -> None
+email.binascii: None -> None
+email.charset: None -> <Module email.charset /usr/lib/python2.6/email/charset.pyc imports=[('email.base64mime', 0, 0, -1), ('email.quoprimime', 0, 0, -1), ('email', 0, 0, -1), ('email.errors', 0, 0, -1), ('email.encoders', 0, 0, -1), ('email.encoders.encode_7or8bit', 0, 0, -1)] binaries=[] datas=[]>
+email.iterators: None -> <Module email.iterators /usr/lib/python2.6/email/iterators.pyc imports=[('sys', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1)] binaries=[] datas=[]>
+email.generator: None -> <Module email.generator /usr/lib/python2.6/email/generator.pyc imports=[('re', 0, 0, -1), ('sys', 0, 0, -1), ('time', 0, 0, -1), ('random', 0, 0, -1), ('warnings', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('email.header', 0, 0, -1), ('email.header.Header', 0, 0, -1)] binaries=[] datas=[]>
+email.base64mime: None -> <Module email.base64mime /usr/lib/python2.6/email/base64mime.pyc imports=[('binascii', 0, 0, -1), ('binascii.b2a_base64', 0, 0, -1), ('binascii.a2b_base64', 0, 0, -1), ('email.utils', 0, 0, -1), ('email.utils.fix_eols', 0, 0, -1)] binaries=[] datas=[]>
+email.quoprimime: None -> <Module email.quoprimime /usr/lib/python2.6/email/quoprimime.pyc imports=[('re', 0, 0, -1), ('string', 0, 0, -1), ('string.hexdigits', 0, 0, -1), ('email.utils', 0, 0, -1), ('email.utils.fix_eols', 0, 0, -1)] binaries=[] datas=[]>
+email.encoders: None -> <Module email.encoders /usr/lib/python2.6/email/encoders.pyc imports=[('base64', 0, 0, -1), ('quopri', 0, 0, -1), ('quopri.encodestring', 0, 0, -1)] binaries=[] datas=[]>
+email.os: None -> None
+email.time: None -> None
+email.base64: None -> None
+email.random: None -> None
+email.socket: None -> None
+email.urllib: None -> None
+email._parseaddr: None -> <Module email._parseaddr /usr/lib/python2.6/email/_parseaddr.pyc imports=[('time', 0, 0, -1)] binaries=[] datas=[]>
+email.quopri: None -> None
+email.string: None -> None
+email.header: None -> <Module email.header /usr/lib/python2.6/email/header.pyc imports=[('re', 0, 0, -1), ('binascii', 0, 0, -1), ('email.quoprimime', 0, 0, -1), ('email.base64mime', 0, 0, -1), ('email.errors', 0, 0, -1), ('email.errors.HeaderParseError', 0, 0, -1), ('email.charset', 0, 0, -1), ('email.charset.Charset', 0, 0, -1)] binaries=[] datas=[]>
+SOCKS: None -> None
+  DEL SOCKS
+msvcrt: None -> None
+  DEL msvcrt
+EasyDialogs: None -> None
+  DEL EasyDialogs
+EasyDialogs: None -> None
+  DEL EasyDialogs
+msvcrt: None -> None
+  DEL msvcrt
+dummy_threading: None -> <Module dummy_threading /usr/lib/python2.6/dummy_threading.pyc imports=[('sys', 0, 0, -1), ('sys.modules', 0, 0, -1), ('dummy_thread', 0, 0, -1), ('threading', 0, 0, -1), ('_dummy_threading', 0, 0, -1), ('_dummy_threading.*', 0, 0, -1), ('_dummy_threading', 0, 0, -1), ('_dummy_threading.__all__', 0, 0, -1)] binaries=[] datas=[]>
+_LWPCookieJar: None -> <Module _LWPCookieJar /usr/lib/python2.6/_LWPCookieJar.pyc imports=[('time', 0, 0, -1), ('re', 0, 0, -1), ('cookielib', 0, 0, -1), ('cookielib._warn_unhandled_exception', 0, 0, -1), ('cookielib.FileCookieJar', 0, 0, -1), ('cookielib.LoadError', 0, 0, -1), ('cookielib.Cookie', 0, 0, -1), ('cookielib.MISSING_FILENAME_TEXT', 0, 0, -1), ('cookielib.join_header_words', 0, 0, -1), ('cookielib.split_header_words', 0, 0, -1), ('cookielib.iso2time', 0, 0, -1), ('cookielib.time2isoz', 0, 0, -1)] binaries=[] datas=[]>
+_MozillaCookieJar: None -> <Module _MozillaCookieJar /usr/lib/python2.6/_MozillaCookieJar.pyc imports=[('re', 0, 0, -1), ('time', 0, 0, -1), ('cookielib', 0, 0, -1), ('cookielib._warn_unhandled_exception', 0, 0, -1), ('cookielib.FileCookieJar', 0, 0, -1), ('cookielib.LoadError', 0, 0, -1), ('cookielib.Cookie', 0, 0, -1), ('cookielib.MISSING_FILENAME_TEXT', 0, 0, -1)] binaries=[] datas=[]>
+logging: None -> <Module logging /usr/lib/python2.6/logging/__init__.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('time', 0, 0, -1), ('string', 0, 0, -1), ('cStringIO', 0, 0, -1), ('traceback', 0, 0, -1), ('codecs', 0, 0, -1), ('thread', 0, 0, -1), ('threading', 0, 0, -1), ('atexit', 0, 0, -1)] binaries=[] datas=[]>
+_dummy_threading: None -> None
+  DEL _dummy_threading
+_dummy_threading: None -> None
+  DEL _dummy_threading
+_dummy_threading: None -> None
+  DEL _dummy_threading
+_dummy_threading: None -> None
+  DEL _dummy_threading
+logging.sys: None -> None
+logging.os: None -> None
+logging.types: None -> None
+logging.time: None -> None
+logging.string: None -> None
+logging.cStringIO: None -> None
+logging.traceback: None -> None
+logging.codecs: None -> None
+logging.thread: None -> None
+logging.threading: None -> None
+logging.atexit: None -> None
+atexit: None -> <Module atexit /usr/lib/python2.6/atexit.pyc imports=[('sys', 0, 0, -1), ('traceback', 1, 1, -1)] binaries=[] datas=[]>
+xml.sax.string: None -> None
+xml.sax.org: None -> None
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+xml.sax.xml: None -> None
+xml.sax.drivers2: None -> <Module xml.sax.drivers2 /usr/lib/python2.6/xml/sax/drivers2/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.sax.drivers2.drv_pyexpat: None -> <Module xml.sax.drivers2.drv_pyexpat /usr/lib/python2.6/xml/sax/drivers2/drv_pyexpat.pyc imports=[('xml.sax.expatreader', 0, 0, -1), ('xml.sax.expatreader.create_parser', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers: None -> <Module xml.sax.drivers /usr/lib/python2.6/xml/sax/drivers/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.sax.drivers.drv_xmltok: None -> None
+  DEL xml.sax.drivers.drv_xmltok
+xml.sax.drivers2.drv_xmlproc: None -> <Module xml.sax.drivers2.drv_xmlproc /usr/lib/python2.6/xml/sax/drivers2/drv_xmlproc.pyc imports=[('types', 0, 0, -1), ('string', 0, 0, -1), ('xml.parsers.xmlproc', 0, 0, -1), ('xml.parsers.xmlproc.xmlproc', 0, 0, -1), ('xml.parsers.xmlproc.xmlval', 0, 0, -1), ('xml.parsers.xmlproc.xmlapp', 0, 0, -1), ('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.xmlreader', 0, 0, -1), ('xml.sax.xmlreader.AttributesImpl', 0, 0, -1), ('xml.sax.xmlreader.AttributesNSImpl', 0, 0, -1), ('xml.sax.xmlreader', 0, 0, -1), ('xml.sax.xmlreader.IncrementalParser', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.saxutils.ContentGenerator', 0, 0, -1), ('xml.sax.saxutils.prepare_input_source', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_xmltoolkit: None -> <Module xml.sax.drivers.drv_xmltoolkit /usr/lib/python2.6/xml/sax/drivers/drv_xmltoolkit.pyc imports=[('sys', 0, 0, -1), ('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('XMLFactory', 0, 0, -1), ('XMLClient', 0, 0, -1), ('urllib2', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_xmllib: None -> <Module xml.sax.drivers.drv_xmllib /usr/lib/python2.6/xml/sax/drivers/drv_xmllib.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.drivers', 0, 0, -1), ('xml.sax.drivers.pylibs', 0, 0, -1), ('xmllib', 0, 0, -1), ('xml.unicode.iso8859', 0, 1, -1), ('xml.unicode.iso8859.wstring', 0, 1, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_xmldc: None -> <Module xml.sax.drivers.drv_xmldc /usr/lib/python2.6/xml/sax/drivers/drv_xmldc.pyc imports=[('sys', 0, 0, -1), ('urllib2', 0, 0, -1), ('re', 0, 0, -1), ('string', 0, 0, -1), ('saxlib', 0, 1, -1), ('xml.sax', 0, 1, -1), ('xml.sax.saxlib', 0, 1, -1), ('xml_dc', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_pyexpat: None -> <Module xml.sax.drivers.drv_pyexpat /usr/lib/python2.6/xml/sax/drivers/drv_pyexpat.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.SAXReaderNotAvailable', 0, 0, -1), ('xml.parsers', 0, 0, -1), ('xml.parsers.expat', 0, 0, -1), ('urllib2', 0, 0, -1), ('types', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_xmlproc_val: None -> <Module xml.sax.drivers.drv_xmlproc_val /usr/lib/python2.6/xml/sax/drivers/drv_xmlproc_val.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.parsers.xmlproc', 0, 0, -1), ('xml.parsers.xmlproc.xmlval', 0, 0, -1), ('xml.sax.drivers.drv_xmlproc', 0, 0, -1), ('xml.sax.drivers.drv_xmlproc.*', 0, 0, -1), ('types', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_htmllib: None -> <Module xml.sax.drivers.drv_htmllib /usr/lib/python2.6/xml/sax/drivers/drv_htmllib.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.drivers', 0, 0, -1), ('xml.sax.drivers.pylibs', 0, 0, -1), ('htmllib', 0, 0, -1), ('sys', 0, 0, -1), ('string', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_sgmlop: None -> <Module xml.sax.drivers.drv_sgmlop /usr/lib/python2.6/xml/sax/drivers/drv_sgmlop.pyc imports=[('xml.parsers', 0, 0, -1), ('xml.parsers.sgmlop', 0, 0, -1), ('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax', 0, 0, -1), ('xml.sax.SAXException', 0, 0, -1), ('urllib2', 0, 0, -1), ('string', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.drv_sgmllib: None -> <Module xml.sax.drivers.drv_sgmllib /usr/lib/python2.6/xml/sax/drivers/drv_sgmllib.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.drivers', 0, 0, -1), ('xml.sax.drivers.pylibs', 0, 0, -1), ('sgmllib', 0, 0, -1), ('string', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers2.xml: None -> None
+xml.parsers: None -> <Module xml.parsers /usr/lib/python2.6/xml/parsers/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.parsers.expat: None -> <Module xml.parsers.expat /usr/lib/python2.6/xml/parsers/expat.pyc imports=[('pyexpat', 0, 0, -1), ('pyexpat.*', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax._weakref: None -> None
+_weakref: None -> <Module _weakref None imports=[] binaries=[] datas=[]>
+xml.sax.weakref: None -> None
+weakref: None -> <Module weakref /usr/lib/python2.6/weakref.pyc imports=[('UserDict', 0, 0, -1), ('_weakref', 0, 0, -1), ('_weakref.getweakrefcount', 0, 0, -1), ('_weakref.getweakrefs', 0, 0, -1), ('_weakref.ref', 0, 0, -1), ('_weakref.proxy', 0, 0, -1), ('_weakref.CallableProxyType', 0, 0, -1), ('_weakref.ProxyType', 0, 0, -1), ('_weakref.ReferenceType', 0, 0, -1), ('exceptions', 0, 0, -1), ('exceptions.ReferenceError', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.pyexpat: None -> <Module xml.parsers.pyexpat /usr/lib/python2.6/xml/parsers/pyexpat.so imports=[] binaries=[] datas=[]>
+exceptions: None -> <Module exceptions None imports=[] binaries=[] datas=[]>
+xml.sax.drivers2.types: None -> None
+xml.sax.drivers2.string: None -> None
+xml.parsers.xmlproc: None -> <Module xml.parsers.xmlproc /usr/lib/python2.6/xml/parsers/xmlproc/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.parsers.xmlproc.xmlproc: None -> <Module xml.parsers.xmlproc.xmlproc /usr/lib/python2.6/xml/parsers/xmlproc/xmlproc.pyc imports=[('re', 0, 0, -1), ('string', 0, 0, -1), ('sys', 0, 0, -1), ('urlparse', 0, 0, -1), ('dtdparser', 0, 0, -1), ('dtdparser.*', 0, 0, -1), ('xmlutils', 0, 0, -1), ('xmlutils.*', 0, 0, -1), ('xmlapp', 0, 0, -1), ('xmlapp.*', 0, 0, -1), ('xmldtd', 0, 0, -1), ('xmldtd.*', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.xmlval: None -> <Module xml.parsers.xmlproc.xmlval /usr/lib/python2.6/xml/parsers/xmlproc/xmlval.pyc imports=[('urlparse', 0, 0, -1), ('os', 0, 0, -1), ('anydbm', 0, 0, -1), ('string', 0, 0, -1), ('cPickle', 0, 0, -1), ('time', 0, 0, -1), ('xmlproc', 0, 0, -1), ('xmlproc.*', 0, 0, -1), ('xmldtd', 0, 0, -1), ('xmldtd.*', 0, 0, -1), ('xmlapp', 0, 0, -1), ('xmlapp.*', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.xmlapp: None -> <Module xml.parsers.xmlproc.xmlapp /usr/lib/python2.6/xml/parsers/xmlproc/xmlapp.pyc imports=[('sys', 0, 0, -1), ('urllib2', 0, 0, -1), ('urlparse', 0, 0, -1), ('xmlutils', 0, 0, -1), ('xmlutils.*', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.re: None -> None
+xml.parsers.xmlproc.string: None -> None
+xml.parsers.xmlproc.sys: None -> None
+xml.parsers.xmlproc.urlparse: None -> None
+xml.parsers.xmlproc.dtdparser: None -> <Module xml.parsers.xmlproc.dtdparser /usr/lib/python2.6/xml/parsers/xmlproc/dtdparser.pyc imports=[('string', 0, 0, -1), ('xmlutils', 0, 0, -1), ('xmlutils.*', 0, 0, -1), ('xmldtd', 0, 0, -1), ('xmldtd.*', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.xmlutils: None -> <Module xml.parsers.xmlproc.xmlutils /usr/lib/python2.6/xml/parsers/xmlproc/xmlutils.pyc imports=[('string', 0, 0, -1), ('re', 0, 0, -1), ('urlparse', 0, 0, -1), ('os', 0, 0, -1), ('sys', 0, 0, -1), ('types', 0, 0, -1), ('xmlapp', 0, 0, -1), ('charconv', 0, 0, -1), ('errors', 0, 0, -1), ('codecs', 0, 0, -1), ('xml.utils', 0, 1, -1), ('xml.utils.characters', 0, 1, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.xmldtd: None -> <Module xml.parsers.xmlproc.xmldtd /usr/lib/python2.6/xml/parsers/xmlproc/xmldtd.pyc imports=[('types', 0, 0, -1), ('xmlutils', 0, 0, -1), ('xmlutils.*', 0, 0, -1), ('xmlapp', 0, 0, -1), ('xmlapp.*', 0, 0, -1), ('dtdparser', 1, 0, -1), ('utils', 1, 0, -1), ('dtdparser', 1, 0, -1), ('utils', 1, 0, -1), ('dtdparser', 1, 0, -1), ('utils', 1, 0, -1), ('dtdparser', 1, 0, -1), ('utils', 1, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.os: None -> None
+xml.parsers.xmlproc.types: None -> None
+xml.parsers.xmlproc.charconv: None -> <Module xml.parsers.xmlproc.charconv /usr/lib/python2.6/xml/parsers/xmlproc/charconv.pyc imports=[('string', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.errors: None -> <Module xml.parsers.xmlproc.errors /usr/lib/python2.6/xml/parsers/xmlproc/errors.pyc imports=[('string', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.codecs: None -> None
+xml.parsers.xmlproc.xml: None -> None
+xml.utils: None -> <Module xml.utils /usr/lib/python2.6/xml/utils/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.utils.characters: None -> <Module xml.utils.characters /usr/lib/python2.6/xml/utils/characters.pyc imports=[('re', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.urllib2: None -> None
+xml.utils.re: None -> None
+xml.parsers.xmlproc.utils: None -> <Module xml.parsers.xmlproc.utils /usr/lib/python2.6/xml/parsers/xmlproc/utils.pyc imports=[('xmlapp', 0, 0, -1), ('sys', 0, 0, -1), ('string', 0, 0, -1), ('types', 0, 0, -1), ('java.lang', 0, 1, -1), ('java.lang.Exception', 0, 1, -1), ('codecs', 0, 0, -1), ('codecs.EncodedFile', 0, 0, -1), ('dtdparser', 1, 0, -1), ('xmldtd', 1, 0, -1), ('xmlval', 1, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.java: None -> None
+java: None -> None
+  DEL java
+java: None -> None
+  DEL java
+xml.parsers.xmlproc.anydbm: None -> None
+anydbm: None -> <Module anydbm /usr/lib/python2.6/anydbm.pyc imports=[('whichdb', 1, 0, -1), ('whichdb.whichdb', 1, 0, -1)] binaries=[] datas=[]>
+xml.parsers.xmlproc.cPickle: None -> None
+xml.parsers.xmlproc.time: None -> None
+whichdb: None -> <Module whichdb /usr/lib/python2.6/whichdb.pyc imports=[('os', 0, 0, -1), ('struct', 0, 0, -1), ('sys', 0, 0, -1), ('dbm', 0, 0, -1)] binaries=[] datas=[]>
+dbhash: None -> <Module dbhash /usr/lib/python2.6/dbhash.pyc imports=[('sys', 0, 0, -1), ('warnings', 0, 1, -1), ('bsddb', 0, 0, -1)] binaries=[] datas=[]>
+gdbm: None -> <Module gdbm /usr/lib/python2.6/lib-dynload/gdbm.so imports=[] binaries=[] datas=[]>
+dbm: None -> <Module dbm /usr/lib/python2.6/lib-dynload/dbm.so imports=[] binaries=[] datas=[]>
+dumbdbm: None -> <Module dumbdbm /usr/lib/python2.6/dumbdbm.pyc imports=[('os', 0, 0, -1), ('__builtin__', 0, 0, -1), ('UserDict', 0, 0, -1)] binaries=[] datas=[]>
+bsddb: None -> <Module bsddb /usr/lib/python2.6/bsddb/__init__.pyc imports=[('sys', 0, 0, -1), ('warnings', 0, 1, -1), ('_pybsddb', 0, 1, -1), ('bsddb3.dbutils', 0, 1, -1), ('bsddb3.dbutils.DeadlockWrap', 0, 1, -1), ('_bsddb', 0, 1, -1), ('bsddb.dbutils', 0, 1, -1), ('bsddb.dbutils.DeadlockWrap', 0, 1, -1), ('sys', 0, 1, -1), ('sys', 0, 0, -1), ('os', 0, 0, -1), ('weakref', 0, 0, -1), ('weakref.ref', 0, 0, -1), ('UserDict', 0, 1, -1), ('collections', 0, 1, -1), ('thread', 0, 0, -1)] binaries=[] datas=[]>
+bsddb.sys: None -> None
+bsddb.warnings: None -> None
+bsddb._pybsddb: None -> None
+_pybsddb: None -> None
+  DEL _pybsddb
+bsddb.bsddb3: None -> None
+bsddb3: None -> None
+  DEL bsddb3
+bsddb3: None -> None
+  DEL bsddb3
+bsddb._bsddb: None -> None
+_bsddb: None -> <Module _bsddb /usr/lib/python2.6/lib-dynload/_bsddb.so imports=[] binaries=[] datas=[]>
+bsddb.bsddb: None -> None
+bsddb.dbutils: None -> <Module bsddb.dbutils /usr/lib/python2.6/bsddb/dbutils.pyc imports=[('time', 0, 0, -1), ('time.sleep', 0, 0, -1), ('sys', 0, 0, -1), ('db', 0, 1, -1)] binaries=[] datas=[]>
+bsddb.os: None -> None
+bsddb.weakref: None -> None
+bsddb.UserDict: None -> None
+bsddb.collections: None -> None
+bsddb.thread: None -> None
+bsddb.time: None -> None
+bsddb.db: None -> <Module bsddb.db /usr/lib/python2.6/bsddb/db.pyc imports=[('sys', 0, 0, -1), ('_pybsddb', 0, 1, -1), ('_pybsddb.*', 0, 1, -1), ('_pybsddb', 0, 1, -1), ('_pybsddb.__version__', 0, 1, -1), ('_bsddb', 0, 1, -1), ('_bsddb.*', 0, 1, -1), ('_bsddb', 0, 1, -1), ('_bsddb.__version__', 0, 1, -1)] binaries=[] datas=[]>
+_pybsddb: None -> None
+  DEL _pybsddb
+_pybsddb: None -> None
+  DEL _pybsddb
+_pybsddb: None -> None
+  DEL _pybsddb
+_pybsddb: None -> None
+  DEL _pybsddb
+xml.sax.drivers.sys: None -> None
+xml.sax.drivers.xml: None -> None
+xml.sax.drivers.XMLFactory: None -> None
+XMLFactory: None -> None
+  DEL XMLFactory
+xml.sax.drivers.XMLClient: None -> None
+XMLClient: None -> None
+  DEL XMLClient
+xml.sax.drivers.urllib2: None -> None
+xml.sax.drivers.pylibs: None -> <Module xml.sax.drivers.pylibs /usr/lib/python2.6/xml/sax/drivers/pylibs.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('urllib2', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.xmllib: None -> None
+xmllib: None -> <Module xmllib /usr/lib/python2.6/xmllib.pyc imports=[('re', 0, 0, -1), ('string', 0, 0, -1), ('warnings', 0, 0, -1), ('sys', 1, 0, -1), ('getopt', 1, 0, -1), ('time', 1, 0, -1), ('time.time', 1, 0, -1)] binaries=[] datas=[]>
+xml.unicode: None -> <Module xml.unicode /usr/lib/python2.6/xml/unicode/__init__.pyc imports=[] binaries=[] datas=[]>
+xml.unicode.iso8859: None -> <Module xml.unicode.iso8859 /usr/lib/python2.6/xml/unicode/iso8859.pyc imports=[('string', 0, 0, -1), ('utf8_iso', 0, 0, -1)] binaries=[] datas=[]>
+xml.unicode.string: None -> None
+xml.unicode.utf8_iso: None -> <Module xml.unicode.utf8_iso /usr/lib/python2.6/xml/unicode/utf8_iso.pyc imports=[('codecs', 0, 1, -1)] binaries=[] datas=[]>
+xml.unicode.codecs: None -> None
+xml.sax.drivers.re: None -> None
+xml.sax.drivers.string: None -> None
+xml.sax.drivers.saxlib: None -> None
+saxlib: None -> None
+  DEL saxlib
+xml.sax.drivers.xml_dc: None -> None
+xml_dc: None -> None
+  DEL xml_dc
+xml.sax.SAXReaderNotAvailable: None -> None
+xml.sax.drivers.types: None -> None
+xml.sax.drivers.drv_xmlproc: None -> <Module xml.sax.drivers.drv_xmlproc /usr/lib/python2.6/xml/sax/drivers/drv_xmlproc.pyc imports=[('xml.sax', 0, 0, -1), ('xml.sax.saxlib', 0, 0, -1), ('xml.sax.saxutils', 0, 0, -1), ('xml.parsers.xmlproc', 0, 0, -1), ('xml.parsers.xmlproc.xmlproc', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
+xml.sax.drivers.os: None -> None
+xml.sax.drivers.htmllib: None -> None
+htmllib: None -> <Module htmllib /usr/lib/python2.6/htmllib.pyc imports=[('warnings', 0, 0, -1), ('warnings.warnpy3k', 0, 0, -1), ('sgmllib', 0, 0, -1), ('formatter', 0, 0, -1), ('formatter.AS_IS', 0, 0, -1), ('htmlentitydefs', 1, 0, -1), ('htmlentitydefs.entitydefs', 1, 0, -1), ('sys', 1, 0, -1), ('formatter', 1, 0, -1)] binaries=[] datas=[]>
+sgmllib: None -> <Module sgmllib /usr/lib/python2.6/sgmllib.pyc imports=[('warnings', 0, 0, -1), ('warnings.warnpy3k', 0, 0, -1), ('markupbase', 0, 0, -1), ('re', 0, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
+formatter: None -> <Module formatter /usr/lib/python2.6/formatter.pyc imports=[('sys', 0, 0, -1)] binaries=[] datas=[]>
+htmlentitydefs: None -> <Module htmlentitydefs /usr/lib/python2.6/htmlentitydefs.pyc imports=[] binaries=[] datas=[]>
+markupbase: None -> <Module markupbase /usr/lib/python2.6/markupbase.pyc imports=[('re', 0, 0, -1)] binaries=[] datas=[]>
+xml.parsers.sgmlop: None -> <Module xml.parsers.sgmlop /usr/lib/python2.6/xml/parsers/sgmlop.so imports=[] binaries=[] datas=[]>
+xml.sax.SAXException: None -> None
+xml.sax.drivers.sgmllib: None -> None
+xml.etree.string: None -> None
+xml.etree.sys: None -> None
+xml.etree.re: None -> None
+xml.etree.ElementPath: None -> <Module xml.etree.ElementPath /usr/lib/python2.6/xml/etree/ElementPath.pyc imports=[('re', 0, 0, -1)] binaries=[] datas=[]>
+xml.etree.xml: None -> None
+_csv: None -> <Module _csv /usr/lib/python2.6/lib-dynload/_csv.so imports=[] binaries=[] datas=[]>
+ic: None -> None
+  DEL ic
+glob: None -> <Module glob /usr/lib/python2.6/glob.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('re', 0, 0, -1), ('fnmatch', 0, 0, -1)] binaries=[] datas=[]>
+FixTk: None -> <Module FixTk /usr/lib/python2.6/lib-tk/FixTk.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('ctypes', 0, 0, -1), ('_tkinter', 0, 1, -1)] binaries=[] datas=[]>
+_tkinter: None -> <Module _tkinter /usr/lib/python2.6/lib-dynload/_tkinter.so imports=[] binaries=[] datas=[]>
+Tkconstants: None -> <Module Tkconstants /usr/lib/python2.6/lib-tk/Tkconstants.pyc imports=[] binaries=[] datas=[]>
+ctypes: None -> <Module ctypes /usr/lib/python2.6/ctypes/__init__.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.Union', 0, 0, -1), ('_ctypes.Structure', 0, 0, -1), ('_ctypes.Array', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes._Pointer', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.CFuncPtr', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.__version__', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.RTLD_LOCAL', 0, 0, -1), ('_ctypes.RTLD_GLOBAL', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.ArgumentError', 0, 0, -1), ('struct', 0, 0, -1), ('struct.calcsize', 0, 0, -1), ('_ctypes', 0, 1, -1), ('_ctypes.FormatError', 0, 1, -1), ('_ctypes', 0, 0, -1), ('_ctypes.FUNCFLAG_CDECL', 0, 0, -1), ('_ctypes.FUNCFLAG_PYTHONAPI', 0, 0, -1), ('_ctypes.FUNCFLAG_USE_ERRNO', 0, 0, -1), ('_ctypes.FUNCFLAG_USE_LASTERROR', 0, 0, -1), ('_ctypes', 0, 1, -1), ('_ctypes.LoadLibrary', 0, 1, -1), ('_ctypes', 0, 1, -1), ('_ctypes.FUNCFLAG_STDCALL', 0, 1, -1), ('_ctypes', 0, 1, -1), ('_ctypes.dlopen', 0, 1, -1), ('_ctypes', 0, 0, -1), ('_ctypes.sizeof', 0, 0, -1), ('_ctypes.byref', 0, 0, -1), ('_ctypes.addressof', 0, 0, -1), ('_ctypes.alignment', 0, 0, -1), ('_ctypes.resize', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.get_errno', 0, 0, -1), ('_ctypes.set_errno', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes._SimpleCData', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.POINTER', 0, 0, -1), ('_ctypes.pointer', 0, 0, -1), ('_ctypes._pointer_type_cache', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes.set_conversion_mode', 0, 0, -1), ('_ctypes', 0, 1, -1), ('_ctypes._check_HRESULT', 0, 1, -1), ('_ctypes._SimpleCData', 0, 1, -1), ('_ctypes', 0, 1, -1), ('_ctypes.get_last_error', 0, 1, -1), ('_ctypes.set_last_error', 0, 1, -1), ('_ctypes', 0, 0, -1), ('_ctypes._memmove_addr', 0, 0, -1), ('_ctypes._memset_addr', 0, 0, -1), ('_ctypes._string_at_addr', 0, 0, -1), ('_ctypes._cast_addr', 0, 0, -1), ('_ctypes', 0, 0, -1), ('_ctypes._wstring_at_addr', 0, 0, -1), ('ctypes._endian', 0, 0, -1), ('ctypes._endian.BigEndianStructure', 0, 0, -1), ('ctypes._endian.LittleEndianStructure', 0, 0, -1), ('struct', 1, 0, -1), ('struct.calcsize', 1, 0, -1)] binaries=[] datas=[]>
+ctypes.os: None -> None
+ctypes.sys: None -> None
+ctypes._ctypes: None -> None
+_ctypes: None -> <Module _ctypes /usr/lib/python2.6/lib-dynload/_ctypes.so imports=[] binaries=[] datas=[]>
+ctypes.struct: None -> None
+ctypes.ctypes: None -> None
+ctypes._endian: None -> <Module ctypes._endian /usr/lib/python2.6/ctypes/_endian.pyc imports=[('sys', 0, 0, -1), ('ctypes', 0, 0, -1), ('ctypes.*', 0, 0, -1)] binaries=[] datas=[]>
+tkCommonDialog: None -> <Module tkCommonDialog /usr/lib/python2.6/lib-tk/tkCommonDialog.pyc imports=[('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1)] binaries=[] datas=[]>
+pyttk.sys: None -> None
+pyttk.Tkinter: None -> None
+pyttk.pyTtk: None -> <Module pyttk.pyTtk /home/duststorm/projects/erfgoedstats/src/pyttk/pyTtk.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('Tkinter', 0, 0, -1), ('tkinter', 0, 0, -1)] binaries=[] datas=[]>
+pyttk.megawidget: None -> <Module pyttk.megawidget /home/duststorm/projects/erfgoedstats/src/pyttk/megawidget.pyc imports=[('pyTtk', 0, 0, -1), ('pyTtk.*', 0, 0, -1), ('calendar', 0, 0, -1), ('datetime', 0, 0, -1), ('time', 0, 0, -1), ('time.strptime', 0, 0, -1)] binaries=[] datas=[]>
+pyttk.tree: None -> <Module pyttk.tree /home/duststorm/projects/erfgoedstats/src/pyttk/tree.pyc imports=[('pyTtk', 0, 0, -1), ('pyTtk.Tree', 0, 0, -1), ('pyTtk.Frame', 0, 0, -1), ('pyTtk.Menu', 0, 0, -1), ('pyTtk.Entry', 0, 0, -1), ('math', 0, 0, -1)] binaries=[] datas=[]>
+pyttk.os: None -> None
+pyttk.tkinter: None -> None
+tkinter: None -> None
+  DEL tkinter
+pyttk.calendar: None -> None
+pyttk.datetime: None -> None
+pyttk.time: None -> None
+pyttk.math: None -> None
+__main__: <Module __main__ ../src/NewGUI.py imports=[('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkFont', 0, 0, -1), ('pickle', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('traceback', 0, 0, -1), ('copy', 0, 0, -1), ('thesaurus', 0, 0, -1), ('thesaurus.setCustomThesauri', 0, 0, -1), ('gui', 0, 0, -1), ('gui.generateReport', 0, 0, -1), ('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1), ('tkinter', 0, 0, -1), ('tkinter.*', 0, 0, -1), ('pyttk', 0, 0, -1), ('pyttk.*', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('tkMessageBox', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/removeTK.py imports=[('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
+_emx_link: None -> None
+  DEL _emx_link
+_emx_link: None -> None
+  DEL _emx_link
+nt: None -> None
+  DEL nt
+nt: None -> None
+  DEL nt
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
+msvcrt: None -> None
+  DEL msvcrt
+_subprocess: None -> None
+  DEL _subprocess
+_subprocess: None -> None
+  DEL _subprocess
+org: None -> None
+  DEL org
+org: None -> None
+  DEL org
