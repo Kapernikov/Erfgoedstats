@@ -268,15 +268,7 @@ org: None -> None
   DEL org
 org: None -> None
   DEL org
-__main__: <Module __main__ support/_mountzlib.py imports=[('archive', 0, 0, -1), ('iu', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/unpackTK.py imports=[('carchive', 0, 0, -1), ('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
-carchive: None -> <Module carchive /home/duststorm/projects/erfgoedstats/pyinstaller/carchive.pyc imports=[('archive', 0, 0, -1), ('struct', 0, 0, -1), ('zlib', 0, 0, -1), ('sys', 0, 0, -1), ('strop', 0, 1, -1), ('string', 1, 0, -1), ('AES', 1, 1, -1), ('AES', 1, 1, -1), ('Crypt', 1, 1, -1)] binaries=[] datas=[]>
-AES: None -> None
-  DEL AES
-AES: None -> None
-  DEL AES
-Crypt: None -> <Module Crypt /home/duststorm/projects/erfgoedstats/pyinstaller/Crypt.pyc imports=[('sys', 0, 0, -1), ('os', 1, 0, -1), ('Crypto.Util.randpool', 1, 0, -1), ('Crypto.Util.randpool.RandomPool', 1, 0, -1), ('Crypto.Hash', 1, 0, -1), ('Crypto.Hash.SHA256', 1, 0, -1), ('random', 1, 1, -1), ('pprint', 1, 0, -1), ('pyi_optparse', 1, 0, -1)] binaries=[] datas=[]>
-AES: None -> None
-  DEL AES
+__main__: <Module __main__ support/_mountzlib.py imports=[('archive', 0, 0, -1), ('iu', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]>
 _emx_link: None -> None
   DEL _emx_link
 _emx_link: None -> None
@@ -299,114 +291,12 @@ org: None -> None
   DEL org
 org: None -> None
   DEL org
-Crypto: None -> <Module Crypto /usr/lib/python2.6/dist-packages/Crypto/__init__.pyc imports=[] binaries=[] datas=[]>
-Crypto.Util: None -> <Module Crypto.Util /usr/lib/python2.6/dist-packages/Crypto/Util/__init__.pyc imports=[] binaries=[] datas=[]>
-Crypto.Util.randpool: None -> <Module Crypto.Util.randpool /usr/lib/python2.6/dist-packages/Crypto/Util/randpool.pyc imports=[('time', 0, 0, -1), ('array', 0, 0, -1), ('types', 0, 0, -1), ('warnings', 0, 0, -1), ('os.path', 0, 0, -1), ('Crypto.Util.number', 0, 0, -1), ('Crypto.Util.number.long_to_bytes', 0, 0, -1), ('Crypto.Util.winrandom', 0, 0, -1), ('msvcrt', 0, 1, -1), ('termios', 0, 1, -1), ('tempfile', 0, 1, -1), ('os', 0, 1, -1), ('Crypto.Hash', 1, 1, -1), ('Crypto.Hash.SHA', 1, 1, -1), ('os', 1, 0, -1), ('string', 1, 0, -1), ('time', 1, 0, -1)] binaries=[] datas=[]>
-Crypto.Hash: None -> <Module Crypto.Hash /usr/lib/python2.6/dist-packages/Crypto/Hash/__init__.pyc imports=[] binaries=[] datas=[]>
-Crypto.Hash.SHA256: None -> <Module Crypto.Hash.SHA256 /usr/lib/python2.6/dist-packages/Crypto/Hash/SHA256.so imports=[] binaries=[] datas=[]>
-pyi_optparse: None -> <Module pyi_optparse /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optparse.pyc imports=[('pyi_optik', 0, 0, -1), ('pyi_optik.__version__', 0, 0, -1), ('pyi_optik.__all__', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.*', 0, 0, -1)] binaries=[] datas=[]>
-Crypto.Util.time: None -> None
-Crypto.Util.array: None -> None
-Crypto.Util.types: None -> None
-Crypto.Util.warnings: None -> None
-Crypto.Util.os: None -> None
-Crypto.Util.Crypto: None -> None
-Crypto.Util.number: None -> <Module Crypto.Util.number /usr/lib/python2.6/dist-packages/Crypto/Util/number.pyc imports=[('Crypto.PublicKey', 0, 0, -1), ('Crypto.PublicKey._fastmath', 0, 0, -1), ('struct', 0, 0, -1), ('warnings', 0, 0, -1)] binaries=[] datas=[]>
-Crypto.Util.winrandom: None -> None
-  DEL Crypto.Util.winrandom
-Crypto.Util.msvcrt: None -> None
-msvcrt: None -> None
-  DEL msvcrt
-Crypto.Util.termios: None -> None
-termios: None -> <Module termios /usr/lib/python2.6/lib-dynload/termios.so imports=[] binaries=[] datas=[]>
-Crypto.Util.tempfile: None -> None
-Crypto.Hash.SHA: None -> <Module Crypto.Hash.SHA /usr/lib/python2.6/dist-packages/Crypto/Hash/SHA.pyc imports=[('hashlib', 0, 0, -1), ('sha', 0, 1, -1), ('sha.*', 0, 1, -1), ('sha', 0, 1, -1)] binaries=[] datas=[]>
-Crypto.Util.string: None -> None
-Crypto.PublicKey: None -> <Module Crypto.PublicKey /usr/lib/python2.6/dist-packages/Crypto/PublicKey/__init__.pyc imports=[] binaries=[] datas=[]>
-Crypto.PublicKey._fastmath: None -> <Module Crypto.PublicKey._fastmath /usr/lib/python2.6/dist-packages/Crypto/PublicKey/_fastmath.so imports=[] binaries=[] datas=[]>
-Crypto.Util.struct: None -> None
-Crypto.Hash.hashlib: None -> None
-hashlib: None -> <Module hashlib /usr/lib/python2.6/hashlib.pyc imports=[('_hashlib', 0, 0, -1), ('_sha', 1, 1, -1), ('_md5', 1, 1, -1), ('_sha256', 1, 1, -1), ('_sha512', 1, 1, -1)] binaries=[] datas=[]>
-Crypto.Hash.sha: None -> None
-sha: None -> <Module sha /usr/lib/python2.6/sha.pyc imports=[('warnings', 0, 0, -1), ('hashlib', 0, 0, -1), ('hashlib.sha1', 0, 0, -1)] binaries=[] datas=[]>
-_hashlib: None -> <Module _hashlib None imports=[] binaries=[] datas=[]>
-_sha: None -> None
-  DEL _sha
-_md5: None -> None
-  DEL _md5
-_sha256: None -> None
-  DEL _sha256
-_sha512: None -> None
-  DEL _sha512
-pyi_optik: None -> <Module pyi_optik /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/__init__.pyc imports=[('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.Option', 0, 0, -1), ('pyi_optik.option_parser', 0, 0, -1), ('pyi_optik.option_parser.*', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.help.*', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.*', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option_parser', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.__version__: None -> None
-  DEL pyi_optik.__version__
-pyi_optik.__all__: None -> None
-  DEL pyi_optik.__all__
-pyi_optik.pyi_optik: None -> None
-pyi_optik.option: None -> <Module pyi_optik.option /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/option.pyc imports=[('sys', 0, 0, -1), ('types', 0, 0, -1), ('string', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.OptionError', 0, 0, -1), ('pyi_optik.errors.OptionValueError', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.option_parser: None -> <Module pyi_optik.option_parser /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/option_parser.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('types', 0, 0, -1), ('string', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.Option', 0, 0, -1), ('pyi_optik.option.NO_DEFAULT', 0, 0, -1), ('pyi_optik.option._repr', 0, 0, -1), ('pyi_optik.help', 0, 0, -1), ('pyi_optik.help.IndentedHelpFormatter', 0, 0, -1), ('pyi_optik', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.help: None -> <Module pyi_optik.help /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/help.pyc imports=[('os', 0, 0, -1), ('string', 0, 0, -1), ('textwrap', 0, 0, -1), ('pyi_optik.option', 0, 0, -1), ('pyi_optik.option.NO_DEFAULT', 0, 0, -1), ('pyi_optik.errors', 0, 0, -1), ('pyi_optik.errors.gettext', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.errors: None -> <Module pyi_optik.errors /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/errors.pyc imports=[('string', 0, 0, -1), ('gettext', 0, 0, -1), ('gettext.gettext', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.sys: None -> None
-pyi_optik.types: None -> None
-pyi_optik.string: None -> None
-pyi_optik.gettext: None -> None
-pyi_optik.os: None -> None
-pyi_optik.textwrap: None -> <Module pyi_optik.textwrap /home/duststorm/projects/erfgoedstats/pyinstaller/pyi_optik/textwrap.pyc imports=[('string', 0, 0, -1), ('re', 0, 0, -1), ('types', 0, 0, -1)] binaries=[] datas=[]>
-pyi_optik.re: None -> None
-__main__: <Module __main__ support/unpackTK.py imports=[('carchive', 0, 0, -1), ('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/useTK.py imports=[('os', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]>
-_emx_link: None -> None
-  DEL _emx_link
-_emx_link: None -> None
-  DEL _emx_link
-nt: None -> None
-  DEL nt
-nt: None -> None
-  DEL nt
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org
-msvcrt: None -> None
-  DEL msvcrt
-_subprocess: None -> None
-  DEL _subprocess
-_subprocess: None -> None
-  DEL _subprocess
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org
-__main__: <Module __main__ support/useTK.py imports=[('os', 0, 0, -1), ('sys', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]>
-_emx_link: None -> None
-  DEL _emx_link
-_emx_link: None -> None
-  DEL _emx_link
-nt: None -> None
-  DEL nt
-nt: None -> None
-  DEL nt
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org
-msvcrt: None -> None
-  DEL msvcrt
-_subprocess: None -> None
-  DEL _subprocess
-_subprocess: None -> None
-  DEL _subprocess
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org
-__main__: <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ ../src/NewGUI.py imports=[('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkFont', 0, 0, -1), ('pickle', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('traceback', 0, 0, -1), ('copy', 0, 0, -1), ('thesaurus', 0, 0, -1), ('thesaurus.setCustomThesauri', 0, 0, -1), ('gui', 0, 0, -1), ('gui.generateReport', 0, 0, -1), ('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1), ('tkinter', 0, 0, -1), ('tkinter.*', 0, 0, -1), ('pyttk', 0, 0, -1), ('pyttk.*', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('tkMessageBox', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1)] binaries=[] datas=[]>
-adlibstats: None -> <Module adlibstats /home/duststorm/projects/erfgoedstats/src/adlibstats.pyc imports=[('fieldstats', 0, 0, -1), ('htmlutils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('collectionstats', 0, 0, -1), ('AdLibXMLConversion', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('getopt', 0, 0, -1), ('sys', 0, 0, -1), ('utils', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('resources.bluedream_css', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1), ('resources.header_html', 0, 0, -1), ('resources.footer_html', 0, 0, -1), ('resources.jquery_min_easyTooltip_js', 0, 0, -1), ('resources.sorttable_js', 0, 0, -1)] binaries=[] datas=[]>
+__main__: <Module __main__ support/useUnicode.py imports=[('encodings', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ ../src/NewGUI.py imports=[('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkFont', 0, 0, -1), ('pickle', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('traceback', 0, 0, -1), ('copy', 0, 0, -1), ('thesaurus', 0, 0, -1), ('thesaurus.setCustomThesauri', 0, 0, -1), ('gui', 0, 0, -1), ('gui.generateReport', 0, 0, -1), ('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1), ('tkinter', 0, 0, -1), ('tkinter.*', 0, 0, -1), ('pyttk', 0, 0, -1), ('pyttk.*', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('tkMessageBox', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1), ('resources.ButtonIcons_base64', 0, 0, -1)] binaries=[] datas=[]>
+adlibstats: None -> <Module adlibstats /home/duststorm/projects/erfgoedstats/src/adlibstats.pyc imports=[('fieldstats', 0, 0, -1), ('htmlutils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('collectionstats', 0, 0, -1), ('AdLibXMLConversion', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('getopt', 0, 0, -1), ('sys', 0, 0, -1), ('utils', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('chardet', 0, 0, -1), ('resources.bluedream_css', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1), ('resources.header_html', 0, 0, -1), ('resources.footer_html', 0, 0, -1), ('resources.jquery_min_easyTooltip_js', 0, 0, -1), ('resources.sorttable_js', 0, 0, -1), ('csv', 1, 0, -1)] binaries=[] datas=[]>
 webbrowser: None -> <Module webbrowser /usr/lib/python2.6/webbrowser.pyc imports=[('os', 0, 0, -1), ('shlex', 0, 0, -1), ('sys', 0, 0, -1), ('stat', 0, 0, -1), ('subprocess', 0, 0, -1), ('time', 0, 0, -1), ('ic', 0, 0, -1), ('copy', 1, 1, -1), ('glob', 1, 0, -1), ('pwd', 1, 0, -1), ('socket', 1, 0, -1), ('tempfile', 1, 0, -1), ('getopt', 1, 0, -1)] binaries=[] datas=[]>
 tkFont: None -> <Module tkFont /usr/lib/python2.6/lib-tk/tkFont.pyc imports=[('Tkinter', 0, 0, -1)] binaries=[] datas=[]>
 utils: None -> <Module utils /home/duststorm/projects/erfgoedstats/src/utils.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('operator', 0, 0, -1), ('operator.itemgetter', 0, 0, -1), ('tr', 0, 0, -1), ('csv', 0, 0, -1)] binaries=[] datas=[]>
-thesaurus: None -> <Module thesaurus /home/duststorm/projects/erfgoedstats/src/thesaurus.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('pickle', 0, 0, -1), ('copy', 0, 0, -1)] binaries=[] datas=[]>
+thesaurus: None -> <Module thesaurus /home/duststorm/projects/erfgoedstats/src/thesaurus.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('os', 0, 0, -1), ('codecs', 0, 0, -1), ('pickle', 0, 0, -1), ('copy', 0, 0, -1), ('adlibstats', 0, 0, -1)] binaries=[] datas=[]>
 gui: None -> <Module gui /home/duststorm/projects/erfgoedstats/src/gui.pyc imports=[('Tkinter', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkMessageBox', 0, 0, -1)] binaries=[] datas=[]>
 Tkinter: None -> <Module Tkinter /usr/lib/python2.6/lib-tk/Tkinter.pyc imports=[('sys', 0, 0, -1), ('FixTk', 0, 1, -1), ('_tkinter', 0, 0, -1), ('types', 0, 0, -1), ('types.*', 0, 0, -1), ('Tkconstants', 0, 0, -1), ('Tkconstants.*', 0, 0, -1), ('sys', 1, 0, -1), ('sys', 1, 1, -1), ('os', 1, 1, -1), ('os', 1, 0, -1), ('traceback', 1, 0, -1), ('sys', 1, 0, -1)] binaries=[] datas=[]>
 tkinter: None -> None
@@ -419,21 +309,23 @@ tkMessageBox: None -> <Module tkMessageBox /usr/lib/python2.6/lib-tk/tkMessageBo
 resources: None -> <Module resources /home/duststorm/projects/erfgoedstats/src/resources/__init__.pyc imports=[] binaries=[] datas=[]>
 resources.digiridoologo_base64: None -> <Module resources.digiridoologo_base64 /home/duststorm/projects/erfgoedstats/src/resources/digiridoologo_base64.pyc imports=[] binaries=[] datas=[]>
 resources.provinciewestvllogo_base64: None -> <Module resources.provinciewestvllogo_base64 /home/duststorm/projects/erfgoedstats/src/resources/provinciewestvllogo_base64.pyc imports=[] binaries=[] datas=[]>
-fieldstats: None -> <Module fieldstats /home/duststorm/projects/erfgoedstats/src/fieldstats.pyc imports=[('__future__', 0, 0, -1), ('__future__.division', 0, 0, -1), ('invulboek', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('htmlutils', 0, 0, -1), ('csv', 1, 0, -1)] binaries=[] datas=[]>
+resources.ButtonIcons_base64: None -> <Module resources.ButtonIcons_base64 /home/duststorm/projects/erfgoedstats/src/resources/ButtonIcons_base64.pyc imports=[] binaries=[] datas=[]>
+fieldstats: None -> <Module fieldstats /home/duststorm/projects/erfgoedstats/src/fieldstats.pyc imports=[('__future__', 0, 0, -1), ('__future__.division', 0, 0, -1), ('invulboek', 0, 0, -1), ('utils', 0, 0, -1), ('tr', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('htmlutils', 0, 0, -1)] binaries=[] datas=[]>
 htmlutils: None -> <Module htmlutils /home/duststorm/projects/erfgoedstats/src/htmlutils.pyc imports=[('string', 0, 0, -1)] binaries=[] datas=[]>
 collectionstats: None -> <Module collectionstats /home/duststorm/projects/erfgoedstats/src/collectionstats.pyc imports=[('xml.etree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.ElementTree', 0, 0, -1), ('xml.etree.ElementTree.iselement', 0, 0, -1), ('htmlutils', 0, 0, -1), ('invulboek', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1)] binaries=[] datas=[]>
-AdLibXMLConversion: None -> <Module AdLibXMLConversion /home/duststorm/projects/erfgoedstats/src/AdLibXMLConversion.pyc imports=[('utils', 0, 0, -1), ('xml.etree.ElementTree', 0, 0, -1), ('codecs', 0, 0, -1)] binaries=[] datas=[]>
+AdLibXMLConversion: None -> <Module AdLibXMLConversion /home/duststorm/projects/erfgoedstats/src/AdLibXMLConversion.pyc imports=[('utils', 0, 0, -1), ('codecs', 0, 1, -1)] binaries=[] datas=[]>
 xml: None -> <Module xml /usr/lib/python2.6/xml/__init__.pyc imports=[] binaries=[] datas=[]>
 xml.etree: None -> <Module xml.etree /usr/lib/python2.6/xml/etree/__init__.pyc imports=[] binaries=[] datas=[]>
 xml.etree.ElementTree: None -> <Module xml.etree.ElementTree /usr/lib/python2.6/xml/etree/ElementTree.pyc imports=[('string', 0, 0, -1), ('sys', 0, 0, -1), ('re', 0, 0, -1), ('ElementPath', 0, 0, -1), ('xml.parsers', 1, 0, -1), ('xml.parsers.expat', 1, 0, -1), ('xml.parsers', 1, 1, -1), ('xml.parsers.expat', 1, 1, -1)] binaries=[] datas=[]>
-resources.bluedream_css: None -> <Module resources.bluedream_css /home/duststorm/projects/erfgoedstats/src/resources/bluedream_css.pyc imports=[] binaries=[] datas=[]>
-resources.header_html: None -> <Module resources.header_html /home/duststorm/projects/erfgoedstats/src/resources/header_html.pyc imports=[] binaries=[] datas=[]>
-resources.footer_html: None -> <Module resources.footer_html /home/duststorm/projects/erfgoedstats/src/resources/footer_html.pyc imports=[] binaries=[] datas=[]>
-resources.jquery_min_easyTooltip_js: None -> <Module resources.jquery_min_easyTooltip_js /home/duststorm/projects/erfgoedstats/src/resources/jquery_min_easyTooltip_js.pyc imports=[] binaries=[] datas=[]>
-resources.sorttable_js: None -> <Module resources.sorttable_js /home/duststorm/projects/erfgoedstats/src/resources/sorttable_js.pyc imports=[] binaries=[] datas=[]>
+chardet: None -> <Module chardet /home/duststorm/projects/erfgoedstats/src/chardet/__init__.pyc imports=[('universaldetector', 1, 0, -1)] binaries=[] datas=[]>
+resources.bluedream_css: None -> <Module resources.bluedream_css /home/duststorm/projects/erfgoedstats/src/resources/bluedream_css.pyc imports=[('utils', 0, 0, -1)] binaries=[] datas=[]>
+resources.header_html: None -> <Module resources.header_html /home/duststorm/projects/erfgoedstats/src/resources/header_html.pyc imports=[('utils', 0, 0, -1)] binaries=[] datas=[]>
+resources.footer_html: None -> <Module resources.footer_html /home/duststorm/projects/erfgoedstats/src/resources/footer_html.pyc imports=[('utils', 0, 0, -1)] binaries=[] datas=[]>
+resources.jquery_min_easyTooltip_js: None -> <Module resources.jquery_min_easyTooltip_js /home/duststorm/projects/erfgoedstats/src/resources/jquery_min_easyTooltip_js.pyc imports=[('utils', 0, 0, -1)] binaries=[] datas=[]>
+resources.sorttable_js: None -> <Module resources.sorttable_js /home/duststorm/projects/erfgoedstats/src/resources/sorttable_js.pyc imports=[('utils', 0, 0, -1)] binaries=[] datas=[]>
+csv: None -> <Module csv /usr/lib/python2.6/csv.pyc imports=[('re', 0, 0, -1), ('functools', 0, 0, -1), ('functools.reduce', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Error', 0, 0, -1), ('_csv.__version__', 0, 0, -1), ('_csv.writer', 0, 0, -1), ('_csv.reader', 0, 0, -1), ('_csv.register_dialect', 0, 0, -1), ('_csv.unregister_dialect', 0, 0, -1), ('_csv.get_dialect', 0, 0, -1), ('_csv.list_dialects', 0, 0, -1), ('_csv.field_size_limit', 0, 0, -1), ('_csv.QUOTE_MINIMAL', 0, 0, -1), ('_csv.QUOTE_ALL', 0, 0, -1), ('_csv.QUOTE_NONNUMERIC', 0, 0, -1), ('_csv.QUOTE_NONE', 0, 0, -1), ('_csv.__doc__', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Dialect', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1)] binaries=[] datas=[]>
 invulboek: None -> <Module invulboek /home/duststorm/projects/erfgoedstats/src/invulboek.pyc imports=[] binaries=[] datas=[]>
 tr: None -> <Module tr /home/duststorm/projects/erfgoedstats/src/tr.pyc imports=[] binaries=[] datas=[]>
-csv: None -> <Module csv /usr/lib/python2.6/csv.pyc imports=[('re', 0, 0, -1), ('functools', 0, 0, -1), ('functools.reduce', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Error', 0, 0, -1), ('_csv.__version__', 0, 0, -1), ('_csv.writer', 0, 0, -1), ('_csv.reader', 0, 0, -1), ('_csv.register_dialect', 0, 0, -1), ('_csv.unregister_dialect', 0, 0, -1), ('_csv.get_dialect', 0, 0, -1), ('_csv.list_dialects', 0, 0, -1), ('_csv.field_size_limit', 0, 0, -1), ('_csv.QUOTE_MINIMAL', 0, 0, -1), ('_csv.QUOTE_ALL', 0, 0, -1), ('_csv.QUOTE_NONNUMERIC', 0, 0, -1), ('_csv.QUOTE_NONE', 0, 0, -1), ('_csv.__doc__', 0, 0, -1), ('_csv', 0, 0, -1), ('_csv.Dialect', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1)] binaries=[] datas=[]>
 xml.xml: None -> None
 xml.sax: None -> <Module xml.sax /usr/lib/python2.6/xml/sax/__init__.pyc imports=[('xmlreader', 0, 0, -1), ('xmlreader.InputSource', 0, 0, -1), ('handler', 0, 0, -1), ('handler.ContentHandler', 0, 0, -1), ('handler.ErrorHandler', 0, 0, -1), ('_exceptions', 0, 0, -1), ('_exceptions.SAXException', 0, 0, -1), ('_exceptions.SAXNotRecognizedException', 0, 0, -1), ('_exceptions.SAXParseException', 0, 0, -1), ('_exceptions.SAXNotSupportedException', 0, 0, -1), ('_exceptions.SAXReaderNotAvailable', 0, 0, -1), ('sax2exts', 0, 0, -1), ('sax2exts.make_parser', 0, 0, -1), ('cStringIO', 1, 0, -1), ('cStringIO.StringIO', 1, 0, -1), ('StringIO', 1, 1, -1), ('StringIO.StringIO', 1, 1, -1)] binaries=[] datas=[]>
 xml.sax.xmlreader: None -> <Module xml.sax.xmlreader /usr/lib/python2.6/xml/sax/xmlreader.pyc imports=[('handler', 0, 0, -1), ('_exceptions', 0, 0, -1), ('_exceptions.SAXNotSupportedException', 0, 0, -1), ('_exceptions.SAXNotRecognizedException', 0, 0, -1), ('saxutils', 1, 0, -1)] binaries=[] datas=[]>
@@ -481,6 +373,7 @@ org: None -> None
   DEL org
 org: None -> None
   DEL org
+hashlib: None -> <Module hashlib /usr/lib/python2.6/hashlib.pyc imports=[('_hashlib', 0, 0, -1), ('_sha', 1, 1, -1), ('_md5', 1, 1, -1), ('_sha256', 1, 1, -1), ('_sha512', 1, 1, -1)] binaries=[] datas=[]>
 httplib: None -> <Module httplib /usr/lib/python2.6/httplib.pyc imports=[('array', 0, 0, -1), ('array.array', 0, 0, -1), ('socket', 0, 0, -1), ('sys', 0, 0, -1), ('sys.py3kwarning', 0, 0, -1), ('urlparse', 0, 0, -1), ('urlparse.urlsplit', 0, 0, -1), ('warnings', 0, 0, -1), ('mimetools', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('ssl', 0, 0, -1), ('os', 1, 1, -1), ('sys', 1, 0, -1), ('getopt', 1, 0, -1), ('ssl', 1, 0, -1)] binaries=[] datas=[]>
 mimetools: None -> <Module mimetools /usr/lib/python2.6/mimetools.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('tempfile', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.filterwarnings', 0, 0, -1), ('warnings.catch_warnings', 0, 0, -1), ('rfc822', 0, 0, -1), ('warnings', 0, 0, -1), ('warnings.warnpy3k', 0, 0, -1), ('thread', 0, 0, -1), ('dummy_thread', 0, 1, -1), ('time', 1, 0, -1), ('socket', 1, 1, -1), ('base64', 1, 1, -1), ('quopri', 1, 1, -1), ('uu', 1, 1, -1), ('base64', 1, 1, -1), ('quopri', 1, 1, -1), ('uu', 1, 1, -1)] binaries=[] datas=[]>
 socket: None -> <Module socket /usr/lib/python2.6/socket.pyc imports=[('_socket', 0, 0, -1), ('_socket', 0, 0, -1), ('_socket.*', 0, 0, -1), ('_ssl', 0, 0, -1), ('_ssl', 0, 1, -1), ('_ssl.SSLError', 0, 1, -1), ('_ssl', 0, 1, -1), ('_ssl.RAND_add', 0, 1, -1), ('_ssl.RAND_egd', 0, 1, -1), ('_ssl.RAND_status', 0, 1, -1), ('_ssl.SSL_ERROR_ZERO_RETURN', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_READ', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_WRITE', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_X509_LOOKUP', 0, 1, -1), ('_ssl.SSL_ERROR_SYSCALL', 0, 1, -1), ('_ssl.SSL_ERROR_SSL', 0, 1, -1), ('_ssl.SSL_ERROR_WANT_CONNECT', 0, 1, -1), ('_ssl.SSL_ERROR_EOF', 0, 1, -1), ('_ssl.SSL_ERROR_INVALID_ERROR_CODE', 0, 1, -1), ('os', 0, 0, -1), ('sys', 0, 0, -1), ('warnings', 0, 0, -1), ('cStringIO', 0, 0, -1), ('cStringIO.StringIO', 0, 0, -1), ('StringIO', 0, 1, -1), ('StringIO.StringIO', 0, 1, -1), ('errno', 0, 0, -1), ('errno.EBADF', 0, 0, -1), ('ssl', 1, 0, -1)] binaries=[] datas=[]>
@@ -490,6 +383,7 @@ email: None -> <Module email /usr/lib/python2.6/email/__init__.pyc imports=[('sy
 email.utils: None -> <Module email.utils /usr/lib/python2.6/email/utils.pyc imports=[('os', 0, 0, -1), ('re', 0, 0, -1), ('time', 0, 0, -1), ('base64', 0, 0, -1), ('random', 0, 0, -1), ('socket', 0, 0, -1), ('urllib', 0, 0, -1), ('warnings', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.quote', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.AddressList', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.mktime_tz', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.parsedate', 0, 0, -1), ('email._parseaddr', 0, 0, -1), ('email._parseaddr.parsedate_tz', 0, 0, -1), ('quopri', 0, 0, -1), ('quopri.decodestring', 0, 0, -1), ('email.encoders', 0, 0, -1), ('email.encoders._bencode', 0, 0, -1), ('email.encoders._qencode', 0, 0, -1), ('urllib', 1, 0, -1)] binaries=[] datas=[]>
 mimetypes: None -> <Module mimetypes /usr/lib/python2.6/mimetypes.pyc imports=[('os', 0, 0, -1), ('posixpath', 0, 0, -1), ('urllib', 0, 0, -1), ('sys', 0, 1, -1), ('getopt', 0, 1, -1)] binaries=[] datas=[]>
 ftplib: None -> <Module ftplib /usr/lib/python2.6/ftplib.pyc imports=[('os', 0, 0, -1), ('sys', 0, 0, -1), ('SOCKS', 0, 0, -1), ('socket', 0, 0, -1), ('socket.getfqdn', 0, 0, -1), ('socket', 0, 1, -1), ('socket', 0, 0, -1), ('socket._GLOBAL_DEFAULT_TIMEOUT', 0, 0, -1), ('re', 1, 1, -1), ('re', 1, 1, -1)] binaries=[] datas=[]>
+_hashlib: None -> <Module _hashlib None imports=[] binaries=[] datas=[]>
 _sha: None -> None
   DEL _sha
 _md5: None -> None
@@ -553,6 +447,7 @@ email.string: None -> None
 email.header: None -> <Module email.header /usr/lib/python2.6/email/header.pyc imports=[('re', 0, 0, -1), ('binascii', 0, 0, -1), ('email.quoprimime', 0, 0, -1), ('email.base64mime', 0, 0, -1), ('email.errors', 0, 0, -1), ('email.errors.HeaderParseError', 0, 0, -1), ('email.charset', 0, 0, -1), ('email.charset.Charset', 0, 0, -1)] binaries=[] datas=[]>
 SOCKS: None -> None
   DEL SOCKS
+termios: None -> <Module termios /usr/lib/python2.6/lib-dynload/termios.so imports=[] binaries=[] datas=[]>
 msvcrt: None -> None
   DEL msvcrt
 EasyDialogs: None -> None
@@ -727,6 +622,45 @@ xml.etree.re: None -> None
 xml.etree.ElementPath: None -> <Module xml.etree.ElementPath /usr/lib/python2.6/xml/etree/ElementPath.pyc imports=[('re', 0, 0, -1)] binaries=[] datas=[]>
 xml.etree.xml: None -> None
 _csv: None -> <Module _csv /usr/lib/python2.6/lib-dynload/_csv.so imports=[] binaries=[] datas=[]>
+chardet.universaldetector: None -> <Module chardet.universaldetector /home/duststorm/projects/erfgoedstats/src/chardet/universaldetector.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('latin1prober', 0, 0, -1), ('latin1prober.Latin1Prober', 0, 0, -1), ('mbcsgroupprober', 0, 0, -1), ('mbcsgroupprober.MBCSGroupProber', 0, 0, -1), ('sbcsgroupprober', 0, 0, -1), ('sbcsgroupprober.SBCSGroupProber', 0, 0, -1), ('escprober', 0, 0, -1), ('escprober.EscCharSetProber', 0, 0, -1), ('re', 0, 0, -1)] binaries=[] datas=[]>
+chardet.constants: None -> <Module chardet.constants /home/duststorm/projects/erfgoedstats/src/chardet/constants.pyc imports=[('__builtin__', 0, 0, -1)] binaries=[] datas=[]>
+chardet.sys: None -> None
+chardet.latin1prober: None -> <Module chardet.latin1prober /home/duststorm/projects/erfgoedstats/src/chardet/latin1prober.pyc imports=[('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1), ('constants', 0, 0, -1), ('operator', 0, 0, -1)] binaries=[] datas=[]>
+chardet.mbcsgroupprober: None -> <Module chardet.mbcsgroupprober /home/duststorm/projects/erfgoedstats/src/chardet/mbcsgroupprober.pyc imports=[('charsetgroupprober', 0, 0, -1), ('charsetgroupprober.CharSetGroupProber', 0, 0, -1), ('utf8prober', 0, 0, -1), ('utf8prober.UTF8Prober', 0, 0, -1), ('sjisprober', 0, 0, -1), ('sjisprober.SJISProber', 0, 0, -1), ('eucjpprober', 0, 0, -1), ('eucjpprober.EUCJPProber', 0, 0, -1), ('gb2312prober', 0, 0, -1), ('gb2312prober.GB2312Prober', 0, 0, -1), ('euckrprober', 0, 0, -1), ('euckrprober.EUCKRProber', 0, 0, -1), ('big5prober', 0, 0, -1), ('big5prober.Big5Prober', 0, 0, -1), ('euctwprober', 0, 0, -1), ('euctwprober.EUCTWProber', 0, 0, -1)] binaries=[] datas=[]>
+chardet.sbcsgroupprober: None -> <Module chardet.sbcsgroupprober /home/duststorm/projects/erfgoedstats/src/chardet/sbcsgroupprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('charsetgroupprober', 0, 0, -1), ('charsetgroupprober.CharSetGroupProber', 0, 0, -1), ('sbcharsetprober', 0, 0, -1), ('sbcharsetprober.SingleByteCharSetProber', 0, 0, -1), ('langcyrillicmodel', 0, 0, -1), ('langcyrillicmodel.Win1251CyrillicModel', 0, 0, -1), ('langcyrillicmodel.Koi8rModel', 0, 0, -1), ('langcyrillicmodel.Latin5CyrillicModel', 0, 0, -1), ('langcyrillicmodel.MacCyrillicModel', 0, 0, -1), ('langcyrillicmodel.Ibm866Model', 0, 0, -1), ('langcyrillicmodel.Ibm855Model', 0, 0, -1), ('langgreekmodel', 0, 0, -1), ('langgreekmodel.Latin7GreekModel', 0, 0, -1), ('langgreekmodel.Win1253GreekModel', 0, 0, -1), ('langbulgarianmodel', 0, 0, -1), ('langbulgarianmodel.Latin5BulgarianModel', 0, 0, -1), ('langbulgarianmodel.Win1251BulgarianModel', 0, 0, -1), ('langhungarianmodel', 0, 0, -1), ('langhungarianmodel.Latin2HungarianModel', 0, 0, -1), ('langhungarianmodel.Win1250HungarianModel', 0, 0, -1), ('langthaimodel', 0, 0, -1), ('langthaimodel.TIS620ThaiModel', 0, 0, -1), ('langhebrewmodel', 0, 0, -1), ('langhebrewmodel.Win1255HebrewModel', 0, 0, -1), ('hebrewprober', 0, 0, -1), ('hebrewprober.HebrewProber', 0, 0, -1)] binaries=[] datas=[]>
+chardet.escprober: None -> <Module chardet.escprober /home/duststorm/projects/erfgoedstats/src/chardet/escprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('escsm', 0, 0, -1), ('escsm.HZSMModel', 0, 0, -1), ('escsm.ISO2022CNSMModel', 0, 0, -1), ('escsm.ISO2022JPSMModel', 0, 0, -1), ('escsm.ISO2022KRSMModel', 0, 0, -1), ('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1)] binaries=[] datas=[]>
+chardet.re: None -> None
+chardet.__builtin__: None -> None
+chardet.charsetprober: None -> <Module chardet.charsetprober /home/duststorm/projects/erfgoedstats/src/chardet/charsetprober.pyc imports=[('constants', 0, 0, -1), ('re', 0, 0, -1)] binaries=[] datas=[]>
+chardet.operator: None -> None
+chardet.charsetgroupprober: None -> <Module chardet.charsetgroupprober /home/duststorm/projects/erfgoedstats/src/chardet/charsetgroupprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1)] binaries=[] datas=[]>
+chardet.utf8prober: None -> <Module chardet.utf8prober /home/duststorm/projects/erfgoedstats/src/chardet/utf8prober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1), ('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.UTF8SMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.sjisprober: None -> <Module chardet.sjisprober /home/duststorm/projects/erfgoedstats/src/chardet/sjisprober.pyc imports=[('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.SJISDistributionAnalysis', 0, 0, -1), ('jpcntx', 0, 0, -1), ('jpcntx.SJISContextAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.SJISSMModel', 0, 0, -1), ('constants', 0, 0, -1), ('sys', 0, 0, -1), ('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1)] binaries=[] datas=[]>
+chardet.eucjpprober: None -> <Module chardet.eucjpprober /home/duststorm/projects/erfgoedstats/src/chardet/eucjpprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1), ('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.EUCJPDistributionAnalysis', 0, 0, -1), ('jpcntx', 0, 0, -1), ('jpcntx.EUCJPContextAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.EUCJPSMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.gb2312prober: None -> <Module chardet.gb2312prober /home/duststorm/projects/erfgoedstats/src/chardet/gb2312prober.pyc imports=[('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.GB2312DistributionAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.GB2312SMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.euckrprober: None -> <Module chardet.euckrprober /home/duststorm/projects/erfgoedstats/src/chardet/euckrprober.pyc imports=[('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.EUCKRDistributionAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.EUCKRSMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.big5prober: None -> <Module chardet.big5prober /home/duststorm/projects/erfgoedstats/src/chardet/big5prober.pyc imports=[('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.Big5DistributionAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.Big5SMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.euctwprober: None -> <Module chardet.euctwprober /home/duststorm/projects/erfgoedstats/src/chardet/euctwprober.pyc imports=[('mbcharsetprober', 0, 0, -1), ('mbcharsetprober.MultiByteCharSetProber', 0, 0, -1), ('codingstatemachine', 0, 0, -1), ('codingstatemachine.CodingStateMachine', 0, 0, -1), ('chardistribution', 0, 0, -1), ('chardistribution.EUCTWDistributionAnalysis', 0, 0, -1), ('mbcssm', 0, 0, -1), ('mbcssm.EUCTWSMModel', 0, 0, -1)] binaries=[] datas=[]>
+chardet.codingstatemachine: None -> <Module chardet.codingstatemachine /home/duststorm/projects/erfgoedstats/src/chardet/codingstatemachine.pyc imports=[('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1)] binaries=[] datas=[]>
+chardet.mbcssm: None -> <Module chardet.mbcssm /home/duststorm/projects/erfgoedstats/src/chardet/mbcssm.pyc imports=[('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1)] binaries=[] datas=[]>
+chardet.mbcharsetprober: None -> <Module chardet.mbcharsetprober /home/duststorm/projects/erfgoedstats/src/chardet/mbcharsetprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1), ('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1)] binaries=[] datas=[]>
+chardet.chardistribution: None -> <Module chardet.chardistribution /home/duststorm/projects/erfgoedstats/src/chardet/chardistribution.pyc imports=[('constants', 0, 0, -1), ('euctwfreq', 0, 0, -1), ('euctwfreq.EUCTWCharToFreqOrder', 0, 0, -1), ('euctwfreq.EUCTW_TABLE_SIZE', 0, 0, -1), ('euctwfreq.EUCTW_TYPICAL_DISTRIBUTION_RATIO', 0, 0, -1), ('euckrfreq', 0, 0, -1), ('euckrfreq.EUCKRCharToFreqOrder', 0, 0, -1), ('euckrfreq.EUCKR_TABLE_SIZE', 0, 0, -1), ('euckrfreq.EUCKR_TYPICAL_DISTRIBUTION_RATIO', 0, 0, -1), ('gb2312freq', 0, 0, -1), ('gb2312freq.GB2312CharToFreqOrder', 0, 0, -1), ('gb2312freq.GB2312_TABLE_SIZE', 0, 0, -1), ('gb2312freq.GB2312_TYPICAL_DISTRIBUTION_RATIO', 0, 0, -1), ('big5freq', 0, 0, -1), ('big5freq.Big5CharToFreqOrder', 0, 0, -1), ('big5freq.BIG5_TABLE_SIZE', 0, 0, -1), ('big5freq.BIG5_TYPICAL_DISTRIBUTION_RATIO', 0, 0, -1), ('jisfreq', 0, 0, -1), ('jisfreq.JISCharToFreqOrder', 0, 0, -1), ('jisfreq.JIS_TABLE_SIZE', 0, 0, -1), ('jisfreq.JIS_TYPICAL_DISTRIBUTION_RATIO', 0, 0, -1)] binaries=[] datas=[]>
+chardet.jpcntx: None -> <Module chardet.jpcntx /home/duststorm/projects/erfgoedstats/src/chardet/jpcntx.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.euctwfreq: None -> <Module chardet.euctwfreq /home/duststorm/projects/erfgoedstats/src/chardet/euctwfreq.pyc imports=[] binaries=[] datas=[]>
+chardet.euckrfreq: None -> <Module chardet.euckrfreq /home/duststorm/projects/erfgoedstats/src/chardet/euckrfreq.pyc imports=[] binaries=[] datas=[]>
+chardet.gb2312freq: None -> <Module chardet.gb2312freq /home/duststorm/projects/erfgoedstats/src/chardet/gb2312freq.pyc imports=[] binaries=[] datas=[]>
+chardet.big5freq: None -> <Module chardet.big5freq /home/duststorm/projects/erfgoedstats/src/chardet/big5freq.pyc imports=[] binaries=[] datas=[]>
+chardet.jisfreq: None -> <Module chardet.jisfreq /home/duststorm/projects/erfgoedstats/src/chardet/jisfreq.pyc imports=[] binaries=[] datas=[]>
+chardet.sbcharsetprober: None -> <Module chardet.sbcharsetprober /home/duststorm/projects/erfgoedstats/src/chardet/sbcharsetprober.pyc imports=[('constants', 0, 0, -1), ('sys', 0, 0, -1), ('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langcyrillicmodel: None -> <Module chardet.langcyrillicmodel /home/duststorm/projects/erfgoedstats/src/chardet/langcyrillicmodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langgreekmodel: None -> <Module chardet.langgreekmodel /home/duststorm/projects/erfgoedstats/src/chardet/langgreekmodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langbulgarianmodel: None -> <Module chardet.langbulgarianmodel /home/duststorm/projects/erfgoedstats/src/chardet/langbulgarianmodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langhungarianmodel: None -> <Module chardet.langhungarianmodel /home/duststorm/projects/erfgoedstats/src/chardet/langhungarianmodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langthaimodel: None -> <Module chardet.langthaimodel /home/duststorm/projects/erfgoedstats/src/chardet/langthaimodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.langhebrewmodel: None -> <Module chardet.langhebrewmodel /home/duststorm/projects/erfgoedstats/src/chardet/langhebrewmodel.pyc imports=[('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.hebrewprober: None -> <Module chardet.hebrewprober /home/duststorm/projects/erfgoedstats/src/chardet/hebrewprober.pyc imports=[('charsetprober', 0, 0, -1), ('charsetprober.CharSetProber', 0, 0, -1), ('constants', 0, 0, -1)] binaries=[] datas=[]>
+chardet.escsm: None -> <Module chardet.escsm /home/duststorm/projects/erfgoedstats/src/chardet/escsm.pyc imports=[('constants', 0, 0, -1), ('constants.eStart', 0, 0, -1), ('constants.eError', 0, 0, -1), ('constants.eItsMe', 0, 0, -1)] binaries=[] datas=[]>
+resources.utils: None -> None
 ic: None -> None
   DEL ic
 glob: None -> <Module glob /usr/lib/python2.6/glob.pyc imports=[('sys', 0, 0, -1), ('os', 0, 0, -1), ('re', 0, 0, -1), ('fnmatch', 0, 0, -1)] binaries=[] datas=[]>
@@ -755,26 +689,3 @@ pyttk.calendar: None -> None
 pyttk.datetime: None -> None
 pyttk.time: None -> None
 pyttk.math: None -> None
-__main__: <Module __main__ ../src/NewGUI.py imports=[('adlibstats', 0, 0, -1), ('webbrowser', 0, 0, -1), ('tkFont', 0, 0, -1), ('pickle', 0, 0, -1), ('utils', 0, 0, -1), ('thesaurus', 0, 0, -1), ('traceback', 0, 0, -1), ('copy', 0, 0, -1), ('thesaurus', 0, 0, -1), ('thesaurus.setCustomThesauri', 0, 0, -1), ('gui', 0, 0, -1), ('gui.generateReport', 0, 0, -1), ('Tkinter', 0, 0, -1), ('Tkinter.*', 0, 0, -1), ('tkinter', 0, 0, -1), ('tkinter.*', 0, 0, -1), ('pyttk', 0, 0, -1), ('pyttk.*', 0, 0, -1), ('tkFileDialog', 0, 0, -1), ('tkMessageBox', 0, 0, -1), ('resources.digiridoologo_base64', 0, 0, -1), ('resources.provinciewestvllogo_base64', 0, 0, -1)] binaries=[] datas=[]> -> <Module __main__ support/removeTK.py imports=[('sys', 0, 0, -1), ('os', 0, 0, -1)] binaries=[] datas=[]>
-_emx_link: None -> None
-  DEL _emx_link
-_emx_link: None -> None
-  DEL _emx_link
-nt: None -> None
-  DEL nt
-nt: None -> None
-  DEL nt
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org
-msvcrt: None -> None
-  DEL msvcrt
-_subprocess: None -> None
-  DEL _subprocess
-_subprocess: None -> None
-  DEL _subprocess
-org: None -> None
-  DEL org
-org: None -> None
-  DEL org

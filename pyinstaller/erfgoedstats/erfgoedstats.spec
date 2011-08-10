@@ -1,8 +1,8 @@
 # -*- mode: python -*-
-a = Analysis([os.path.join(HOMEPATH,'support/_mountzlib.py'), os.path.join(HOMEPATH,'support/unpackTK.py'), os.path.join(HOMEPATH,'support/useTK.py'), os.path.join(HOMEPATH,'support/useUnicode.py'), '../src/NewGUI.py', os.path.join(HOMEPATH,'support/removeTK.py')],
+a = Analysis([os.path.join(HOMEPATH,'support/_mountzlib.py'), os.path.join(HOMEPATH,'support/useUnicode.py'), '../src/NewGUI.py'],
              pathex=['/home/duststorm/projects/erfgoedstats/pyinstaller'])
 pyz = PYZ(a.pure)
-exe = EXE(TkPKG(), pyz,
+exe = EXE( pyz,
           a.scripts,
           a.binaries,
           a.zipfiles,

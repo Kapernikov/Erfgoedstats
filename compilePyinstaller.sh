@@ -22,7 +22,7 @@ mkdir erfgoedstats/dist
 
 python Configure.py
 
-python Makespec.py --onefile --tk --upx --name=erfgoedstats ../src/NewGUI.py
+python Makespec.py --onefile --upx --name=erfgoedstats ../src/NewGUI.py
 
 python Build.py erfgoedstats/erfgoedstats.spec
 

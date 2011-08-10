@@ -1,4 +1,4 @@
-#Wed Aug 03 19:49:28 CEST 2011
+#Wed Aug 10 18:49:30 CEST 2011
 eclipse.preferences.version=1
 encoding//src/NewGUI.py=utf-8
 encoding//src/UnitTests.py=utf-8
@@ -19,4 +19,5 @@ encoding//src/resources/sorttable_js.py=utf-8
 encoding//src/sorttable.py=utf-8
 encoding//src/thesaurus.py=utf-8
 encoding//src/tr.py=utf-8
+encoding//src/unicodeTests/unicode_test.py=utf-8
 encoding//src/utils.py=utf-8
