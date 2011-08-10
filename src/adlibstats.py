@@ -137,8 +137,7 @@ def generate_csvreport(filename):
     return html
 
 def autoDetectEncodingFromFile(filename):
-    'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets?'
-    'TODO: implement '
+    'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets? Misschien is het mogelijk om bepaalde scores wat op te waarderen'
     result = chardet.detect(open(filename, mode="rb").read())
     encoding = result["encoding"]
     confidence = result["confidence"]
@@ -174,7 +173,7 @@ def getCSV(filename):
     '''Parse specified file as CSV file. Returns a CSV reader object
     that returns utf-8 encoded strings.'''
     import csv
-    'TODO: geen excel dialect selecteren?'
+    'TODO: excel dialect selecteren?'
     the_doc = csv.reader(getFileContents(filename).encode("utf-8").split("\n"), delimiter=";")
     return the_doc
 

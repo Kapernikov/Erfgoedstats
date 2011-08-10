@@ -55,7 +55,7 @@ class InputFileTable:
         typeheader = Label(self.tableHeader, text="Type", width=19)
         typeheader.pack(side=LEFT, padx=5)
         pathheader = Label(self.tableHeader, text="Bestandslocatie", width=20)
-        pathheader.pack(side=LEFT, padx=5)
+        pathheader.pack(side=LEFT, padx=30)
         # Frame containing the entries
         self.entries = Frame(self.frame)
         self.entries.pack(fill=X, expand=1)
@@ -179,7 +179,7 @@ class InputFileRow:
         self.browseButton = Button(self.frame, text="Bladeren", command=self.browseFile)
         self.browseButton.pack(side=LEFT, padx=5)
         # Remove row button
-        self.removeButton = Button(self.frame, image=resources.ButtonIcons_base64.remove, command=self.remove)
+        self.removeButton = Button(self.frame, image=resources.ButtonIcons_base64.remove, text="Verwijderen", compound=LEFT, command=self.remove)
         self.removeButton.pack(side=LEFT)
         # Add to rows list
         parentTable.rows.append(self)
@@ -206,16 +206,6 @@ class InputFileRow:
         # In path field, remove current text and replace with selected filename
         self.pathField.delete(0, END)
         self.pathField.insert(0, filename)
-        'TODO: zijn XML objecten en XML fieldstats hetzelfde?'
-        
-        'TODO: zijn deze beschikbaar? of worden die gewoon als standaard fieldstats ingeladen?'
-        '''
-        if self.filetype == 'TXT Thesaurus':
-        if self.filetype == 'CSV Thesaurus':
-        if self.filetype == 'TXT Objecten':
-        if self.filetype == 'CSV Objecten':
-        '''
-        'TODO: zoek uit welke verschillende typen er juist zijn, is bv thesaurus of objects als gewone fieldstat in te laden?'
         
     def remove(self):
         self.table.rows.remove(self)
@@ -251,7 +241,7 @@ class MainWindow:
         mainmenu.add_command(label='Opties', command=self.showOptions)
         mainmenu.add_separator()
         mainmenu.add_command(label='Afsluiten', command=self.quit)
-        self.menu.add_cascade(label='Menu', menu=mainmenu)
+        self.menu.add_cascade(label='Bestand', menu=mainmenu)
         parent.config(menu=self.menu)
         self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
@@ -266,7 +256,7 @@ class MainWindow:
         self.museumnaamFrame = Frame(self.frame)
         self.museumnaamFrame.pack(pady=5, fill=X, expand=1)
         font = tkFont.Font(weight="bold")
-        museumnaamLabel = Label(self.museumnaamFrame, text="Museum naam: ", font=font, anchor=W)
+        museumnaamLabel = Label(self.museumnaamFrame, text="Naam Museum: ", font=font, anchor=W)
         museumnaamLabel.pack(side=LEFT, pady=15)
         self.museumnaamField = Entry(self.museumnaamFrame)
         self.museumnaamField.pack(side=LEFT, fill=X, expand=1)
@@ -283,7 +273,7 @@ class MainWindow:
         self.inputFilesTable.addRow(name="Personen", filetype='Adlib XML Personen')
         
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, image=resources.ButtonIcons_base64.add, command=self.addInputRow)
+        self.addRowButton = Button(self.frame, image=resources.ButtonIcons_base64.add, text="Bestand toevoegen", compound=LEFT, command=self.addInputRow)
         self.addRowButton.pack(pady=5)
         
         # Kies output file
@@ -304,6 +294,7 @@ class MainWindow:
         self.checkb = Checkbutton(self.frame4, variable=self.checkThesaurus)
         self.updateThesauriCheckbox()
         self.checkb.pack(side=LEFT, padx=5)
+        self.checkThesaurus.set(1)
         
         ## Start button ##
         self.startButton = Button(self.frame, text="Start", command=self.start)
@@ -313,29 +304,12 @@ class MainWindow:
     def addInputRow(self):
         self.inputFilesTable.addRow()
     
-    'TODO: unused?'
-    def browseFile(self, inputField, title, initialdir, defaultExt=None, filetypes=None, isOutputFile=False):
-        '''TODO: maybe filter for filetype'''
-        if defaultExt:
-            filename = tkFileDialog.askopenfilename(title=title, defaultextension=defaultExt, initialdir=initialdir)
-        elif filetypes:
-            filename = tkFileDialog.askopenfilename(title=title, filetypes=filetypes, initialdir=initialdir)
-        else:
-            filename = tkFileDialog.askopenfilename(title=title, initialdir=initialdir)
-        if isOutputFile:
-            if not isValidOutputFile(filename):
-                return
-        else:
-            if not isValidFile(filename):
-                return
-        # Remove current text and replace with selected filename
-        inputField.delete(0, END)
-        inputField.insert(0, filename)
-        return
-    
     def browseOutputFile(self):
         defaultDir = getDefaultDirectory(path="../out/")
-        self.browseFile(self.outputField, "Waar wilt u het resultaat opslaan?", defaultDir, filetypes=[("HTML bestand", "*.html")], isOutputFile=True)
+        filename = tkFileDialog.asksaveasfilename(title="Waar wilt u het resultaat opslaan?", filetypes=[("HTML bestand", "*.html")], defaultextension=".html", initialdir=defaultDir)
+        # Remove current text and replace with selected filename
+        self.outputField.delete(0, END)
+        self.outputField.insert(0, filename)
         
     def showOptions(self):
         '''Show the settings dialog'''
@@ -375,6 +349,7 @@ class MainWindow:
             if len(inputFiles.keys()) == 0:
                 waitDialog.close()
                 tkMessageBox.showerror('Fout bij het starten', u'Kon niet starten omdat er geen geldige "Input" bestanden zijn opgegeven.\nEr is minstens één input bestand met ingevulde naam, type en bestandslocatie vereist.');
+                return
 
             if self.checkb["state"] != DISABLED and self.checkThesaurus.get():
                 checkThesaurus = True
@@ -412,7 +387,7 @@ class MainWindow:
         
         waitDialog.close()
         
-        showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wilt u het resultaat tonen?')
+        showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wilt u het resultaat bekijken?')
         if showHtml:
             webbrowser.open(outputFile)
 
@@ -438,7 +413,6 @@ class MainWindow:
         except Exception, e:
             tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
             raise e     
-        'TODO: show result in web browser?'
         showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wil je het resultaat tonen?')
         if showHtml:
             webbrowser.open(outfile)
@@ -580,7 +554,7 @@ class SettingsDialog:
             # Add an empty row to GUI if no thesauri are configured, as a visual cue of what the purpose of this menu is
             self.thesauriTable.addRow()
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, text="Thesaurus toevoegen", command=self.thesauriTable.addRow)
+        self.addRowButton = Button(self.frame, text="Thesaurus toevoegen", image=resources.ButtonIcons_base64.add, compound=LEFT, command=self.thesauriTable.addRow)
         self.addRowButton.pack(pady=5)
         # Description label
         descrLabel = Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=W)

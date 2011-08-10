@@ -79,5 +79,3 @@ print a		# the special characters will be replaced by ? symbols
 			# or error handling. (example 4)
 			# This would suggest that errors=replace is the default.
 			
-			
-'TODO: auto detection tests'

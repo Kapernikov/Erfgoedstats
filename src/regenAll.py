@@ -169,7 +169,6 @@ def main():
                                                         # Compliance test is always forced to false
                 adlibstats.generateReportFile(htmlfile, museum, compliance_test=False, thesaurus_test=True, verbose=True)
             except Exception as e:
-                'TODO: informatiever maken'
                 print "---- >>>> MISLUKT"
                 traceback.print_exc()
         

@@ -106,7 +106,6 @@ def kv2map(k, v):
         if(i >= len(v)):
             continue
         value = ensureUnicode(v[i])
-        'TODO: of voor conversie testen of value niet none is, en wel verdergaan met lege strings?'
         if not value:
             continue
         value = value.strip()
@@ -138,12 +137,11 @@ def unicode_csv_reader(utf8_data, **kwargs):
     Call next() consecutively until an exception is thrown.
     Each next() call will return a new line in the CSV,
     represented as a list, encoded in unicode.'''
-    'TODO: csv reader heeft mooiere methode om encoding te specifiëren? nope, komt rechtstreeks uit python manual'
+    'TODO: heeft csv reader mooiere methode om encoding te specifiëren? nope, komt rechtstreeks uit python manual'
     csv_reader = csv.reader(utf8_data,  **kwargs)
     for row in csv_reader:
         yield [unicode(cell, 'utf-8') for cell in row]        
 
-'TODO: voor methodes die deze maps gebruiken, testen of de map voldoet (juiste params aanwezig zijn)'
 def doc2map(element):
     '''Convert XML element to a map.
     Map will contain tag, value pairs, encoded in unicode.
@@ -161,7 +159,6 @@ def doc2map(element):
         value = f.text
         
         # check of waarde leeg (--> negeren)
-        'TODO: dit stuk in originele code is maar vies, was dat echt de bedoeling?'
         if value is None:
             if "value" in f.attrib.keys():
                 value = f.attrib["value"]
@@ -176,7 +173,6 @@ def doc2map(element):
         #value = value.encode('utf-8', "ignore")
         #fieldname = f.tag.encode('utf-8', "ignore")
         fieldname = ensureUnicode(f.tag)
-        'TODO: toch verdergaan als fieldname leeg is?'
         if(not fieldname):
             continue
         if (fieldname in map):

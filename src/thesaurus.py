@@ -99,7 +99,6 @@ class Thesaurus:
         fil = adlibstats.getFileContents(filename)
         lines = fil.split('\n')
         for x in lines:
-            'TODO: test if this works, or is one char too much cut off'
             # leave off newline characters
             word = utils.ensureUnicode(x)
             if word:
@@ -111,7 +110,6 @@ class Thesaurus:
         '''Compare a specified word with the thesaurus. It will
         either be a preferred term, an unpreferred synonym, or
         not exist in thesaurus.'''
-        'TODO: lots of input testing here, verify why'
         word = utils.ensureUnicode(word)
         if (not word):
             return u"Leeg (niet ingevuld)"
@@ -133,7 +131,6 @@ class Thesaurus:
             # start counter dict
             statusmap = utils.CounterDict()
             for object in collection.objects:
-                'TODO: what if field does not exist?'
                 fieldvalue = object[f]
                 for value in fieldvalue:
                     statusmap.count(self.getStatusOfWord(value))
@@ -177,7 +174,6 @@ class Term:
         use parameter. Tags with empty values are 
         ignored and parameter values can contain multiple
         values (in which case they become a list).'''
-        'TODO: you cant be certain that required fields will be present!'
         if(not iselement(element)):
             return
         for x in element:
@@ -193,7 +189,6 @@ class Term:
             self.addField(fieldname, value)
 
     def addField(self, fieldname, value):
-        'TODO: zijn lege fields toegelaten? anders is het beter eerst ensureUnicode te doen'
         if(not fieldname or not value):
             return
         fieldname = utils.ensureUnicode(fieldname)
@@ -219,7 +214,6 @@ class Term:
             return self.getSingleFieldValue(u"english_term")
         return self.getSingleFieldValue(u"term")
 
-    'TODO: will we be encoding field names also as unicode?'    
     def getSingleFieldValue(self, fieldname):
         '''Returns only the first value of the specified field,
         if it is available'''
@@ -230,7 +224,6 @@ class Term:
         
     def getFieldValues(self, fieldname):
         '''Return the values of the field with specified name'''
-        'TODO: what to do when fieldname does not exist? return empty list, None?'
         if not fieldname in self.params:
             return []
         return self.params[fieldname]
@@ -276,7 +269,6 @@ def getCachedVersionFilename(xmlFilename):
     if not xmlFilename.lower().endswith('.xml'):
         return None
     plaintextFilename = utils.ensureUnicode(os.path.basename(xmlFilename))
-    'TODO: use os.path.pathname + basename'
     return plaintextFilename.replace('.xml', '_cached.txt')
 
 def createCachedVersion(thesaurus, filename):
@@ -312,7 +304,6 @@ def getThesauri():
     '''Singleton access point for all thesauri. Upon first
     call, thesauri are parsed and loaded into memory. Subsequent
     calls will be much faster. Returns a list of all thesauri.'''
-    'TODO: try loading thesauri from cached txt files if they exist, instead of parsing the XML files. This is much faster.'
     if len(__thesauri) == 0:
         initThesauri()
     return __thesauri.values()
@@ -378,7 +369,6 @@ def getCollectionThesauriReport(collection):
     for f in fields_to_check:
         statusmap = utils.CounterDict()
         for object in collection.objects:
-            'TODO: wat als field niet bestaat voor object?'
             fieldvalue = object[f]
             for value in fieldvalue:
                 statusmap.count(getThesauriStatusOfWord(value))

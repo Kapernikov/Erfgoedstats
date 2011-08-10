@@ -70,7 +70,6 @@ class Field:
     '''
         a document that already used this field uses it again (multivalued field)
     '''
-    'TODO: zit die logica of newUse of newDocument moet gebruikt worden niet beter in 1 add methode?'
     def newUse(self,use):
         '''Notify this field that it is used another time by a document
         that already announced its first usage of this field using newDocument.'''
@@ -105,7 +104,7 @@ class Field:
             return True
         return self.fieldname in badfields
     
-    'TODO: ??  / is id gebruikt?'
+    'TODO: ??  is id gebruikt?'
     def reportValueBreakdown(self, id):
         '''Returns a breakdown of the different unique values and their
         number of occurences in the report (all values of all documents).
@@ -114,7 +113,6 @@ class Field:
         if (self.getNBDocuments() == 0):
             return None
         values = utils.CounterDict()
-        'TODO: wat zit er in documents'
         for x in self.documents:
             for y in x:
                 values.count(y)
@@ -226,13 +224,11 @@ class FieldStats:
                 if not (fieldname in self.fields.keys()):
                     self.fields[fieldname]=Field(fieldname)
                 if (type(fieldvalue) == list):
-                    'TODO: Wat is het type van argument dat hier gepassed wordt?'
                     self.fields[fieldname].newDocument(fieldvalue[0])
                     for val in fieldvalue[1:]:
                         self.fields[fieldname].newUse(val)
                 else:
                     if (fieldvalue != ''):
-                        'TODO: Wat is het type van argument dat hier gepassed wordt?'
                         self.fields[fieldname].newDocument(fieldvalue)
 
     def generateReport(self):
