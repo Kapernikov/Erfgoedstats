@@ -294,7 +294,6 @@ class MainWindow:
         self.checkb = Checkbutton(self.frame4, variable=self.checkThesaurus)
         self.updateThesauriCheckbox()
         self.checkb.pack(side=LEFT, padx=5)
-        self.checkThesaurus.set(1)
         
         ## Start button ##
         self.startButton = Button(self.frame, text="Start", command=self.start)
@@ -468,8 +467,10 @@ class MainWindow:
                 result.append(thesaurus["name"])
             availableThesauri = ', '.join(result)
             checkbState = NORMAL
+            self.checkThesaurus.set(1)
         else:
             checkbState = DISABLED
+            self.checkThesaurus.set(0)
             availableThesauri = "Geen thesauri gevonden"
         self.checkb.config(state=checkbState, text="Vergelijken met standaard thesauri (%s)" % availableThesauri)
         
