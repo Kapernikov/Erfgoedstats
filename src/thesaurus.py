@@ -410,7 +410,7 @@ def initThesauri():
             if thesaurusMap["type"] == 'Adlib XML Thesaurus':
                 thesaurus.parseDefaultAdlibDoc(thesaurusMap["path"])
             elif thesaurusMap["type"] == 'TXT Thesaurus':
-                thesaurus.parseTextFile(thesaurusMap["type"])
+                thesaurus.parseTextFile(thesaurusMap["path"])
             else:
                 'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (thesaurusMap["name"], thesaurusMap["type"])
                 continue
