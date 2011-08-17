@@ -309,12 +309,7 @@ def getThesauri():
     return __thesauri.values()
 
 def getThesaurus(name):
-    '''Singleton access point for a specific named thesaurus.
-    Upon first call, thesauri are parsed and loaded into memory. 
-    Subsequent calls will be much faster.'''
-    if len(__thesauri) == 0:
-        initThesauri()
-    return __thesauri[name]
+    return getThesauri()[name]
     
 
 def bestStatus(existingstatus, newstatus):
