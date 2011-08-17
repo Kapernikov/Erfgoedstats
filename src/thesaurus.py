@@ -382,7 +382,6 @@ def setCustomThesauri(thesauriDictList):
     and should not be called more than once. Make sure that thesauri have unique names!'''
     if not thesauriDictList or not isinstance(thesauriDictList, list) or len(thesauriDictList)==0:
         return
-    customThesauri = []
     for thesaurusMap in thesauriDictList:
         if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
             continue
@@ -392,6 +391,7 @@ def setCustomThesauri(thesauriDictList):
         if not os.path.exists(thesaurusMap["path"]):
             print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (thesaurusMap["name"], thesaurusMap["path"])
             continue
+        
         customThesauri.append(thesaurusMap)
     
 def initThesauri():
@@ -399,9 +399,10 @@ def initThesauri():
     the files are found are loaded, so it is safe to call this method when not all reference
     thesauri are present.'''
     # Custom reference thesauri specified, load those
+    global thesaurus_pref_order
+    thesaurus_pref_order = []
     if len(customThesauri) > 0:
         utils.s("INITIALIZING custom thesauri (this might take some time) ...")
-        thesaurus_pref_order = []
         for thesaurusMap in customThesauri:
             if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
                 continue
