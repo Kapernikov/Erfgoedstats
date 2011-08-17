@@ -433,7 +433,7 @@ def initThesauri():
             __thesauri[AmMoveThesaurus.name] = AmMoveThesaurus
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'AM-MovE' in thesaurus_pref_order:
         thesaurus_pref_order.remove('AM-MovE')
     
     thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
@@ -446,7 +446,7 @@ def initThesauri():
             __thesauri[AAT2000.name] = AAT2000
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'AAT-Ned' in thesaurus_pref_order:
         thesaurus_pref_order.remove("AAT-Ned")
     
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt')
@@ -459,7 +459,7 @@ def initThesauri():
             __thesauri[MotName] = MOT_name_list
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'MOT' in thesaurus_pref_order:
         thesaurus_pref_order.remove("MOT")
         
     utils.s("DONE thesaurus initialisation")
