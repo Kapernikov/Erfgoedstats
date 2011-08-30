@@ -162,7 +162,7 @@ def getAdlibXml(filename, isObjectXML=False):
     AdlibXMLConversion is done. When isObjectXML is true, extra mappings specific for
     object collection XML files is done.'''
     xmlStr = getFileContents(filename)
-    AdLibXMLConversion.convertToCommonAdlibXML(xmlStr, isObjectXML=isObjectXML)
+    xmlStr = AdLibXMLConversion.convertToCommonAdlibXML(xmlStr, isObjectXML=isObjectXML)
     # ElementTree only supports parsing from regular (encoded) strings, not from unicode objects
     utils.s("Parsing XML file %s." % filename)
     rootElement = etree.fromstring(xmlStr.encode("utf-8"))

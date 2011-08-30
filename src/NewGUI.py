@@ -312,7 +312,8 @@ class MainWindow:
         
     def showOptions(self):
         '''Show the settings dialog'''
-        SettingsDialog(self)
+        s = SettingsDialog(self)
+        s.show()
         
     def start(self):
         '''
@@ -381,6 +382,9 @@ class MainWindow:
         except Exception, e:
             waitDialog.close()
             stacktrace = traceback.format_exc()
+            print "exception ..."
+            print stacktrace
+            print "done"
             ExceptionDialog(self.parent, stacktrace)
             return
         
@@ -574,14 +578,18 @@ class SettingsDialog:
         self.window.focus_set()
         self.window.grab_set()
 #       self.window.protocol("WM_DELETE_WINDOW", self.close())
+
+    
+    def show(self):
         # Lock all interaction of underlying window and wait until the settigns window is closes
-        mainWindow.parent.wait_window(self.window)
+        self.mainWindow.parent.wait_window(self.window)
         
     def okPressed(self):
         '''Update config, close dialog.'''
         configuredReferenceThesauri = self.thesauriTable.getValues()
         self.mainWindow.updateReferenceThesauri(configuredReferenceThesauri)
         self.close()
+
         
     def close(self):
         self.window.destroy()

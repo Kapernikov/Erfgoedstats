@@ -11,7 +11,8 @@ import utils
 '''General mapping of tags that should happen for every Adlib XML file.
 Key is the tag name to be replaced, value is the name it will be replaced with.'''
 xmlFieldstatsConversionMapping ={
-    "adlib-record" : "record"
+    "adlib-record" : "record",
+    "adlib-xml": "recordlist"
 }
 
 '''Mapping of Adlib Object fields to a common format. This conversion will only
@@ -28,7 +29,15 @@ xmlObjectconversionMapping = {
     "verworven_van" : "acquisition.source",
     "verwerving_datum" : "acquisition.date",
     "vervaardiger" : "creator",
-    "datering_start" : "production.date.start"
+    "datering_start" : "production.date.start",
+# gaasbeek    
+    "afmeting_eenheid" : "dimension.unit",
+    "afmeting_soort" : "dimension.type",
+    "afmeting_waarde" : "dimension.value",
+    "aantal_onderdelen" : "number_of_parts",
+    "beschrijving": "description",
+    "eigenaar": "owner",
+    
 }
 
 '''Convert XML field names of specified adlib XML to a common XML format

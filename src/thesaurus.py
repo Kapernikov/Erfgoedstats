@@ -387,6 +387,7 @@ def setCustomThesauri(thesauriDictList):
     and should not be called more than once. Make sure that thesauri have unique names!'''
     if not thesauriDictList or not isinstance(thesauriDictList, list) or len(thesauriDictList)==0:
         return
+    global customThesauri
     customThesauri = []
     for thesaurusMap in thesauriDictList:
         if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
@@ -398,11 +399,19 @@ def setCustomThesauri(thesauriDictList):
             print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (thesaurusMap["name"], thesaurusMap["path"])
             continue
         customThesauri.append(thesaurusMap)
-    
+
+
+init_done_already = False
 def initThesauri():
     '''Initialize thesauri by parsing them from XML files. Only thesauri for which
     the files are found are loaded, so it is safe to call this method when not all reference
     thesauri are present.'''
+    global thesaurus_pref_order
+    global init_done_already
+    global customThesauri
+    if (init_done_already):
+        return
+    init_done_already = True
     # Custom reference thesauri specified, load those
     if len(customThesauri) > 0:
         utils.s("INITIALIZING custom thesauri (this might take some time) ...")
@@ -414,17 +423,19 @@ def initThesauri():
             if thesaurusMap["type"] == 'Adlib XML Thesaurus':
                 thesaurus.parseDefaultAdlibDoc(thesaurusMap["path"])
             elif thesaurusMap["type"] == 'TXT Thesaurus':
-                thesaurus.parseTextFile(thesaurusMap["type"])
+                thesaurus.parseTextFile(thesaurusMap["path"])
             else:
                 'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (thesaurusMap["name"], thesaurusMap["type"])
                 continue
             __thesauri[thesaurus.name] = thesaurus
             thesaurus_pref_order.append(thesaurus.name)
         
-        utils.s("DONE thesaurus initialisation")
+        utils.s("DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
         # Drop out here, do not load default thesauri
         return
     
+    thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
+
     # Else, try loading the defaults
     utils.s("INITIALIZING default thesauri (this might take some time) ...")
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'reference', 'Am_Move_thesaurus06_10.xml')
@@ -466,7 +477,7 @@ def initThesauri():
     else:
         thesaurus_pref_order.remove("MOT")
         
-    utils.s("DONE thesaurus initialisation")
+    utils.s("DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
 
 def notInAnyDocFilter(docmap):
     '''Docmapfilter that finds docmaps that contain
