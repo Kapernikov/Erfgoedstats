@@ -309,12 +309,7 @@ def getThesauri():
     return __thesauri.values()
 
 def getThesaurus(name):
-    '''Singleton access point for a specific named thesaurus.
-    Upon first call, thesauri are parsed and loaded into memory. 
-    Subsequent calls will be much faster.'''
-    if len(__thesauri) == 0:
-        initThesauri()
-    return __thesauri[name]
+    return getThesauri()[name]
     
 
 def bestStatus(existingstatus, newstatus):
@@ -388,7 +383,6 @@ def setCustomThesauri(thesauriDictList):
     if not thesauriDictList or not isinstance(thesauriDictList, list) or len(thesauriDictList)==0:
         return
     global customThesauri
-    customThesauri = []
     for thesaurusMap in thesauriDictList:
         if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
             continue
@@ -398,6 +392,7 @@ def setCustomThesauri(thesauriDictList):
         if not os.path.exists(thesaurusMap["path"]):
             print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (thesaurusMap["name"], thesaurusMap["path"])
             continue
+        
         customThesauri.append(thesaurusMap)
 
 
@@ -413,9 +408,10 @@ def initThesauri():
         return
     init_done_already = True
     # Custom reference thesauri specified, load those
+    global thesaurus_pref_order
+    thesaurus_pref_order = []
     if len(customThesauri) > 0:
         utils.s("INITIALIZING custom thesauri (this might take some time) ...")
-        thesaurus_pref_order = []
         for thesaurusMap in customThesauri:
             if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
                 continue
@@ -448,7 +444,7 @@ def initThesauri():
             __thesauri[AmMoveThesaurus.name] = AmMoveThesaurus
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'AM-MovE' in thesaurus_pref_order:
         thesaurus_pref_order.remove('AM-MovE')
     
     thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
@@ -461,7 +457,7 @@ def initThesauri():
             __thesauri[AAT2000.name] = AAT2000
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'AAT-Ned' in thesaurus_pref_order:
         thesaurus_pref_order.remove("AAT-Ned")
     
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt')
@@ -474,7 +470,7 @@ def initThesauri():
             __thesauri[MotName] = MOT_name_list
         except IOError as e:
             print("({})".format(e))
-    else:
+    elif 'MOT' in thesaurus_pref_order:
         thesaurus_pref_order.remove("MOT")
         
     utils.s("DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
