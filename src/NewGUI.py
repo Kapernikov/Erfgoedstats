@@ -29,6 +29,8 @@ import tkMessageBox
 import resources.digiridoologo_base64
 import resources.provinciewestvllogo_base64
 import resources.ButtonIcons_base64
+import resources.logos_provincies
+import resources.logos_kapernikovpacked
 
 configFile = "settings.cfg"
 
@@ -230,10 +232,14 @@ class MainWindow:
         self.settings = self.loadConfiguration()
         
         self.logoFrame = Frame(parent)
-        self.logoFrame.pack(side=TOP, fill=BOTH, expand=1)
+        self.logoFrame.pack(side=TOP, fill=BOTH, expand=0)
         
         self.frame = Frame(parent)
         self.frame.pack(padx=10, pady=10, fill=X, expand=1)
+
+        self.logo2Frame = Frame(parent)
+        self.logo2Frame.pack(fill=BOTH, expand=0)
+
         
         # Menu
         self.menu = Menu(parent)
@@ -246,11 +252,11 @@ class MainWindow:
         self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
         ## LOGOs (supplied as base64 encoded strings) ##
-        #digiridooLogo = Label(self.logoFrame, image=resources.digiridoologo_base64.getContent())
-        #digiridooLogo.pack(side=LEFT, padx=10, pady=10)
+        digiridooLogo = Label(self.logo2Frame, image=resources.logos_provincies.logo__provincie_)
+        digiridooLogo.pack(side=LEFT, padx=10, pady=10)
         
-        #provincieWestVlLogo = Label(self.logoFrame, image=resources.provinciewestvllogo_base64.getContent())
-        #provincieWestVlLogo.pack(side=RIGHT, padx=10)
+        provincieWestVlLogo = Label(self.logoFrame, image=resources.logos_kapernikovpacked.logo__kapernikovpacked)
+        provincieWestVlLogo.pack(side=RIGHT, padx=10)
         
         # Kies museum naam
         self.museumnaamFrame = Frame(self.frame)
