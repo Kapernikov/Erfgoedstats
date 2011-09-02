@@ -218,7 +218,7 @@ class FieldStats:
             self.totaldocs = self.totaldocs + 1
             alreadyfields = []
             for field in docmap:
-                fieldname = str(field)
+                fieldname = field.encode('utf-8','ignore')
                 fieldvalue = docmap[fieldname]
                 alreadyfields.append(fieldname)
                 if not (fieldname in self.fields.keys()):
