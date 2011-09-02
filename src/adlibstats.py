@@ -174,7 +174,7 @@ def getCSV(filename):
     that returns utf-8 encoded strings.'''
     import csv
     'TODO: excel dialect selecteren?'
-    the_doc = csv.reader(getFileContents(filename).encode("utf-8").split("\n"), delimiter=";")
+    the_doc = csv.reader(getFileContents(filename).encode("utf-8"), delimiter=";")
     return the_doc
 
 def getOutputFile(filename, encoding="utf-8"):
