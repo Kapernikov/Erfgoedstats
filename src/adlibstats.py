@@ -150,7 +150,7 @@ def getFileContents(filename, encoding=None):
     as possible for decoding the file.'''
     if not encoding:
         encoding=autoDetectEncodingFromFile(filename)
-    file = codecs.open(filename, mode='rb', encoding=encoding, errors="replace")
+    file = codecs.open(filename, mode='rU', encoding=encoding, errors="replace")
     fileContents = file.read()
     fileContents = utils.ensureUnicode(fileContents)
     return fileContents
@@ -174,7 +174,7 @@ def getCSV(filename):
     that returns utf-8 encoded strings.'''
     import csv
     'TODO: excel dialect selecteren?'
-    the_doc = csv.reader(getFileContents(filename).encode("utf-8").split("\n"), delimiter=";")
+    the_doc = csv.reader(getFileContents(filename).encode("utf-8").splitlines(), delimiter=";")
     return the_doc
 
 def getOutputFile(filename, encoding="utf-8"):
