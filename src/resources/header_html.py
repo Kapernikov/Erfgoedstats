@@ -41,13 +41,14 @@ _content=u'''
         </script>
     </head>
     <body>
+    <img src="data:image/png;base64,%INSERT_KAPERNIKOV_LOGO%"  alt="Kapernikov logo" style="padding:10px 20px 10px 0px; border: none;" />
+    <img src="data:image/png;base64,%INSERT_PROVINCIES_LOGO%"  alt="Provincies logo" style="padding:10px 20px 10px 0px; border: none;" />
 
 
 '''
 #<div style="float: right">
 #<a href="http://www.west-vlaanderen.be/genieten/Cultuur/erfgoed/Pages/default.aspx" target="_blank"><img src="data:image/png;base64,%INSERT_WEST_VLAANDEREN_LOGO%" width="150" height="67" alt="Provincie West-Vlaanderen logo" border="0" /></a></div>
 
-#<a href="http://www.digiridoo.be/" target="_blank"><img src="data:image/png;base64,%INSERT_DIGIRIDOO_LOGO%" width="143" height="59" alt="Digiridoo logo" style="padding:10px 20px 10px 0px; border: none;" /></a>
 
 def getContent():
 	return utils.ensureUnicode(_content)

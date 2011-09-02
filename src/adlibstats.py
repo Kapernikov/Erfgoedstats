@@ -329,7 +329,8 @@ def get_header():
     data = data.replace('%INSERT_JQUERY_AND_TOOLTIP%', resources.jquery_min_easyTooltip_js.getContent())
     data = data.replace('%INSERT_SORTTABLE%', resources.sorttable_js.getContent())
     data = data.replace('%INSERT_WEST_VLAANDEREN_LOGO%', resources.provinciewestvllogo_base64.getContent())
-    data = data.replace('%INSERT_DIGIRIDOO_LOGO%', resources.digiridoologo_base64.getContent()) 
+    data = data.replace('%INSERT_KAPERNIKOV_LOGO%', resources.logos_kapernikovpacked.logo__kapernikovpacked) 
+    data = data.replace('%INSERT_PROVINCIES_LOGO%', resources.logos_provincies.logo__provincie_) 
     return data
 
 def get_footer():
