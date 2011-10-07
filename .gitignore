@@ -1,1 +1,6 @@
 *.pyc
+*~
+src/*.txt
+src/*.html
+src/*.cfg
+*.orig

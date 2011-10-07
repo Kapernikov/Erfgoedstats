@@ -15,6 +15,7 @@ import codecs
 import pickle
 import copy
 import adlibstats
+import inputfiletable
 
 '''The fields for which a thesaurus simularities
 report should be created. For each of these fields
@@ -32,10 +33,8 @@ valid_filetypes = ['Adlib XML Thesaurus', 'TXT Thesaurus']
 This is the default order, will be overwritten when setCustomThesauri() is called.'''
 thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
 
-'''Can be configured by calling setCustomThesauri(). This is an ordered (by importance) list
-of reference thesauri that should be loaded by initThesauri(). List contains dicts with params
-"name", "type" and "path"'''
-customThesauri = []
+
+customThesauri = inputfiletable.TEntries()
 
 class Thesaurus:
     '''Represents a thesaurus. Contains a list of terms.'''
@@ -372,7 +371,7 @@ def getCollectionThesauriReport(collection):
     return utils.ensureUnicode(html)
     
     
-def setCustomThesauri(thesauriDictList):
+def setCustomThesauri(thesauri):
     '''Set a custom list of reference thesauri. The param should be a list
     of dicts containing "name", "path" and "type". The order in which the
     thesauri are specified counts as the importance of the thesauri.
@@ -380,20 +379,20 @@ def setCustomThesauri(thesauriDictList):
     Calling this method sets custom reference thesauri, which will override
     the defaults when calling initThesauri(). Should be called before initThesauri()
     and should not be called more than once. Make sure that thesauri have unique names!'''
-    if not thesauriDictList or not isinstance(thesauriDictList, list) or len(thesauriDictList)==0:
+    
+    if not thesauri or not isinstance(thesauri, inputfiletable.TEntries):
         return
     global customThesauri
-    for thesaurusMap in thesauriDictList:
-        if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
+    customThesauri.clear()
+    for entry in thesauri.values:
+        if entry.type not in valid_filetypes:
+            print 'ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (entry.type, entry.name)
             continue
-        if thesaurusMap["type"] not in valid_filetypes:
-            print 'ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (thesaurusMap["type"], thesaurusMap["name"])
-            continue
-        if not os.path.exists(thesaurusMap["path"]):
-            print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (thesaurusMap["name"], thesaurusMap["path"])
+        if not os.path.exists(entry.path):
+            print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (entry.name, entry.path)
             continue
         
-        customThesauri.append(thesaurusMap)
+        customThesauri.append(entry)
 
 
 init_done_already = False
@@ -410,18 +409,17 @@ def initThesauri():
     # Custom reference thesauri specified, load those
     global thesaurus_pref_order
     thesaurus_pref_order = []
-    if len(customThesauri) > 0:
+    customThesauri.sort()
+    if len(customThesauri.values) > 0:
         utils.s("INITIALIZING custom thesauri (this might take some time) ...")
-        for thesaurusMap in customThesauri:
-            if not "name" in thesaurusMap or not "type" in thesaurusMap or not "path" in thesaurusMap:
-                continue
-            thesaurus = Thesaurus(thesaurusMap["name"])
-            if thesaurusMap["type"] == 'Adlib XML Thesaurus':
-                thesaurus.parseDefaultAdlibDoc(thesaurusMap["path"])
-            elif thesaurusMap["type"] == 'TXT Thesaurus':
-                thesaurus.parseTextFile(thesaurusMap["path"])
+        for entry in customThesauri.values:
+            thesaurus = Thesaurus(entry.name)
+            if entry.type == 'Adlib XML Thesaurus':
+                thesaurus.parseDefaultAdlibDoc(entry.path)
+            elif entry.type == 'TXT Thesaurus':
+                thesaurus.parseTextFile(entry.path)
             else:
-                'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (thesaurusMap["name"], thesaurusMap["type"])
+                'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (entry.name, entry.type)
                 continue
             __thesauri[thesaurus.name] = thesaurus
             thesaurus_pref_order.append(thesaurus.name)

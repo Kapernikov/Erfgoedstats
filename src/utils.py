@@ -209,3 +209,13 @@ def ensureUnicode(input, encoding="utf-8"):
             input[key] = ensureUnicode(entry, encoding)
     '''
     return unicode("")
+
+
+def centerWindow(window):
+        window.update_idletasks()
+        w= window["width"]!=0 and window["width"] or window.winfo_width()
+        h= window["height"]!=0 and window["height"] or window.winfo_height()
+        ws,hs = window.winfo_screenwidth(),window.winfo_screenheight()
+        window.geometry('%dx%d+%d+%d' % (w, h, (ws/2) - (w/2), (hs/2) - (h/2)))
+        window.geometry("") # To enable pack_propagate again (so window dimensions resize with the widgets placed in it)
+     
