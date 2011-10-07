@@ -367,9 +367,9 @@ def getCollectionThesauriReport(collection):
         for object in collection.objects:
             fieldvalue = object[f]
             for value in fieldvalue:
-                statusmap.count(getThesauriStatusOfWord(value))
+                statusmap.count(getThesauriStatusOfWord(value),value)
         html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
-        html += statusmap.getReport()
+        html += statusmap.getL2Report()
     return utils.ensureUnicode(html)
     
     

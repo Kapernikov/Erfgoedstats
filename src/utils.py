@@ -48,7 +48,7 @@ class CounterDict:
         '''Generate a HTML report from this dictionary.'''
         html = ""
         html += '<table class="countertable" border="0">'
-        html += "<thead><tr><th>count</th><th>%</th><th>item</th></tr></thead>\n<tbody>"
+        html += "<thead><tr><th>Aantal</th><th>%</th><th>Waarde</th></tr></thead>\n<tbody>"
         if (dict is None):
             dict = self.realdict
         total = sum(dict.values())

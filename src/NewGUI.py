@@ -58,7 +58,7 @@ class MainWindow:
         # Menu
         self.menu = Menu(parent)
         mainmenu = Menu(self.menu, tearoff=False)
-        mainmenu.add_command(label='Opties', command=self.showOptions)
+        mainmenu.add_command(label='Opties / Standaardthesauri', command=self.showOptions)
         mainmenu.add_separator()
         mainmenu.add_command(label='Afsluiten', command=self.quit)
         self.menu.add_cascade(label='Bestand', menu=mainmenu)
@@ -76,7 +76,7 @@ class MainWindow:
         self.museumnaamFrame = Frame(self.frame)
         self.museumnaamFrame.pack(pady=5, fill=X, expand=1)
         font = tkFont.Font(weight="bold")
-        museumnaamLabel = Label(self.museumnaamFrame, text="Naam Museum: ", font=font, anchor=W)
+        museumnaamLabel = Label(self.museumnaamFrame, text="Naam collectie: ", font=font, anchor=W)
         museumnaamLabel.pack(side=LEFT, pady=15)
         self.museumnaamField = Entry(self.museumnaamFrame)
         self.museumnaamField.pack(side=LEFT, fill=X, expand=1)
@@ -152,7 +152,7 @@ class MainWindow:
         museumName = self.museumnaamField.get()
         museumName = utils.ensureUnicode(museumName)
         if not museumName.strip():
-            tkMessageBox.showerror('Geen naam voor museum opgegeven', 'Vul de naam van het museum in, aub.');
+            tkMessageBox.showerror('Geen naam voor de collectie opgegeven', 'Vul de naam van de collectie in, aub.');
             return
         outputFile = self.outputField.get()
         if not isValidOutputFile(outputFile):
@@ -201,7 +201,7 @@ class MainWindow:
                     thesauri.append(entry.path)
                 else:
                     print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (entry.name, entry.type)
-                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, not checkThesaurus)
+                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, False)
                  
         except Exception, e:
             waitDialog.close()

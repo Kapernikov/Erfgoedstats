@@ -90,13 +90,16 @@ class Settings:
         as value. This thesaurus dict has "type" and "path" values'''
         return self.thesauri
 
-class SettingsDialog:
+class SettingsDialog(Toplevel):
     def __init__(self, mainWindow):
+        Toplevel.__init__(self, mainWindow.parent, takefocus=True)
+        self.transient(mainWindow.parent)
         self.mainWindow = mainWindow
-        self.window = Toplevel(takefocus=True)
+        self.protocol("WM_DELETE_WINDOW", self.cancelPressed)
         #self.window.wm_attributes("-topmost", True)    # This option does not play well with ttk comboboxes
-        self.window.title('Instellingen')
-        self.frame = Frame(self.window)
+        self.title('Instellingen')
+        self.grab_set()
+        self.frame = Frame(self)
         self.frame.pack(fill=BOTH, expand=1, padx=10, pady=10)
         font = tkFont.Font(weight="bold")
         label = Label(self.frame, text='Standaard (referentie) thesauri: ', anchor=W, font=font)
@@ -125,28 +128,30 @@ class SettingsDialog:
         okButton.pack(side=RIGHT)
         cancelButton = Button(buttonsFrame, text="Annuleren", command=self.cancelPressed)
         cancelButton.pack(side=RIGHT, padx=5)
+        self.bind("<Escape>", self.cancelPressed)
         # Focus and center
-        utils.centerWindow(self.window)
-        self.window.focus_set()
-        self.window.grab_set()
+        utils.centerWindow(self)
+        self.focus_set()
+        self.grab_set()
 #       self.window.protocol("WM_DELETE_WINDOW", self.close())
 
     
     def show(self):
         # Lock all interaction of underlying window and wait until the settigns window is closes
-        self.mainWindow.parent.wait_window(self.window)
+        self.wait_window(self)
         
-    def okPressed(self):
+    def okPressed(self, par=None):
         '''Update config, close dialog.'''
         configuredReferenceThesauri = self.thesauriTable.getValues()
         self.mainWindow.updateReferenceThesauri(configuredReferenceThesauri)
-        self.close()
+        self.cancelPressed()
 
         
     def close(self):
         self.thesauriTable.close()
-        self.window.destroy()
+        self.destroy()
         
-    def cancelPressed(self):
+    def cancelPressed(self, par=None):
         '''No changes are made to config, dialog is closed.'''
+        self.mainWindow.parent.focus_set()
         self.close()
