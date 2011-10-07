@@ -111,6 +111,12 @@ class InputFileTable:
             order = order+1
         return result
     
+    def close(self):
+        for row in self.rows:
+            row.remove()
+        self.tableHeader.destroy()
+        self.frame.destroy()
+    
     def addRows(self, entries):
         '''Add rows to this table using rowValues, which should be the same format as is
         returned when calling getValues(). Only rows will be added that have files that exist

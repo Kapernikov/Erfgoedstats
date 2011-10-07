@@ -144,6 +144,7 @@ class SettingsDialog:
 
         
     def close(self):
+        self.thesauriTable.close()
         self.window.destroy()
         
     def cancelPressed(self):
