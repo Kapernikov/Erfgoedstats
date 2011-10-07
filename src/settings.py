@@ -132,7 +132,6 @@ class SettingsDialog(Toplevel):
         # Focus and center
         utils.centerWindow(self)
         self.focus_set()
-        self.grab_set()
 #       self.window.protocol("WM_DELETE_WINDOW", self.close())
 
     

@@ -59,6 +59,7 @@ class MainWindow:
         self.menu = Menu(parent)
         mainmenu = Menu(self.menu, tearoff=False)
         mainmenu.add_command(label='Opties / Standaardthesauri', command=self.showOptions)
+        mainmenu.add_command(label='Over erfgoedstats', command=self.showAbout)
         mainmenu.add_separator()
         mainmenu.add_command(label='Afsluiten', command=self.quit)
         self.menu.add_cascade(label='Bestand', menu=mainmenu)
@@ -135,6 +136,11 @@ class MainWindow:
         '''Show the settings dialog'''
         s = SettingsDialog(self)
         s.show()
+    
+    def showAbout(self):
+        import aboutdialog
+        a = aboutdialog.AboutDialog(self)
+        a.show()
         
     def start(self):
         '''
