@@ -126,6 +126,7 @@ class Field:
         if self._isReportDetail == -1:
             self.setReportDetail(self.reportValueBreakdown(id))
         return self._isReportDetail
+    
     def setReportDetail(self, values):
         '''Set the isReportDetail() based on the values (result from self.reportValueBreakdown(id))
         isReportDetail will be set to true if values is not None, and it contains less than 40 items,
@@ -156,12 +157,11 @@ class Field:
         this row is disabled so that the detail table can also not be shown for printing.'''
         if self.isReportDetail():
             # create the tooltip
-            fieldnameCell.tooltip = values.getReport()
-            disabled= ''
-        else:
-            disabled= "disabled='disabled'"
+            row.tooltip = values.getReport()
+            row.tooltiptitle = tr.tr(self.fieldname)
+
         fieldnameCell.addClass("fieldname")
-        fieldnameCell.content = """<input name='#inputvaluetable%(id)s' id='#inputvaluetable%(id)s' %(disabled)s type='checkbox' onClick="javascript:$('#valuetable%(id)s').toggle();"/><label for='#inputvaluetable%(id)s'>%(name)s</label>\n""" % {'id': fieldnameCell.id, 'disabled': disabled, 'name': tr.tr(self.fieldname)}
+        fieldnameCell.content = tr.tr(self.fieldname)
 
         usedDocs = htmlutils.Cell("%.0f" % round(100.0 * self.getNBDocuments() / totaldocs))
         usedDocs.addClass("usedDocs")
@@ -245,16 +245,7 @@ class FieldStats:
             if not x.isMeaningLess():
                 fieldsRow, values = x.reportUsage(self.totaldocs)
                 table.addRow(fieldsRow)
-                id = fieldsRow.cells[0].id
-                
-                '''If this row can be detailed (there is also a tooltip popup created for it and the checkbox is enabled),
-                create the hidden valuetable (counterDict table) under this fieldstat table. By enabling the checkbox of
-                the row it can be shown. The contents of this detail table are exactly the same as the popup content.'''
-                if x.isReportDetail():
-                    valuesTables += '<div id="valuetable%s" style="display: none;">\n' % id
-                    valuesTables += "\t<h2>"+ tr.tr(x.fieldname)  +"</h2>\n" + values.getReport()
-                    valuesTables += '</div>\n'
+
         report_html += table.render()
-        report_html += valuesTables
         return report_html
         

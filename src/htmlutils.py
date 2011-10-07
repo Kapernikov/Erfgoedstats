@@ -81,6 +81,7 @@ class SortableTable(HtmlElement):
         self.header = None
         self.rows = []
         self.columns = None
+        self.enablePersistTooltips = False
 
     def getTagname(self):
         return "table"
@@ -114,7 +115,8 @@ class SortableTable(HtmlElement):
         row = self.toRow(cells)
         self.checkLength(row)
         self.rows.append(row)
-        
+        if (row.tooltip):
+            self.enablePersistTooltips = True
         
     def render(self):
         result = u'<table class="%s" id="%s" border="0">\n' % (self.getCssClasses(), self.id)
@@ -127,15 +129,25 @@ class SortableTable(HtmlElement):
         result += "<tbody>\n"
         
         for row in self.rows:
-            result += row.render()
+            result += row.render(self.enablePersistTooltips)
         
         result += "</tbody>"
         result += "</table>\n"
+        
+        # now for the tooltips!
+        
+        
+        for row in self.rows:
+            if (row.tooltip):
+                    result += '<div id="valuetable%s" style="display: none;">\n' % row.id
+                    result += "\t<h2>"+ row.tooltiptitle  +"</h2>\n" + row.tooltip
+                    result += '</div>\n'
+        
         return result
         
 class TableRow(HtmlElement):
     '''One row in a (sortable) table'''
-    def __init__(self, cells=None, classes=None, tableHead=False):
+    def __init__(self, cells=None, classes=None, tableHead=False, tooltip=None, tooltiptitle=None):
         self.isTableHead = tableHead
         HtmlElement.__init__(self)
         self.cells = []
@@ -143,6 +155,13 @@ class TableRow(HtmlElement):
             self.appendCells(cells)
         if classes != None:
             self.classes = classes
+        if tooltip:
+            self.tooltip = unicode(tooltip)
+            self.tooltiptitle = unicode(tooltiptitle)
+        else:
+            self.tooltip = None
+            self.tooltiptitle = None
+            
         
     def appendCells(self,cells):
         '''Append given cells to this row'''
@@ -162,52 +181,69 @@ class TableRow(HtmlElement):
         '''The number of cells in this row'''
         return len(self.cells)
     
-    def render(self):
+    def render(self, persist_tooltips = False):
         result = u""
-        result += "<%s class=\"%s\" >\n" % (self.getTagname(), self.getCssClasses())
+        result += "<%s id=\"%s\" class=\"%s\" >\n" % (self.getTagname(), self.id, self.getCssClasses())
+        first = True
         for cell in self.cells:
-            result += cell.render(self.isTableHead)
+            tooltipid = None
+            if (first and persist_tooltips):
+                tooltipid = "none"
+            if (first and self.tooltip):
+                tooltipid = self.id
+            result += cell.render(self.isTableHead, tooltipid)
+            first = False
         result += "</%s>\n" % self.getTagname()
+        if(self.tooltip):
+            result += self.attachTooltip()   
         return result
+
+    def attachTooltip(self):
+        '''Attach a tooltip popup to this table cell'''
+        return u"""
+        <script type='text/javascript'>
+            $(document).ready(function(){
+                $("#%s td").easyTooltip({content: '<div class=tooltip>%s</div>'});
+            });
+        </script>
+        """ % (self.id, string.replace(self.tooltip, '\n', ' '))
+
         
 class Cell(HtmlElement):
     '''Cell in a tablerow'''
-    def __init__(self, content="", tooltip=None):
+    def __init__(self, content=""):
         HtmlElement.__init__(self)
         self.content = content
-        if tooltip:
-            self.tooltip = unicode(tooltip)
-        else:
-            self.tooltip = None
         
-    def render(self, thead=False):
+        
+    def render(self, thead=False, tooltipid=None):
         result = u""
         if thead:
             result += '\t<th id="%s" class="%s">' % (self.id, self.getCssClasses())
         else:
             result += '\t<td id="%s" class="%s">' % (self.id, self.getCssClasses())
         
+        
+        disabled=''
+        if (tooltipid=='none'):
+            disabled="""disabled='disabled'"""
+        if (tooltipid):
+            result += """<input name='#inputvaluetable%(id)s' id='#inputvaluetable%(id)s' %(disabled)s type='checkbox' onClick="javascript:$('#valuetable%(tid)s').toggle();"/><label for='#inputvaluetable%(id)s'>\n"""  % {'id': self.id, "tid": tooltipid, 'disabled': disabled}
+
+        
         result += self.content
+        
+        if (tooltipid):
+            result += "</label>"
         
         if thead:
             result += "</th>\n"
         else:
             result += "</td>\n"
         
-        if(self.tooltip):
-            result += self.attachTooltip()    
-        
         return result
     
-    def attachTooltip(self):
-        '''Attach a tooltip popup to this table cell'''
-        return u"""
-        <script type='text/javascript'>
-            $(document).ready(function(){
-                $("#%s").easyTooltip({content: '<div class=tooltip>%s</div>'});
-            });
-        </script>
-        """ % (self.id, string.replace(self.tooltip, '\n', ' '))
+
     
     def getTagname(self):
         return "cell"

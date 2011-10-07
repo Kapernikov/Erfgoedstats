@@ -9,6 +9,7 @@ Created on Jan 7, 2011
 
 from xml.etree.ElementTree import iselement
 from operator import itemgetter
+import htmlutils
 
 import tr
 
@@ -19,30 +20,69 @@ class CounterDict:
     Has some utility functions, and is able to generate a HTML report from itself.'''
     def __init__(self):
         self.realdict = {}
+        self.level2dict = {}
     
-    def count(self, name):
+    def count(self, name, level2=None):
         '''Indicate or count one occurence of a specified term.
         Creates that term with count one if it was not counted before.''' 
         if name not in self.realdict:
             self.realdict[name] = 1
+            self.level2dict[name] = {}
         else:
             self.realdict[name] = self.realdict[name] + 1
+            if (level2):
+                d = self.level2dict[name]
+                if level2 not in d:
+                    d[level2]=1
+                else:
+                    d[level2]=d[level2]+1
         
-    def getSortedResult(self, reverse=True):
+    def getSortedResult(self, dict=None, reverse=True):
         '''Returns a sorted list of (term, count) tuples, sorted by their number of occurences.
         The term with the most occurences comes first.''' 
-        return sorted(self.realdict.iteritems(), key=itemgetter(1), reverse=reverse)
-        
-    def getReport(self):
+        if (dict is None):
+            dict = self.realdict
+        return sorted(dict.iteritems(), key=itemgetter(1), reverse=reverse)
+    
+    def getReport(self, dict=None):
         '''Generate a HTML report from this dictionary.'''
         html = ""
         html += '<table class="countertable" border="0">'
         html += "<thead><tr><th>count</th><th>%</th><th>item</th></tr></thead>\n<tbody>"
-        total = sum(self.values())
-        for x in self.getSortedResult():
+        if (dict is None):
+            dict = self.realdict
+        total = sum(dict.values())
+        for x in self.getSortedResult(dict):
             html += "<tr>\n<td>%s</td>\n<td>%d&#37</td>\n<td>%s</td>\n</tr>" % (x[1], 100*x[1]/total , tr.tr(x[0]).replace("'",""))
         html += "</tbody></table>"
         return html
+    
+    def getL2Report(self):
+        table = htmlutils.SortableTable()
+        table.addClass("rpt")
+        total = sum(self.values())
+        table.setHeader(["Waarde", "Aantal", "Percentage"])
+        for x in self.getSortedResult():
+            row = htmlutils.TableRow()
+            row.addClass("value-row")
+            namecell = htmlutils.Cell()
+            namecell.addClass("fieldname")
+            namecell.content = tr.tr(x[0]).replace("'","")
+            
+            valuecell = htmlutils.Cell()
+            valuecell.content = "%s" % x[1]
+            
+            valuepctcell = htmlutils.Cell()
+            valuepctcell.content = "%d&#37" % (100*x[1]/total)
+            
+            row.tooltip = self.getReport(self.level2dict[x[0]])
+            row.tooltiptitle = tr.tr(x[0]).replace("'","")
+            
+            row.appendCells([namecell,valuecell,valuepctcell])
+            table.addRow(row)
+
+        return table.render()
+
     
     def __len__(self):
         '''The size of this dictionary (or collection).'''

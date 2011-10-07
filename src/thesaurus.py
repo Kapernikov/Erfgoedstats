@@ -132,9 +132,9 @@ class Thesaurus:
             for object in collection.objects:
                 fieldvalue = object[f]
                 for value in fieldvalue:
-                    statusmap.count(self.getStatusOfWord(value))
+                    statusmap.count(self.getStatusOfWord(value),value)
             html += "<h3>%s Thesaurus overeenkomst: %s</h3>\n" % (self.name, tr.tr(f))
-            html += statusmap.getReport()
+            html += statusmap.getL2Report()
         return html
     
     
@@ -149,8 +149,8 @@ class Thesaurus:
         html += "<h2>Vergelijking met %s</h2>\n" % (self.name)
         statusmap = utils.CounterDict()
         for term in thesaurus_to_check.terms.keys():
-            statusmap.count(self.getStatusOfWord(term))
-        html += statusmap.getReport()
+            statusmap.count(self.getStatusOfWord(term),term)
+        html += statusmap.getL2Report()
         return html
 
 
@@ -358,6 +358,8 @@ def getCollectionThesauriReport(collection):
     of all objects with the best scores of those fields.
     A counterDict style table is created for each
     field. '''
+    if (len(getThesauri()) == 0):
+        return u""
     html = u""
     html += "<h2>Thesaurus samenvattingen</h2>\n"
     for f in fields_to_check:
@@ -393,7 +395,10 @@ def setCustomThesauri(thesauri):
             continue
         
         customThesauri.append(entry)
-
+    global init_done_already
+    global __thesauri
+    init_done_already = False
+    __thesauri.clear()
 
 init_done_already = False
 def initThesauri():

@@ -30,7 +30,7 @@ import resources.ButtonIcons_base64
 import resources.logos_provincies
 import resources.logos_kapernikovpacked
 
-from inputfiletable import InputFileRow, InputFileTable
+from inputfiletable import InputFileRow, InputFileTable, TEntries
 from settings import Settings, SettingsDialog
 import settings
 
@@ -178,9 +178,11 @@ class MainWindow:
                 checkThesaurus = False
 
             # Set configured reference thesauri
-            referenceThesauri = self.settings.thesauri
-            setCustomThesauri(referenceThesauri)
-            
+            if (checkThesaurus):
+                referenceThesauri = self.settings.thesauri
+                setCustomThesauri(referenceThesauri)
+            else:
+                setCustomThesauri(TEntries())
             # Set specified input files to analyse
             objects = []
             thesauri = []
@@ -199,7 +201,7 @@ class MainWindow:
                     thesauri.append(entry.path)
                 else:
                     print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (entry.name, entry.type)
-                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, checkThesaurus)
+                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, not checkThesaurus)
                  
         except Exception, e:
             waitDialog.close()
