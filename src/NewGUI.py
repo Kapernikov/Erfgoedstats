@@ -343,13 +343,17 @@ class ExceptionDialog:
         self.stacktraceFrame = Frame(self.top)
         self.stacktraceFrame.pack(padx=10, pady=10, fill=BOTH, expand=1)
         self.stacktraceBox = Text(self.stacktraceFrame)
-        scroll = Scrollbar(self.stacktraceFrame)
         self.stacktraceBox.pack(fill=BOTH, expand=1, side=LEFT)
         self.stacktraceBox.insert(END, self.stacktrace)
         self.stacktraceBox.config(state=DISABLED) # Prohibit any further changes to the textbox
-        scroll.pack(side=RIGHT, fill=Y, expand=1)
-        scroll.config(command=self.stacktraceBox.yview)
-        self.stacktraceBox.config(yscrollcommand=scroll.set)
+        try:
+            scroll = Scrollbar(self.stacktraceFrame)
+            scroll.pack(side=RIGHT, fill=Y, expand=1)
+            scroll.config(command=self.stacktraceBox.yview)
+            self.stacktraceBox.config(yscrollcommand=scroll.set)
+        except:
+            ''' doesnt work on macosx'''
+            pass
         # Copy to clipboard button
         self.clipbCopyButton = Button(self.top, text=u"Kopiëer naar klembord", command=self.copyStacktraceToClipboard)
         self.clipbCopyButton.pack(pady=10)
