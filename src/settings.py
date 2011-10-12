@@ -16,6 +16,7 @@ from pyttk import *
 
 import resources.ButtonIcons_base64
 
+DEFAULT_MAX_DETAIL = 1000
 
 from inputfiletable import  InputFileTable, TEntries
 
@@ -46,6 +47,7 @@ class Settings:
     def __init__(self):
         self.thesauri = TEntries()
         self.paths = {}
+        self.maxUniqueValues = DEFAULT_MAX_DETAIL
         
     def getPath(self, type):
         xp = "../data/musea/"
@@ -120,6 +122,25 @@ class SettingsDialog(Toplevel):
         descrLabel = Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=W)
         descrLabel.config(justify=LEFT)
         descrLabel.pack(pady=5, fill=X, expand=1)
+        
+        
+        # Detail
+        self.detailFrame = Frame(self.frame)
+        self.detailFrame.pack(pady=5, fill=X, expand=1)
+        font = tkFont.Font(weight="bold")
+        detailLabel = Label(self.detailFrame, text="Maximum aantal unieke waardes voor detail: ", anchor=W, font=font)
+        detailLabel.pack(side=LEFT)
+        self.detailField = Entry(self.detailFrame)
+        self.detailField.pack(side=LEFT, fill=X, expand=1)
+        try:
+            self.detailField.insert(0, str(settings.maxUniqueValues))
+        except:
+            self.detailField.insert(0, str(DEFAULT_MAX_DETAIL))
+        detaildescrLabel = Label(self.frame, text="Indien er meer unieke waardes voor een bepaald veld zijn dan het getal hierboven, wordt geen detail meer getoond.\nEen hoger maximum geeft een gedetailleerder (maar groter) rapport.\nVoor het genereren/bekijken van een groot rapport is een krachtige computer nodig.", anchor=W)
+        detaildescrLabel.config(justify=LEFT)
+        detaildescrLabel.pack(pady=5, fill=X, expand=1)
+
+        
         # Add Ok and Cancel buttons
         buttonsFrame = Frame(self.frame)
         buttonsFrame.pack()
@@ -141,6 +162,13 @@ class SettingsDialog(Toplevel):
         
     def okPressed(self, par=None):
         '''Update config, close dialog.'''
+        x = self.detailField.get()
+        v = 0
+        try:
+            v = int(x)
+            self.mainWindow.settings.maxUniqueValues = v
+        except:
+            pass
         configuredReferenceThesauri = self.thesauriTable.getValues()
         self.mainWindow.updateReferenceThesauri(configuredReferenceThesauri)
         self.cancelPressed()

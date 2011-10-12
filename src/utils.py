@@ -12,6 +12,19 @@ import htmlutils
 
 import tr
 
+
+global __maxDetail 
+__maxDetail = 1000
+
+def getMaxDetail():
+    global __maxDetail
+    return __maxDetail
+
+
+def setMaxDetail(m):
+    global __maxDetail
+    __maxDetail = m
+
 class CounterDict:
     '''Wrapper class around a dictionary that allows storing key/value pairs.
     The key is the name of a term, the value is defined as its count (the number
@@ -74,8 +87,9 @@ class CounterDict:
             valuepctcell = htmlutils.Cell()
             valuepctcell.content = "%d&#37" % (100*x[1]/total)
             
-            row.tooltip = self.getReport(self.level2dict[x[0]])
-            row.tooltiptitle = tr.tr(x[0]).replace("'","")
+            if (len(self.level2dict[x[0]].keys()) <= getMaxDetail()):
+                row.tooltip = self.getReport(self.level2dict[x[0]])
+                row.tooltiptitle = tr.tr(x[0]).replace("'","")
             
             row.appendCells([namecell,valuecell,valuepctcell])
             table.addRow(row)

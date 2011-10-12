@@ -171,6 +171,7 @@ class MainWindow:
 
         try:
             waitDialog = WaitDialog(self.parent)
+            utils.setMaxDetail(self.settings.maxUniqueValues)
             # Will only return input files with valid files and names filled in
             inputFiles = self.inputFilesTable.getValues()
             if inputFiles.size() == 0:

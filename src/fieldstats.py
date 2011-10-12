@@ -126,12 +126,14 @@ class Field:
             self.setReportDetail(self.reportValueBreakdown(id))
         return self._isReportDetail
     
-    def setReportDetail(self, values):
-        '''Set the isReportDetail() based on the values (result from self.reportValueBreakdown(id))
-        isReportDetail will be set to true if values is not None, and it contains less than 40 items,
-        or when the ratio of the amount of values against the number of documents is smaller than 0.7
-        '''
-        self._isReportDetail = values and (len(values) < 40 or (len(values) / self.getNBDocuments()) < 0.7)
+    def checkReportDetail(self, values):
+        if values:
+            if (len(values) <= utils.getMaxDetail()):
+                self._isReportDetail = True
+            else:
+                self._isReportDetail = False
+        else:
+            self._isReportDetail = False
     
     def reportUsage(self, totaldocs):
         '''Generate a row about this field in the fieldstats table containing the usage statistics
@@ -148,7 +150,7 @@ class Field:
             row.addClass("invulboek")
         
         values = self.reportValueBreakdown(id)
-        self.setReportDetail(values) 
+        self.checkReportDetail(values) 
 
         fieldnameCell = htmlutils.Cell()
         
