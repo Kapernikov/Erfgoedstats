@@ -98,11 +98,7 @@ class CollectionObject(object):
     a piece in a museam.'''
     
     def __init__(self,docmap, only_keep_fields = None):
-        self.params = docmap
-        if (only_keep_fields):
-            for k in self.params.keys():
-                if (not (k in only_keep_fields)):
-                    del self.params[k]
+        self.params = utils.packDocMap(docmap, only_keep_fields)
     
     def __getitem__(self,key):
         '''Get the value of field with specified key. Returns

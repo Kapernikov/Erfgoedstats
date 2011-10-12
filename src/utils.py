@@ -177,6 +177,26 @@ def ensureUnicode(input, encoding="utf-8"):
     '''
     return unicode("")
 
+def packDocMap(map, fields_to_keep=None):
+    '''
+        reduce memory usage by:
+           * only keeping the fields that are in fields_to_keep (list)
+           * not using unicode but utf-8 strings
+    '''
+    m = {}
+    for k in map.keys():
+        k_ = k
+        if (type(k) == unicode):
+            k_ = k.encode('utf-8')
+        if (fields_to_keep is None or k_ in fields_to_keep):
+            l = []
+            for val in map[k]:
+                val_ = val
+                if (type(val) == unicode):
+                    val_ = val.encode('utf-8')
+                l.append(val_)
+            m[k_]=l
+    return m
 
 def centerWindow(window):
         window.update_idletasks()
