@@ -16,18 +16,25 @@ import thesaurus
 
 
 
+import inputfileformat
+
+
 class Collection:
     '''Represents a museum collection (catalogue) and statistics about it.
     '''
-    def __init__(self,doc):
+    def __init__(self,doc=None):
         self.objects = []
-        self.parseDocument(doc)
+        if (not (doc is None)):
+            inputfileformat.parseSAX(doc, self)
     
     def getSize(self):
         '''Returns the number of objects in this collection.'''
         return len(self.objects)
         
-    def parseDocument(self,doc):
+    def onRecord(self, dm):
+        self.objects.append(CollectionObject(dm))
+        
+    def parseDOMDocument(self,doc):
         '''Append all records from the given doc (which is an XML element tree)
         to this collection as Collection Objects.'''
         if(not isinstance(doc, ElementTree)):
@@ -97,40 +104,10 @@ class CollectionObject(object):
     '''Represents an object in a Collection. This would generally be
     a piece in a museam.'''
     
-    def __init__(self,element):
-        '''
-        Constructor, creates a new collection object from
-        the specified XML element. The collection object
-        contains a mapping of tags as keys, and their non-empty
-        values, all encoded in unicode.
-        Entries are defined in XML as follows:
-            <key>value</key>
-        Tag names are keys, their text is the value.
-        A key can have multiple values if a tag with the same
-        name has multiple occurences within the same html element. 
-        The value of each key in the constructed collection object 
-        can either be a singular value, or a list of values.
-        '''
-        self.params = {}
-        if(not iselement(element)):
-            return        
-        for x in element:   # for all tags in element
-            value = x.text
-            fieldname = x.tag
-            self.addParam(fieldname, value)
-            
-    def addParam(self, fieldname, value):
-        '''Add param as key-value pair to this object.'''
-        value = utils.ensureUnicode(value)
-        value = value.strip()
-        if(not value):
-            return
-        fieldname = utils.ensureUnicode(fieldname)
-        if fieldname in self.params:
-            # append value to existing param 
-            self.params[fieldname].append(value)
-        else:
-            self.params[fieldname] = [value]
+    def __init__(self,docmap):
+       
+        self.params = docmap
+
     
     
     def __getitem__(self,key):

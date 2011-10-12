@@ -12,7 +12,7 @@ import fieldstats
 import htmlutils
 import thesaurus
 import collectionstats
-import AdLibXMLConversion
+import inputfileformat
 
 from xml.etree.ElementTree import ElementTree
 import xml.etree.ElementTree as etree
@@ -46,9 +46,8 @@ def generate_report(filename):
     These fieldstats are a general statistic about the occurence of fields
     in a dataset.'''
     utils.s("parsing file %s" % (filename))
-    the_doc = getAdlibXml(filename)
     utils.s("generating fieldstats")
-    fs = fieldstats.FieldStats(the_doc)
+    fs = fieldstats.FieldStats(filename)
     html = u""
     html += '<h1>Records in lijst: %s</h1>' % (dn(filename))
     html += "<p>Aantal records: %s</p>" % (fs.totaldocs)
@@ -95,8 +94,7 @@ def generate_csvreport(filename):
     in a dataset.'''
     utils.s("parsing file %s" % (filename))
     utils.s("generating fieldstats")
-    the_doc = getCSV(filename)
-    fs = fieldstats.FieldStats(the_doc,type="csv")
+    fs = fieldstats.FieldStats(filename,type="csv")
     html = u""
     html += '<h1>Records in bestand: %s</h1>\n' % dn(filename)
     html += "<p>Aantal records: %s</p>\n" % fs.totaldocs
@@ -136,48 +134,7 @@ def generate_csvreport(filename):
     html += fs.generateReport()
     return html
 
-def autoDetectEncodingFromFile(filename):
-    'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets? Misschien is het mogelijk om bepaalde scores wat op te waarderen'
-    result = chardet.detect(open(filename, mode="rb").read())
-    encoding = result["encoding"]
-    confidence = result["confidence"]
-    print "Auto detecting used charset encoding for file %s, found %s with confidence %f." % (filename, encoding, confidence)
-    return encoding
 
-def getFileContents(filename, encoding=None):
-    '''Returns the contents of the file with specified path. Returned string is guaranteed
-    to be unicode. Will attempt to determine the encoding scheme used in the file as good
-    as possible for decoding the file.'''
-    if not encoding:
-        encoding=autoDetectEncodingFromFile(filename)
-    file = codecs.open(filename, mode='rU', encoding=encoding, errors="replace")
-    fileContents = file.read()
-    fileContents = utils.ensureUnicode(fileContents)
-    return fileContents
-
-def getAdlibXml(filename, isObjectXML=False):
-    '''Returns an xml ElementTree with utf-8 encoded strings of the contents of 
-    the XML file at specified path.
-    When neccessary, a conversion to a standard adlib XML format as defined in 
-    AdlibXMLConversion is done. When isObjectXML is true, extra mappings specific for
-    object collection XML files is done.'''
-    xmlStr = getFileContents(filename)
-    xmlStr = AdLibXMLConversion.convertToCommonAdlibXML(xmlStr, isObjectXML=isObjectXML)
-    # ElementTree only supports parsing from regular (encoded) strings, not from unicode objects
-    utils.s("Parsing XML file %s." % filename)
-    rootElement = etree.fromstring(xmlStr.encode("utf-8"))
-    the_doc = ElementTree(element=rootElement)
-    return the_doc
-
-def getCSV(filename):
-    '''Parse specified file as CSV file. Returns a CSV reader object
-    that returns utf-8 encoded strings.'''
-    import csv
-    'TODO: excel dialect selecteren?'
-    contents = getFileContents(filename).encode("utf-8")
-    xdialect =  csv.Sniffer().sniff(contents)
-    the_doc = csv.reader(contents.splitlines(), dialect=xdialect)
-    return the_doc
 
 def getOutputFile(filename, encoding="utf-8"):
     '''Return a file object reference for writing to an output file
@@ -192,11 +149,13 @@ def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
     Unless no_thesaurus is set to true, the fields are also compared with reference thesauri,
     and a report is generated under the fieldstats table.'''
     utils.s("parsing file %s" % filename)
-    the_doc = getAdlibXml(filename, isObjectXML=True)
+
     html = u""
     html += '<h1>Collectie: %s</h1>\n' % dn(filename)
     utils.s("generating fieldstats")
-    fs = fieldstats.FieldStats(the_doc)
+    fs = fieldstats.FieldStats()
+    collection = collectionstats.Collection()
+    inputfileformat.parseSAXFile(filename, [fs,collection])
     html += "<p>Aantal objecten in collectie: %s</p>\n" % fs.getSize()
     
     html += "<h2>Overzicht gebruikte velden</h2>\n"
@@ -238,9 +197,8 @@ def generate_compliancereport(filename, no_compliance=True, no_thesaurus=False):
     """).render()
     utils.s("writing report")
     html += fs.generateReport()
-    
+    fs = None
     utils.s("generating collectionstats")
-    collection = collectionstats.Collection(the_doc)
     utils.s("writing report")
     html += collection.generateReport(no_compliance, no_thesaurus)
     
@@ -252,12 +210,15 @@ def generate_thesaurusreport(filename):
     th = thesaurus.Thesaurus()
     th.name = dn(filename)
     utils.s("parsing file %s" % (filename))
-    the_doc = getAdlibXml(filename)
     utils.s("parsing thesaurus")
-    th.parseAdlibDoc(the_doc)
+    th.parseAdlibDoc(filename)
     html = ""
     html += "<h1>Thesaurus: %s</h1>" % (dn(filename))
     html += "<p>Aantal termen: %s</p>" % (len(th.terms.keys()))
+    
+    '''
+    
+    disabling this report because it almost shows the same information as the collection report
     
     html += htmlutils.HelpElement(show="Toon uitleg bij deze vergelijkingen", help="""
     <p>Onderstaande tabellen vergelijken de thesaurus uit de gebruikte registratiesoftware
@@ -279,9 +240,11 @@ def generate_thesaurusreport(filename):
     </dl>
     """).render()
     
-    utils.s("writing report")
-    for thesa in thesaurus.getThesauri():
-        html += thesa.getThesaurusThesaurusReport(th)
+    
+    'utils.s("writing report")
+    'for thesa in thesaurus.getThesauri():
+    ''    html += thesa.getThesaurusThesaurusReport(th)'''
+        
     html += "<h2>Overzicht gebruikte velden bij de zelf gedefinieerde termen</h2>\n\n"
     html += htmlutils.HelpElement(show="Toon uitleg bij deze tabel", help="""
     <p>Onderstaande tabel toont alle velden die ingevuld werden voor minstens 
@@ -312,7 +275,7 @@ def generate_thesaurusreport(filename):
     """).render()
     
     utils.s("generating fieldstats notdoc")
-    fs = fieldstats.FieldStats(the_doc, documentfilter=thesaurus.notInAnyDocFilter)
+    fs = fieldstats.FieldStats(filename, documentfilter=thesaurus.notInAnyDocFilter)
     utils.s("writing report")
     html += fs.generateReport()
     

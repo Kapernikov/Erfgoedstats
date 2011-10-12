@@ -11,7 +11,6 @@ from xml.etree.ElementTree import ElementTree, iselement
 import utils
 import tr
 import os
-import codecs
 import pickle
 import copy
 import adlibstats
@@ -35,6 +34,7 @@ thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
 
 
 customThesauri = inputfiletable.TEntries()
+import inputfileformat
 
 class Thesaurus:
     '''Represents a thesaurus. Contains a list of terms.'''
@@ -43,6 +43,9 @@ class Thesaurus:
         self.name = utils.ensureUnicode(name)
         pass
     
+    def parseAdlibDoc(self,filename):
+        inputfileformat.parseSAXFile(filename, self)
+        
     def addTerm(self, term):
         '''Add a term to this thesaurus. Term should be a term object
         and should be valid, otherwise it will not be added.'''
@@ -77,29 +80,25 @@ class Thesaurus:
             self.terms = cachedThesaurus.terms
             self.name = cachedThesaurus.name
             return
-        the_doc = adlibstats.getAdlibXml(filename)
-        self.parseAdlibDoc(the_doc)
+        inputfileformat.parseSAXFile(filename, self)
         if utils.cacheThesauri:
             print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
             createCachedVersion(self, filename)
         
-    def parseAdlibDoc(self, doc):
-        '''Parse records from XML adlib doc at specified
-        filename.'''
-        if not isinstance(doc, ElementTree):
-            return
-        for x in doc.findall(".//record"):
-            t = Term()
-            t.parseAdlibDoc(x)
-            self.addTerm(t)
+    def onRecord(self,docmap):
+        t = Term()
+        t.parseDocmap(docmap)
+        self.addTerm(t)
             
     def parseTextFile(self, filename):
         '''Parse thesaurus from plain text file with given filename.'''
-        fil = adlibstats.getFileContents(filename)
-        lines = fil.split('\n')
-        for x in lines:
+        fil = inputfileformat.getFileDescriptor(filename)
+        for line in fil:
+            line = line.replace("\n","")
+            line = line.replace("\r","")
+            line = line.strip()
             # leave off newline characters
-            word = utils.ensureUnicode(x)
+            word = utils.ensureUnicode(line)
             if word:
                 t = Term()
                 t.addField(u"term", word)
@@ -164,28 +163,8 @@ class Term:
     def __init__(self):
         self.params = {}
     
-    def parseAdlibDoc(self, element):
-        '''Fill the parameters of this term by parsing
-        an XML element. The tags in the XML are mapped
-        one to one to the params of this term, but they
-        are expected to  contain at least a term or 
-        english_term tag with value, and possible a
-        use parameter. Tags with empty values are 
-        ignored and parameter values can contain multiple
-        values (in which case they become a list).'''
-        if(not iselement(element)):
-            return
-        for x in element:
-            value = utils.ensureUnicode(x.text)
-            if not value:
-                continue
-            value = value.strip()
-            if len(value) == 0:
-                continue
-            fieldname = utils.ensureUnicode(x.tag)
-            if not fieldname:
-                continue
-            self.addField(fieldname, value)
+    def parseDocmap(self, docmap):
+        self.params = docmap
 
     def addField(self, fieldname, value):
         if(not fieldname or not value):

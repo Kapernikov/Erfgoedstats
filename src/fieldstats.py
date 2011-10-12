@@ -182,16 +182,19 @@ class Field:
                 
         return row, values
 
+import inputfileformat
 
 class FieldStats:
-    def __init__(self, doc, documentfilter=None, type="xml"):
+    def __init__(self, filename=None, documentfilter=None, type="xml"):
         self.fields = {}
         self.totaldocs = 0
         self.documentFilter = documentfilter
+        if (filename is None):
+            return
         if (type=="xml"):
-            self._parseDocument(doc)
+            inputfileformat.parseSAXFile(filename, self)
         if (type=="csv"):
-            self._parseCSV(doc)
+            inputfileformat.parseCSVFile(filename, self)
 
     def getSize(self):
         return self.totaldocs
@@ -202,7 +205,10 @@ class FieldStats:
             map = utils.kv2map(headers, row)
             self._parseDocMap(map)
 
-    def _parseDocument(self, doc):
+    def onRecord(self,dm):
+        self._parseDocMap(dm)
+        
+    def _parseDOMDocument(self, doc):
         if not isinstance(doc, ElementTree):
             return
         for x in doc.findall(".//record"):
@@ -248,4 +254,5 @@ class FieldStats:
 
         report_html += table.render()
         return report_html
+        
         

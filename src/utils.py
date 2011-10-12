@@ -7,7 +7,6 @@ Created on Jan 7, 2011
 @author: kervel
 '''
 
-from xml.etree.ElementTree import iselement
 from operator import itemgetter
 import htmlutils
 
@@ -131,42 +130,7 @@ def nencode_list(x):
 
 
 
-def kv2map(k, v):
-    '''Convert a list of keys and list of values to
-    a map with a one-to-one mapping of keys and values.
-    Entries with empty key or value will be ignored.
-    This map can contain multiple values for one key, 
-    in which case that key will have a list as value.
-    '''
-    map = {}
-    if(not isinstance(k, list) or not isinstance(v, list)):
-        return map
-    for i in range(len(k)):
-        # check of waarde leeg (--> negeren)
-        if(i >= len(v)):
-            continue
-        value = ensureUnicode(v[i])
-        if not value:
-            continue
-        value = value.strip()
-        if len(value)==0:
-            continue
 
-        key = ensureUnicode(k[i])
-        key = key.strip()
-        # check of key leeg (--> negeren)
-        if not key:
-            continue
-            
-        if (key in map):
-            oldv = map[key]
-            if (type(oldv) is list):
-                oldv.append(value)
-            else:
-                map[key] = [oldv, value]
-        else:
-            map[key] = value
-    return map
         
 '''Dependency on CSV standard lib'''
 import csv
@@ -182,44 +146,7 @@ def unicode_csv_reader(utf8_data, **kwargs):
     for row in csv_reader:
         yield [unicode(cell, 'utf-8') for cell in row]        
 
-def doc2map(element):
-    '''Convert XML element to a map.
-    Map will contain tag, value pairs, encoded in unicode.
-    Values can be represented in XML either as text in the
-    tag element, or as value="" attribute of the element.
-    Values are stripped from leading and trailing spaces. 
-    Tags with empty text will be ignored.
-    The returned map can contain multiple values for one key,
-    in which case the a lookup for that key will return a list
-    of values.'''
-    map = {}
-    if(not iselement(element)):
-        return map
-    for f in element:
-        value = f.text
-        
-        # check of waarde leeg (--> negeren)
-        if value is None:
-            if "value" in f.attrib.keys():
-                value = f.attrib["value"]
-            else:
-                continue
-        value = ensureUnicode(value)
-        value = value.strip()
-        if len(value) == 0:
-            continue
-        
-        # waarde is niet leeg
-        #value = value.encode('utf-8', "ignore")
-        #fieldname = f.tag.encode('utf-8', "ignore")
-        fieldname = ensureUnicode(f.tag)
-        if(not fieldname):
-            continue
-        if (fieldname in map):
-            map[fieldname].append(value)
-        else:
-            map[fieldname] = [value]
-    return map
+
 
 def ensureUnicode(input, encoding="utf-8"):
     '''Make sure string is decoded unicode string. If it is
