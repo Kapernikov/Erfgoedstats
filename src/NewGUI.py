@@ -207,7 +207,7 @@ class MainWindow:
                     thesauri.append(entry.path)
                 else:
                     print "ERROR: Input bestand %s met type %s kan niet gebruikt worden" % (entry.name, entry.type)
-                generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, False)
+            generateReport(museumName, objects, thesauri, fieldstats, csvfieldstats, outputFile, False)
                  
         except Exception, e:
             waitDialog.close()

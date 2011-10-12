@@ -25,22 +25,16 @@ class Collection:
     def __init__(self,doc=None):
         self.objects = []
         if (not (doc is None)):
-            inputfileformat.parseSAX(doc, self)
+            inputfileformat.parseSAXFile(doc, self)
+        self.onlyKeepFields = None
     
     def getSize(self):
         '''Returns the number of objects in this collection.'''
         return len(self.objects)
         
     def onRecord(self, dm):
-        self.objects.append(CollectionObject(dm))
+        self.objects.append(CollectionObject(dm, self.onlyKeepFields))
         
-    def parseDOMDocument(self,doc):
-        '''Append all records from the given doc (which is an XML element tree)
-        to this collection as Collection Objects.'''
-        if(not isinstance(doc, ElementTree)):
-            return
-        for x in doc.findall(".//record"):
-            self.objects.append(CollectionObject(x))
 
     def getComplianceLevels(self):
         '''Returns a Counter Dictionary (see utils) with the aggregated
@@ -61,24 +55,24 @@ class Collection:
                 mf.count(field)
         return mf
 
-    def generateReport(self, no_compliance = False, no_thesaurus = False):
+    def generateReport(self, writer, no_compliance = False, no_thesaurus = False):
         '''Generate fieldstats about this collection. Unless specified otherwise, also compliance report
         (compliance of field values to reference thesauri) and comparison with reference thesaurus
         will be produced.'''
-        html = u""
+       
         if (not no_compliance):
             x = self.getComplianceLevels()
-            html += "<h2>Aan welke registraties voldoen de objecten</h2>\n";
-            html += x.getReport()
+            writer.write("<h2>Aan welke registraties voldoen de objecten</h2>\n")
+            writer.write(x.getReport())
             for cl in map(lambda y: y[0], x.getSortedResult()):
                 if(invulboek.invulboek_fields.has_key(cl)): 
-                    html += "<h2>Ontbrekende velden voor %s</h2>\n" % cl
-                    mfx = self.getMissingFields(cl)
-                    html += mfx.getReport()
+                   writer.write("<h2>Ontbrekende velden voor %s</h2>\n" % cl)
+                   mfx = self.getMissingFields(cl)
+                   writer.write(mfx.getReport())
         if (not no_thesaurus):
             if thesaurus.getThesauri():
-                html += "<h1>Gebruik van thesaurustermen</h1>"
-                html += htmlutils.HelpElement(show="Toon uitleg bij deze controles", help="""
+                writer.write("<h1>Gebruik van thesaurustermen</h1>")
+                writer.write(htmlutils.HelpElement(show="Toon uitleg bij deze controles", help="""
     <p>Per standaard-thesaurus, wordt van een aantal velden nagekeken of de gebruikte waarden in 
     het veld voldoen aan die standaard-thesaurus.</p>
     <p>Mogelijke resultaten zijn:</p>
@@ -92,23 +86,23 @@ class Collection:
       niet bekend in de thesaurus.</dd>
       <dt>Leeg (niet ingevuld)</dt><dd>Het veld niet ingevuld.</dd>
     </dl>
-    """).render()
+    """).render())
             # General comparison summary with all reference thesauri  
-            html += thesaurus.getCollectionThesauriReport(self)
+            thesaurus.writeCollectionThesauriReport(writer,self)
             # Comparisons with individual reference thesauri
             for thesa in thesaurus.getThesauri():
-                html += thesa.getCollectionThesaurusReport(self)
-        return utils.ensureUnicode(html)
+                thesa.writeCollectionThesaurusReport(writer,self)
 
 class CollectionObject(object):
     '''Represents an object in a Collection. This would generally be
     a piece in a museam.'''
     
-    def __init__(self,docmap):
-       
+    def __init__(self,docmap, only_keep_fields = None):
         self.params = docmap
-
-    
+        if (only_keep_fields):
+            for k in self.params.keys():
+                if (not (k in only_keep_fields)):
+                    del self.params[k]
     
     def __getitem__(self,key):
         '''Get the value of field with specified key. Returns

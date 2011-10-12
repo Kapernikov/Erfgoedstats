@@ -11,7 +11,6 @@ Created on Jan 6, 2011
 import invulboek
 import utils
 import tr
-from xml.etree.ElementTree import ElementTree
 import htmlutils
 
 global xid
@@ -34,7 +33,9 @@ class Field:
         self.documents = []
         '''This should normally be a boolean, but is set to -1 when its value is not yet calculated'''
         self._isReportDetail = -1
-       
+        self._nbDocuments= 0
+        self._nbUses = 0
+        self._totalFieldLength = 0
   
     '''
         a new document uses this field
@@ -44,12 +45,15 @@ class Field:
         The document will be stored in this field's document list.'''
         if (use is None):
             return
-        self.documents.append([use])
+        self.documents.append([use.encode('utf-8')])
+        self._nbDocuments = self._nbDocuments + 1
+        self._nbUses = self._nbUses + 1
+        self._totalFieldLength = self._totalFieldLength + len(use)
     
     
     def getAverageUsePerDocument(self):
         '''Calculates the average number of times this field is used per document.'''
-        documents_that_use = len(self.documents)
+        documents_that_use = self._nbDocuments
         if (documents_that_use == 0):
             return 0
         return self.getNBUses() / documents_that_use
@@ -57,12 +61,8 @@ class Field:
     
     def getAverageFieldLength(self):
         '''Returns the average length of all values that are assigned to this field.'''
-        totalLength = 0
-        totalFields = 0
-        for x in self.documents:
-            for y in x:
-                totalFields = totalFields + 1
-                totalLength = totalLength + len(y)
+        totalLength = self._totalFieldLength
+        totalFields = self.getNBUses()
         if (totalFields == 0):
             return 0
         return totalLength / totalFields    
@@ -75,22 +75,21 @@ class Field:
         that already announced its first usage of this field using newDocument.'''
         if (use is None):
             return
+        self._nbUses = self._nbUses + 1
+        self._totalFieldLength = self._totalFieldLength + len(use)
+
         if (len(self.documents) > 0):
-            self.documents[-1].append(use)
+            self.documents[-1].append(use.encode('utf-8'))
             self.nbMultiValued = self.nbMultiValued + 1
         else:
-            self.documents.append([use])
+            self.documents.append([use.encode('utf-8')])
             
     def getNBDocuments(self):
         '''The number of documents this field is used in.'''
-        return len(self.documents)
+        return self._nbDocuments
     
     def getNBUses(self):
-        '''Total number of times this field is used.'''
-        n = 0
-        for doc in self.documents:
-            n += len(doc)
-        return n
+        return self._nbUses
     
     
     def isMeaningLess(self):
@@ -180,7 +179,7 @@ class Field:
         
         row.appendCells([fieldnameCell,usedDocs, usedDocsAbs, valuesperdoc, averagefieldlength, numberofuses])
                 
-        return row, values
+        return row
 
 import inputfileformat
 
@@ -199,21 +198,10 @@ class FieldStats:
     def getSize(self):
         return self.totaldocs
         
-    def _parseCSV(self,csvDoc):
-        headers = csvDoc.next()
-        for row in csvDoc:
-            map = utils.kv2map(headers, row)
-            self._parseDocMap(map)
 
     def onRecord(self,dm):
         self._parseDocMap(dm)
-        
-    def _parseDOMDocument(self, doc):
-        if not isinstance(doc, ElementTree):
-            return
-        for x in doc.findall(".//record"):
-            map = utils.doc2map(x)
-            self._parseDocMap(map)
+
 
     'TODO: Door gebrek aan strong typing kan het hier wel eens grondig misgaan bij vieze input'                        
     def _parseDocMap(self, docmap):
@@ -237,22 +225,23 @@ class FieldStats:
                     if (fieldvalue != ''):
                         self.fields[fieldname].newDocument(fieldvalue)
 
-    def generateReport(self):
+    def generateReport(self, ofile):
         table = htmlutils.SortableTable()
         table.addClass("fieldreport")
         table.addClass("rpt")
         table.setHeader(["veld", "% gebruikt", "aantal", "meervoudige waarde", "gem. veldlengte", "unieke waarden"])
         
-        report_html = u''
+        
 
         sv = self.fields.values()
-        valuesTables = ''
         for x in sorted(sv, key=lambda x: x.getNBDocuments(), reverse=True):
             if not x.isMeaningLess():
-                fieldsRow, values = x.reportUsage(self.totaldocs)
+                fieldsRow = x.reportUsage(self.totaldocs)
                 table.addRow(fieldsRow)
+                import gc
+                gc.collect()
 
-        report_html += table.render()
-        return report_html
+        table.renderTo(ofile)
+
         
         

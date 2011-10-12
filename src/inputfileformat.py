@@ -8,6 +8,7 @@ Created on 4-aug-2011
 '''
 import utils
 import chardet, codecs
+import gc
 
 ##################
 #### FILE ENCODING
@@ -18,7 +19,6 @@ def autoDetectEncodingFromFile(filename):
     result = chardet.detect(open(filename, mode="rb").read(4096))
     encoding = result["encoding"]
     confidence = result["confidence"]
-    print "Auto detecting used charset encoding for file %s, found %s with confidence %f." % (filename, encoding, confidence)
     return encoding
 
 def getFileDescriptor(filename, encoding=None):
@@ -148,6 +148,9 @@ def parseSAXFile(contents, handler):
         xml.sax.parse(getFileDescriptor(contents),ad)
     if (type(contents) == file):
         xml.sax.parse(contents,ad)
+    ad = None
+    gc.collect()
+    
 
 
 ######################################

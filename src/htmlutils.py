@@ -118,32 +118,31 @@ class SortableTable(HtmlElement):
         if (row.tooltip):
             self.enablePersistTooltips = True
         
-    def render(self):
-        result = u'<table class="%s" id="%s" border="0">\n' % (self.getCssClasses(), self.id)
-        result += "<thead><tr>\n"
+    def renderTo(self, writer):
+        writer.write( u'<table class="%s" id="%s" border="0">\n' % (self.getCssClasses(), self.id))
+        writer.write( "<thead><tr>\n")
         
         for cell in self.header.cells:
-            result += cell.render(True)
+            cell.renderTo(writer, True)
         
-        result += "</tr></thead>\n"
-        result += "<tbody>\n"
+        writer.write( "</tr></thead>\n")
+        writer.write( "<tbody>\n")
         
         for row in self.rows:
-            result += row.render(self.enablePersistTooltips)
+             row.renderTo(writer,self.enablePersistTooltips)
         
-        result += "</tbody>"
-        result += "</table>\n"
+        writer.write( "</tbody>")
+        writer.write( "</table>\n")
         
         # now for the tooltips!
         
         
         for row in self.rows:
             if (row.tooltip):
-                    result += '<div id="valuetable%s" style="display: none;">\n' % row.id
-                    result += "\t<h2>"+ row.tooltiptitle  +"</h2>\n" + row.tooltip
-                    result += '</div>\n'
+                    writer.write( '<div id="valuetable%s" style="display: none;">\n' % row.id)
+                    writer.write( "\t<h2>"+ row.tooltiptitle  +"</h2>\n" + row.tooltip)
+                    writer.write( '</div>\n')
         
-        return result
         
 class TableRow(HtmlElement):
     '''One row in a (sortable) table'''
@@ -181,9 +180,8 @@ class TableRow(HtmlElement):
         '''The number of cells in this row'''
         return len(self.cells)
     
-    def render(self, persist_tooltips = False):
-        result = u""
-        result += "<%s id=\"%s\" class=\"%s\" >\n" % (self.getTagname(), self.id, self.getCssClasses())
+    def renderTo(self, writer, persist_tooltips = False):
+        writer.write( "<%s id=\"%s\" class=\"%s\" >\n" % (self.getTagname(), self.id, self.getCssClasses()))
         first = True
         for cell in self.cells:
             tooltipid = None
@@ -191,12 +189,11 @@ class TableRow(HtmlElement):
                 tooltipid = "none"
             if (first and self.tooltip):
                 tooltipid = self.id
-            result += cell.render(self.isTableHead, tooltipid)
+            cell.renderTo(writer,self.isTableHead, tooltipid)
             first = False
-        result += "</%s>\n" % self.getTagname()
+        writer.write("</%s>\n" % self.getTagname())
         if(self.tooltip):
-            result += self.attachTooltip()   
-        return result
+            writer.write(self.attachTooltip())
 
     def attachTooltip(self):
         '''Attach a tooltip popup to this table cell'''
@@ -216,32 +213,30 @@ class Cell(HtmlElement):
         self.content = content
         
         
-    def render(self, thead=False, tooltipid=None):
-        result = u""
+    def renderTo(self, writer, thead=False, tooltipid=None):
         if thead:
-            result += '\t<th id="%s" class="%s">' % (self.id, self.getCssClasses())
+            writer.write('\t<th id="%s" class="%s">' % (self.id, self.getCssClasses()))
         else:
-            result += '\t<td id="%s" class="%s">' % (self.id, self.getCssClasses())
+            writer.write('\t<td id="%s" class="%s">' % (self.id, self.getCssClasses()))
         
         
         disabled=''
         if (tooltipid=='none'):
             disabled="""disabled='disabled'"""
         if (tooltipid):
-            result += """<input name='#inputvaluetable%(id)s' id='#inputvaluetable%(id)s' %(disabled)s type='checkbox' onClick="javascript:$('#valuetable%(tid)s').toggle();"/><label for='#inputvaluetable%(id)s'>\n"""  % {'id': self.id, "tid": tooltipid, 'disabled': disabled}
+            writer.write("""<input name='#inputvaluetable%(id)s' id='#inputvaluetable%(id)s' %(disabled)s type='checkbox' onClick="javascript:$('#valuetable%(tid)s').toggle();"/><label for='#inputvaluetable%(id)s'>\n"""  % {'id': self.id, "tid": tooltipid, 'disabled': disabled})
 
         
-        result += self.content
+        writer.write(self.content)
         
         if (tooltipid):
-            result += "</label>"
+            writer.write("</label>")
         
         if thead:
-            result += "</th>\n"
+            writer.write("</th>\n")
         else:
-            result += "</td>\n"
+            writer.write("</td>\n")
         
-        return result
     
 
     

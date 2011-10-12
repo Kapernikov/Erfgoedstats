@@ -56,7 +56,7 @@ class CounterDict:
         html += "</tbody></table>"
         return html
     
-    def getL2Report(self):
+    def writeL2Report(self,writer):
         table = htmlutils.SortableTable()
         table.addClass("rpt")
         total = sum(self.values())
@@ -80,7 +80,7 @@ class CounterDict:
             row.appendCells([namecell,valuecell,valuepctcell])
             table.addRow(row)
 
-        return table.render()
+        table.renderTo(writer)
 
     
     def __len__(self):

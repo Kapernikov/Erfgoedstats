@@ -75,14 +75,14 @@ class Thesaurus:
         because this is a lot faster.'''
         filename = utils.ensureUnicode(filename)
         if utils.cacheThesauri and cachedVersionExists(filename):
-            print "Loading thesaurus from previously cached file %s" % getCachedVersionFilename(filename)
+            print "    - Loading thesaurus from previously cached file %s" % getCachedVersionFilename(filename)
             cachedThesaurus = loadCachedVersion(filename)
             self.terms = cachedThesaurus.terms
             self.name = cachedThesaurus.name
             return
         inputfileformat.parseSAXFile(filename, self)
         if utils.cacheThesauri:
-            print "Caching thesaurus to file %s" % getCachedVersionFilename(filename)
+            print "    - Caching thesaurus to file %s" % getCachedVersionFilename(filename)
             createCachedVersion(self, filename)
         
     def onRecord(self,docmap):
@@ -118,13 +118,13 @@ class Thesaurus:
             return u"Niet de voorkeurterm"
         return u"Voorkeurterm"
     
-    def getCollectionThesaurusReport(self, collection):
+    def writeCollectionThesaurusReport(self, writer, collection):
         '''Comparison between this thesaurus and the specified collection.
         Generate a collection with thesaurus comparison report in HTML format of a specified
         museum collection. This report is structured with a counter dict and creates
         a table per field, for each field in fields_to_check.'''
-        html = u""
-        html += "<h2>%s Thesaurus</h2>\n" % self.name
+        
+        writer.write("<h2>%s Thesaurus</h2>\n" % self.name)
         for f in fields_to_check:
             # start counter dict
             statusmap = utils.CounterDict()
@@ -132,25 +132,23 @@ class Thesaurus:
                 fieldvalue = object[f]
                 for value in fieldvalue:
                     statusmap.count(self.getStatusOfWord(value),value)
-            html += "<h3>%s Thesaurus overeenkomst: %s</h3>\n" % (self.name, tr.tr(f))
-            html += statusmap.getL2Report()
-        return html
+            writer.write("<h3>%s Thesaurus overeenkomst: %s</h3>\n" % (self.name, tr.tr(f)))
+            statusmap.writeL2Report(writer)
     
     
-    def getThesaurusThesaurusReport(self,thesaurus_to_check):
+    def writeThesaurusThesaurusReport(self,writer,thesaurus_to_check):
         '''Comparison between this (adlib) thesaurus and another specified reference thesaurus.
         Generate a thesaurus with thesaurus comparison report in HTML format 
         of a specified adlib thesaurus. This adlib thesaurus was produced by filling in the
         museum collection data in adlib.
         This report is structured with a counter dict and creates one table with the different
         word statuses of all words in the dictionary.'''
-        html = ""
-        html += "<h2>Vergelijking met %s</h2>\n" % (self.name)
+        
+        writer.write("<h2>Vergelijking met %s</h2>\n" % (self.name))
         statusmap = utils.CounterDict()
         for term in thesaurus_to_check.terms.keys():
             statusmap.count(self.getStatusOfWord(term),term)
-        html += statusmap.getL2Report()
-        return html
+        statusmap.writeL2Report(writer)
 
 
 class Term:
@@ -331,25 +329,24 @@ def getThesauriStatusOfWord(word):
     return utils.ensureUnicode(tmpstatus[2])
 
 
-def getCollectionThesauriReport(collection):
+def writeCollectionThesauriReport(writer,collection):
     '''Comparison between all loaded reference thesauri and the specified collection.
     Generates a HTML report for each fields_to_check,
     of all objects with the best scores of those fields.
     A counterDict style table is created for each
     field. '''
     if (len(getThesauri()) == 0):
-        return u""
-    html = u""
-    html += "<h2>Thesaurus samenvattingen</h2>\n"
+        pass
+    
+    writer.write("<h2>Thesaurus samenvattingen</h2>\n")
     for f in fields_to_check:
         statusmap = utils.CounterDict()
         for object in collection.objects:
             fieldvalue = object[f]
             for value in fieldvalue:
                 statusmap.count(getThesauriStatusOfWord(value),value)
-        html += "<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f))
-        html += statusmap.getL2Report()
-    return utils.ensureUnicode(html)
+        writer.write("<h3>Thesaurus samenvatting: %s</h3>\n" % (tr.tr(f)))
+        statusmap.writeL2Report(writer)
     
     
 def setCustomThesauri(thesauri):
@@ -367,10 +364,10 @@ def setCustomThesauri(thesauri):
     customThesauri.clear()
     for entry in thesauri.values:
         if entry.type not in valid_filetypes:
-            print 'ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (entry.type, entry.name)
+            utils.s ('    ! ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (entry.type, entry.name))
             continue
         if not os.path.exists(entry.path):
-            print 'ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (entry.name, entry.path)
+            utils.s( '    ! ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (entry.name, entry.path))
             continue
         
         customThesauri.append(entry)
@@ -395,7 +392,7 @@ def initThesauri():
     thesaurus_pref_order = []
     customThesauri.sort()
     if len(customThesauri.values) > 0:
-        utils.s("INITIALIZING custom thesauri (this might take some time) ...")
+        utils.s("    - INITIALIZING custom thesauri (this might take some time) ...")
         for entry in customThesauri.values:
             thesaurus = Thesaurus(entry.name)
             if entry.type == 'Adlib XML Thesaurus':
@@ -403,23 +400,23 @@ def initThesauri():
             elif entry.type == 'TXT Thesaurus':
                 thesaurus.parseTextFile(entry.path)
             else:
-                'ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (entry.name, entry.type)
+                utils.s('    ! ERROR: reference thesaurus "%s" is of unknown type (%s), don\'t know how to parse it' % (entry.name, entry.type))
                 continue
             __thesauri[thesaurus.name] = thesaurus
             thesaurus_pref_order.append(thesaurus.name)
         
-        utils.s("DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
+        utils.s("    - DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
         # Drop out here, do not load default thesauri
         return
     
     thesaurus_pref_order = ["MOT","AM-MovE","AAT-Ned"]
 
     # Else, try loading the defaults
-    utils.s("INITIALIZING default thesauri (this might take some time) ...")
+    utils.s("    - INITIALIZING default thesauri (this might take some time) ...")
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'reference', 'Am_Move_thesaurus06_10.xml')
     if(os.path.exists(thesauruspad)):
         try:
-            utils.s("parsing MOVE thesaurus")
+            utils.s("    - parsing MOVE thesaurus")
             AmMoveThesaurus = Thesaurus('AM-MovE')
             AmMoveThesaurus.parseDefaultAdlibDoc(thesauruspad)
             AmMoveThesaurus.name = AmMoveName
@@ -432,7 +429,7 @@ def initThesauri():
     thesauruspad = os.path.join(os.path.dirname(__file__),'..', 'data', 'reference', 'aat2000.xml')
     if(os.path.exists(thesauruspad)):
         try:
-            utils.s("parsing AAT thesaurus")
+            utils.s("    - parsing AAT thesaurus")
             AAT2000 = Thesaurus('AAT-Ned')
             AAT2000.parseDefaultAdlibDoc(thesauruspad)
             AAT2000.name = AATNedName
@@ -445,7 +442,7 @@ def initThesauri():
     thesauruspad = os.path.join(os.path.dirname(__file__), '..', 'data', 'MOT', 'mot-naam.txt')
     if(os.path.exists(thesauruspad)):
         try:
-            utils.s("parsing MOT name list")
+            utils.s("    - parsing MOT name list")
             MOT_name_list =  Thesaurus('MOT')
             MOT_name_list.parseTextFile(thesauruspad)
             MOT_name_list.name = MotName
@@ -455,7 +452,7 @@ def initThesauri():
     elif 'MOT' in thesaurus_pref_order:
         thesaurus_pref_order.remove("MOT")
         
-    utils.s("DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
+    utils.s("    - DONE thesaurus initialisation %s" % str(thesaurus_pref_order))
 
 def notInAnyDocFilter(docmap):
     '''Docmapfilter that finds docmaps that contain
