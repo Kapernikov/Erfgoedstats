@@ -364,10 +364,13 @@ def setCustomThesauri(thesauri):
     customThesauri.clear()
     for entry in thesauri.values:
         if entry.type not in valid_filetypes:
-            utils.s ('    ! ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (entry.type, entry.name))
+            return '    ! ERROR: no valid file type (%s) for reference thesaurus "%s" specified' % (entry.type, entry.name)
             continue
         if not os.path.exists(entry.path):
-            utils.s( '    ! ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (entry.name, entry.path))
+            return '    ! ERROR: reference thesaurus "%s" with filename "%s" does not exist' % (entry.name, entry.path)
+            continue
+        if (entry.type == 'Adlib XML Thesaurus' and not entry.path.lower().endswith("xml")):
+            return '     ! ERROR: XML thesaurus is not xml %s / %s ' % (entry.name , entry.path)
             continue
         
         customThesauri.append(entry)

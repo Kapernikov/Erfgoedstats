@@ -45,14 +45,11 @@ class MainWindow:
         
         self.settings = self.loadConfiguration()
         
-        self.logoFrame = Frame(parent)
-        self.logoFrame.pack(side=TOP, fill=BOTH, expand=0)
-        
         self.frame = Frame(parent)
         self.frame.pack(padx=10, pady=10, fill=X, expand=1)
 
-        self.logo2Frame = Frame(parent)
-        self.logo2Frame.pack(fill=BOTH, expand=0)
+        
+        
 
         
         # Menu
@@ -66,12 +63,6 @@ class MainWindow:
         parent.config(menu=self.menu)
         self.parent.protocol("WM_DELETE_WINDOW", self.quit)
         
-        ## LOGOs (supplied as base64 encoded strings) ##
-        digiridooLogo = Label(self.logo2Frame, image=resources.logos_provincies.logo__provincie_)
-        digiridooLogo.pack(side=LEFT, padx=10, pady=10)
-        
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.logos_kapernikovpacked.logo__kapernikovpacked)
-        provincieWestVlLogo.pack(side=RIGHT, padx=10)
         
         # Kies museum naam
         self.museumnaamFrame = Frame(self.frame)
@@ -185,11 +176,17 @@ class MainWindow:
                 checkThesaurus = False
 
             # Set configured reference thesauri
+            err = None
             if (checkThesaurus):
                 referenceThesauri = self.settings.thesauri
-                setCustomThesauri(referenceThesauri)
+                err = setCustomThesauri(referenceThesauri)
             else:
-                setCustomThesauri(TEntries())
+                err = setCustomThesauri(TEntries())
+            if (not (err is None)):
+                waitDialog.close()
+                tkMessageBox.showerror('Fout bij het starten', err);
+                return
+                
             # Set specified input files to analyse
             objects = []
             thesauri = []
@@ -309,7 +306,6 @@ class MainWindow:
         print "Quitting, saving config."
         self.saveConfiguration()
         self.frame.quit()
-        self.logoFrame.quit()
         self.parent.quit()
         
 
