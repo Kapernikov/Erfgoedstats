@@ -148,14 +148,17 @@ class AdlibDocMapGenerator(xml.sax.ContentHandler):
 
 
 def parseSAXFile(contents, handler):
-    ad = AdlibDocMapGenerator(handler)
-    if (type(contents) == str or type(contents) == unicode):
-        xml.sax.parse(getFileDescriptor(contents),ad)
-    if (type(contents) == file):
-        xml.sax.parse(contents,ad)
-    ad = None
-    gc.collect()
-    
+    try:
+        ad = AdlibDocMapGenerator(handler)
+        if (type(contents) == str or type(contents) == unicode):
+            xml.sax.parse(getFileDescriptor(contents),ad)
+        if (type(contents) == file):
+            xml.sax.parse(contents,ad)
+        ad = None
+        gc.collect()
+    except Exception, e:
+        import traceback
+        raise utils.UserError(e,traceback.format_exc(),"Ongeldig XML bestand %s" % (str(contents)))
 
 
 ######################################
@@ -204,7 +207,9 @@ def parseCSVFile(filename, handler):
     'TODO: excel dialect selecteren?'
     fd = getFileDescriptor(filename)
     xdialect =  csv.Sniffer().sniff(fd.read(4096))
-    fd.seek()
+    xdialect.delimiter = str(xdialect.delimiter)
+    xdialect.quotechar = str(xdialect.quotechar)
+    fd.seek(0)
     csvDoc = csv.reader(fd, dialect=xdialect)
     headers = csvDoc.next()
     for row in csvDoc:
@@ -212,6 +217,6 @@ def parseCSVFile(filename, handler):
         if (type(handler) == list):
             for h in handler:
                 h.onRecord(map)
-            else:
-                handler.onRecord(map)
+        else:
+            handler.onRecord(map)
 

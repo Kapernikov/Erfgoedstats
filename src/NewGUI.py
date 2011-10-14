@@ -213,7 +213,7 @@ class MainWindow:
             print "exception ..."
             print stacktrace
             print "done"
-            ExceptionDialog(self.parent, stacktrace)
+            ExceptionDialog(self.parent, e, stacktrace)
             return
         
         waitDialog.close()
@@ -327,13 +327,18 @@ class WaitDialog:
 class ExceptionDialog:
     '''Shows an exception message with detailed stacktrace. User has the option
     to copy the stacktrace to clipboard for mailing it to the developers.'''
-    def __init__(self, parent, stacktrace):
+    def __init__(self, parent, e, stacktrace):
         self.stacktrace = stacktrace
+        self.e = e
         self.top = Toplevel(parent, takefocus=True)
         self.top.wm_attributes("-topmost", True)
         self.top.title('Fout')
         # User understandable message
-        userMsg = Label(self.top, text="Er heeft zich een fout voorgedaan.\nHieronder vindt u een gedetailleerde beschrijving van de fout.\nGelieve deze te rapporteren door ze te kopiëren en in een email bericht te plakken.", anchor=W)
+        errorTXT = "Er heeft zich een fout voorgedaan.\nHieronder vindt u een gedetailleerde beschrijving van de fout.\nGelieve deze te rapporteren door ze te kopiëren en in een email bericht te plakken."
+        if (isinstance(e, utils.UserError)):
+            errorTXT = e.msg
+            self.stacktrace = "%s\n\n\nROOT CAUSE:\n %s" % (e.msg, e.stacktrace)  + "\n\n" + self.stacktrace
+        userMsg = Label(self.top, text=errorTXT, anchor=W)
         userMsg.config(justify=LEFT)
         userMsg.pack(padx=10, pady=10, fill=X, expand=1)
         # Stacktrace frame

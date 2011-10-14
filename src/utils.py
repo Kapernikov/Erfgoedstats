@@ -25,6 +25,16 @@ def setMaxDetail(m):
     global __maxDetail
     __maxDetail = m
 
+class UserError(Exception):
+    def __init__(self,rootcause,stacktrace,msg):
+        self.msg = msg
+        self.stacktrace = stacktrace
+        self.rootcause = rootcause
+    
+    def __str__(self):
+        return "UserError: "+self.message
+    
+    
 class CounterDict:
     '''Wrapper class around a dictionary that allows storing key/value pairs.
     The key is the name of a term, the value is defined as its count (the number
