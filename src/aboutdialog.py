@@ -106,7 +106,7 @@ class AboutDialog(Toplevel):
 
 
         # Add Ok and Cancel buttons
-        buttonsFrame = Frame(self.frame, bg="white")
+        buttonsFrame = Frame(self.frame, bg="white", style="BW.TLabel")
         buttonsFrame.pack()
         buttonsFrame.pack(fill=X, expand=1)
         okButton = Button(buttonsFrame, text="Ok", command=self.okPressed)
