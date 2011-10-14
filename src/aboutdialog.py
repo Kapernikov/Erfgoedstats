@@ -54,7 +54,7 @@ class HyperlinkManager:
 
 class AboutDialog(Toplevel):
     def __init__(self, mainWindow):
-        Toplevel.__init__(self, mainWindow.parent, takefocus=True)
+        Toplevel.__init__(self, mainWindow.parent, takefocus=True, bg="white")
         self.transient(mainWindow.parent)
         self.mainWindow = mainWindow
         self.protocol("WM_DELETE_WINDOW", self.cancelPressed)
@@ -62,15 +62,15 @@ class AboutDialog(Toplevel):
         self.title('Over erfgoedstats')
         self.grab_set()
         
-        self.frame = Frame(self)
+        self.frame = Frame(self, bg="white")
         self.frame.pack(fill=BOTH, expand=1, padx=10, pady=10)
         
         font = tkFont.Font(weight="bold")
-        label = Label(self.frame, text="Erfgoedstats versie %s (%s)" % (release.version, release.date), anchor=W, font=font)
+        label = Label(self.frame, text="Erfgoedstats versie %s (%s)" % (release.version, release.date), anchor=W, font=font, bg="white")
         label.pack(pady=5, fill=X, expand=1)
         
         font = tkFont.Font()
-        txt = Text(self.frame,  bg="white" )
+        txt = Text(self.frame,  bg="white", borderwidth=0 )
         txt.pack(pady=5, fill=X, expand=1)
         hyperlink = HyperlinkManager(txt)
         txt.insert(INSERT,"Website: ")
@@ -79,14 +79,14 @@ class AboutDialog(Toplevel):
         txt.config(height=3)
         txt.config(font=font)
 
-        label = Label(self.frame, text="Ontwikkeling:" , anchor=W)
+        label = Label(self.frame, text="Ontwikkeling:" , anchor=W, bg="white")
         label.pack(pady=5, fill=X, expand=1)
 
 
         self.logoFrame = Frame(self.frame, bg="white")
         self.logoFrame.pack(fill=BOTH, expand=0)
 
-        label = Label(self.frame, text="Sonsors:" , anchor=W)
+        label = Label(self.frame, text="Sonsors:" , anchor=W, bg="white")
         label.pack(pady=5, fill=X, expand=1)
 
         self.logo2Frame = Frame(self.frame, bg="white")
@@ -94,17 +94,17 @@ class AboutDialog(Toplevel):
 
         
         ## LOGOs (supplied as base64 encoded strings) ##
-        digiridooLogo = Label(self.logo2Frame, image=resources.logos_provincies.logo__provincie_)
+        digiridooLogo = Label(self.logo2Frame, image=resources.logos_provincies.logo__provincie_, bg="white")
         digiridooLogo.pack(side=LEFT, padx=10, pady=10)
         
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_kapernikov.kapernikov)
+        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_kapernikov.kapernikov, bg="white")
         provincieWestVlLogo.grid(column=0, row=0, padx=10, sticky=W)
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_packed.packed)
+        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_packed.packed, bg="white")
         provincieWestVlLogo.grid(column=1, row=0, padx=10, sticky=E)
 
 
         # Add Ok and Cancel buttons
-        buttonsFrame = Frame(self.frame)
+        buttonsFrame = Frame(self.frame, bg="white")
         buttonsFrame.pack()
         buttonsFrame.pack(fill=X, expand=1)
         okButton = Button(buttonsFrame, text="Ok", command=self.okPressed)
