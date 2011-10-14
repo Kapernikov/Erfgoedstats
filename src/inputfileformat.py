@@ -14,6 +14,11 @@ import gc
 #### FILE ENCODING
 ##################
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
 def autoDetectEncodingFromFile(filename):
     'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets? Misschien is het mogelijk om bepaalde scores wat op te waarderen'
     result = chardet.detect(open(filename, mode="rb").read(4096))
