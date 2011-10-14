@@ -71,7 +71,7 @@ class AboutDialog(Toplevel):
         label = Label(self.frame, text="Erfgoedstats versie %s (%s)" % (release.version, release.date), anchor=W, font=font, bg="white", style="BW.TLabel")
         label.pack(pady=5, fill=X, expand=1)
         
-        font = tkFont.Font()
+        font = tkFont.Font(size=10)
         txt = Text(self.frame,  bg="white", borderwidth=0 )
         txt.pack(pady=5, fill=X, expand=1)
         hyperlink = HyperlinkManager(txt)
@@ -81,14 +81,14 @@ class AboutDialog(Toplevel):
         txt.config(height=3)
         txt.config(font=font)
 
-        label = Label(self.frame, text="Ontwikkeling:" , anchor=W, bg="white", style="BW.TLabel")
+        label = Label(self.frame, text="Ontwikkeling:" , anchor=W, bg="white", style="BW.TLabel",font=font)
         label.pack(pady=5, fill=X, expand=1)
 
 
         self.logoFrame = Frame(self.frame, bg="white", style="BW.TLabel")
         self.logoFrame.pack(fill=BOTH, expand=0)
 
-        label = Label(self.frame, text="Sonsors:" , anchor=W, bg="white", style="BW.TLabel")
+        label = Label(self.frame, text="Sonsors:" , anchor=W, bg="white", style="BW.TLabel", font=font)
         label.pack(pady=5, fill=X, expand=1)
 
         self.logo2Frame = Frame(self.frame, bg="white", style="BW.TLabel")
