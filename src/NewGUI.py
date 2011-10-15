@@ -38,6 +38,10 @@ import settings
 configFile = "erfgoedstats-settings-v1.cfg"
 
 
+''' this file contains the "main" program for running the GUI + the code for the main window '''
+''' The real work is done in the "start" method below '''
+
+
 
 class MainWindow:
     def __init__(self, parent):
@@ -47,10 +51,6 @@ class MainWindow:
         
         self.frame = Frame(parent)
         self.frame.pack(padx=10, pady=10, fill=X, expand=1)
-
-        
-        
-
         
         # Menu
         self.menu = Menu(parent)
@@ -124,7 +124,6 @@ class MainWindow:
         self.settings.setPath("output",os.path.dirname(filename))
         
     def showOptions(self):
-        '''Show the settings dialog'''
         s = SettingsDialog(self)
         s.show()
     
@@ -134,18 +133,6 @@ class MainWindow:
         a.show()
         
     def start(self):
-        '''
-        # This method is rigged to cause an exception for testing
-        try:
-            # Raise an exception on purpose to test exception dialog
-            a = dict()
-            b = a["doesnotexist"]
-        except Exception, e:
-            stacktrace = traceback.format_exc()
-            print stacktrace
-            ExceptionDialog(self.parent, stacktrace)
-            return
-        '''    
         museumName = self.museumnaamField.get()
         museumName = utils.ensureUnicode(museumName)
         if not museumName.strip():
@@ -224,33 +211,7 @@ class MainWindow:
 
         return
     
-#        tkMessageBox.showinfo("Bezig met verwerken", "Even geduld, de gegevens worden verwerkt.", parent=self.parent)
-        #d = WaitDialog(self.parent)
-        #d.top.update()
-        #self.parent.wait_window(d.top)
-        '''
-        height = self.frame.winfo_height()
-        width = self.frame.winfo_width()
-        self.frame.pack_forget()
-        waitLabel = Tkinter.Label(self.parent, text="Even geduld, de gegevens worden verwerkt.", height=height, width=width)
-        waitLabel.pack(padx=10, pady=10)
-        self.parent.update()
-        '''
-        objecten = self.inputField1.get()
-        thesaurus = self.inputField2.get()
-        outfile = self.inputField3.get()
-        try:
-            generateReport(objecten, thesaurus, outfile, self.checkThesaurus)
-        except Exception, e:
-            tkMessageBox.showerror("Fout", "Er ging iets mis bij het verwerken van de gegevens.\n(Beschrijving van de fout: %s)" % str(e))
-            raise e     
-        showHtml = tkMessageBox.askyesno('Verwerking voltooid', 'De verwerking van de gegevens is gelukt. Wil je het resultaat tonen?')
-        if showHtml:
-            webbrowser.open(outfile)
-        '''
-        waitLabel.destroy()
-        self.frame.pack()
-        '''
+
         
     def loadConfiguration(self):
         '''Load saved configuration of app. If the config file is
@@ -260,31 +221,29 @@ class MainWindow:
         if not os.path.exists(configFile):
             return settings.getDefaultSettings()
         try:
-            unpickler = pickle.Unpickler(open(configFile, 'rb'))  #codecs.open(configFile,'ru', encoding="utf-8" ,errors="ignore"))
+            unpickler = pickle.Unpickler(open(configFile, 'rb'))
             msettings = unpickler.load()
             if not isinstance(msettings, Settings):
                 return msettings.getDefaultSettings()
             msettings.validate()
-            print "Loaded previously saved settings."
+            utils.s("* Loaded previously saved settings.")
             return msettings
         except:
-            print "Error loading saved settings."
+            utils.s(" --> Error loading saved settings.")
             return settings.getDefaultSettings()
         
     def saveConfiguration(self):
         if not isinstance(self.settings, Settings):
-            print "error saving settings"
+            utils.s("* Error saving settings (nothing to save)")
             return
         try:
-            pickler = pickle.Pickler(open(configFile, 'wb'))  #codecs.open(configFile,'wu', encoding="utf-8" ,errors="ignore"))
+            pickler = pickle.Pickler(open(configFile, 'wb'))
             pickler.dump(self.settings)
         except:
-            print "Error: could not save configuration to file %s" % configFile
+            utils.s("* Error: could not save configuration to file %s" % configFile)
             return
     
     def getConfiguredReferenceThesauri(self):
-        '''Returns a dict with the standard thesauri currently configured for the app. The dict is
-        formatted as described in Settings.getReferenceThesauri()'''
         return self.settings.thesauri
     
     def updateReferenceThesauri(self, thesaurus):
@@ -326,7 +285,11 @@ class WaitDialog:
         
 class ExceptionDialog:
     '''Shows an exception message with detailed stacktrace. User has the option
-    to copy the stacktrace to clipboard for mailing it to the developers.'''
+    to copy the stacktrace to clipboard for mailing it to the developers.
+    
+    to give a userfriendly error message, raise a utils.UserError instead of another exeption.
+    this way, the message shown to the user can be controlled.
+    '''
     def __init__(self, parent, e, stacktrace):
         self.stacktrace = stacktrace
         self.e = e
@@ -411,7 +374,6 @@ def main():
     root.title('Erfgoedstats')
     
     # Populate window with widgets
-    'top = Tkinter.Toplevel()'
     window = MainWindow(root)
     
     # Run main event loop

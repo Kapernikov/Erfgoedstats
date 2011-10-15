@@ -26,7 +26,15 @@ def setMaxDetail(m):
     __maxDetail = m
 
 class UserError(Exception):
+    '''
+        UserError is an error with a user-readable message (msg)
+    '''
     def __init__(self,rootcause,stacktrace,msg):
+        '''
+            rootcause: the exception that caused this exception
+            stacktrace: the stacktrace of the root cause
+            msg: the user-readable message
+        '''
         self.msg = msg
         self.stacktrace = stacktrace
         self.rootcause = rootcause
@@ -36,17 +44,28 @@ class UserError(Exception):
     
     
 class CounterDict:
-    '''Wrapper class around a dictionary that allows storing key/value pairs.
-    The key is the name of a term, the value is defined as its count (the number
-    of occurences of that property).
-    Has some utility functions, and is able to generate a HTML report from itself.'''
+    ''' a dictionary  like this:
+    
+     {
+         word1: 100,
+         word2: 150,
+         word3: 300
+     }
+    
+    meaning word1 occurred 100 times, word2 occured 150 times, word3 occured 300 times
+    
+    this class also supports 2-level deep hierarchies and has a method to turn them in a html report
+    
+    '''
     def __init__(self):
         self.realdict = {}
         self.level2dict = {}
     
     def count(self, name, level2=None):
         '''Indicate or count one occurence of a specified term.
-        Creates that term with count one if it was not counted before.''' 
+        Creates that term with count one if it was not counted before.
+        level2 is optional, when a second level of hierarchy is needed.
+        ''' 
         if name not in self.realdict:
             self.realdict[name] = 1
             self.level2dict[name] = {}
@@ -80,6 +99,7 @@ class CounterDict:
         return html
     
     def writeL2Report(self,writer):
+        ''' writes a 2-level hierarchic report from this dictionary to the given writer (or file)'''
         table = htmlutils.SortableTable()
         table.addClass("rpt")
         total = sum(self.values())
@@ -178,27 +198,13 @@ def ensureUnicode(input, encoding="utf-8"):
     by default, unless specified otherwise. Makes sure that
     the result is a unicode string, also if the specified
     type of input is not a string or unicode string.'''
-    #print "input: %s (%s)  encoding: %s (%s)\n" % (input, type(input), encoding, type(encoding))
     if input == None:
         return unicode("")
     if(isinstance(input, str)):
         return unicode(input, encoding=encoding, errors="replace")
     if(isinstance(input, unicode)):
         return input
-    '''
-    if(isinstance(input, list)):
-        i = 0
-        while i < len(input):
-            input[i] = ensureUnicode(input[i], encoding)
-        return input
-    if(isinstance(input, dict)):
-        keys = input.keys()
-        for key in keys:
-            entry = input[key]
-            del input[key]
-            key = ensureUnicode(key, encoding)
-            input[key] = ensureUnicode(entry, encoding)
-    '''
+
     return unicode("")
 
 def packDocMap(map, fields_to_keep=None):

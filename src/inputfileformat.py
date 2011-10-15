@@ -1,10 +1,19 @@
 '''
-Conversion module for Adlib XML fields of different
-alternate versions of Adlib XML files to a common format.
 
-Created on 4-aug-2011
+    this file tries to read input files and parse them into "doc maps"
+    a doc map is one "record" of a file and is a map:
+        * the keys of the map are the field names
+        * the values of the map are LISTS containing the field values (this way, multiple valued fields are supported)
+        
+    an example of a doc map:
+        {
+            "objectname" : [ "schop", "gereedschap" ]
+            "material" : [ "aardewerk" ]
+            "object_number" : [ "TS0004" ] 
+        }
+        
+    this module can convert both CSV files and XML files to docmaps. it tries to ensure utf-8 wherever possible
 
-@author: duststorm
 '''
 import utils
 import chardet, codecs
@@ -16,26 +25,21 @@ import gc
 
 import sys
 reload(sys)
+''' otherwise python SAX parser defaults to ascii, giving errors, because getFileDescriptor ensures unicode '''
 sys.setdefaultencoding('utf-8')
 
 
 def autoDetectEncodingFromFile(filename):
-    'TODO: missch voorkeur geven aan western, latin1 en utf-8 charsets? Misschien is het mogelijk om bepaalde scores wat op te waarderen'
     result = chardet.detect(open(filename, mode="rb").read(4096))
     encoding = result["encoding"]
     confidence = result["confidence"]
     return encoding
 
 def getFileDescriptor(filename, encoding=None):
-    '''Returns the contents of the file with specified path. Returned string is guaranteed
-    to be unicode. Will attempt to determine the encoding scheme used in the file as good
-    as possible for decoding the file.'''
+    ''' returns a filedescriptor for a file that is guaranteed to be unicode'''
     if not encoding:
         encoding=autoDetectEncodingFromFile(filename)
     file = codecs.open(filename, mode='rU', encoding=encoding, errors="replace")
-    '''fileContents = file.read()
-    fileContents = utils.ensureUnicode(fileContents)
-    return fileContents'''
     return file
 
 
@@ -43,16 +47,14 @@ def getFileDescriptor(filename, encoding=None):
 #### ADLIB FILE FORMAT CONVERSION
 #################################
 
-'''General mapping of tags that should happen for every Adlib XML file.
-Key is the tag name to be replaced, value is the name it will be replaced with.'''
-xmlFieldstatsConversionMapping ={
-    "adlib-record" : "record",
-    "adlib-xml": "recordlist"
-}
 
-'''Mapping of Adlib Object fields to a common format. This conversion will only
-happen on Object files.'''
+''' 
+    to support older adlib versions, we map older tag names (xml) to newer tag names.
+    here is the mapping
+'''
 xmlObjectconversionMapping = {
+    "adlib-record" : "record",
+    "adlib-xml": "recordlist",
     "beschrijving" : "description",
     "instellingsnummer" : "institution.name",
     "materiaal" : "material",
@@ -75,10 +77,8 @@ xmlObjectconversionMapping = {
     
 }
     
-def getTN(orig):
+def getConvertedTagName(orig):
     p = orig
-    if (p in xmlFieldstatsConversionMapping.keys()):
-        p = xmlFieldstatsConversionMapping[p]
     if (p in xmlObjectconversionMapping.keys()):
         p = xmlObjectconversionMapping[p]
     return p
@@ -93,7 +93,22 @@ import xml.sax
     
 
 class AdlibDocMapGenerator(xml.sax.ContentHandler):
+    '''
+        a SAX handler that converts adlib XML in "docmaps"
+        whenever a record has been read, the  onRecord method of the handlers will be called.
+        a handler should hence implement the following interface:
+        
+        class Handler:
+            def onRecord(self,recrod):
+                pass
+       
+       this class support either a single handler either a list of handlers
+         
+    '''
     def __init__(self,  handler):
+        '''
+            handler can be a single handler or a list of handlers
+        '''
         xml.sax.ContentHandler.__init__(self)
         self.docmap = {}
         self.inRecord = False
@@ -103,7 +118,7 @@ class AdlibDocMapGenerator(xml.sax.ContentHandler):
         self.handler = handler
         
     def startElement(self,name,attrs):
-        tn = getTN(name)
+        tn = getConvertedTagName(name)
         if (tn == "record"):
             self.docmap = {}
             self.inRecord = True
@@ -118,7 +133,7 @@ class AdlibDocMapGenerator(xml.sax.ContentHandler):
                 self.current_value = attrs.getValue("value")
             
     def endElement(self,name):
-        tn = getTN(name)
+        tn = getConvertedTagName(name)
         if (tn == "record"):
             self.inRecord = False
             self.emit()
@@ -147,18 +162,22 @@ class AdlibDocMapGenerator(xml.sax.ContentHandler):
             self.handler.onRecord(self.docmap)
 
 
-def parseSAXFile(contents, handler):
+def parseSAXFile(filename, handler):
+    '''
+        parses an XML file and sends the resulting docmaps to the given handler or the given list of handlers
+        see AdlibDocMapGenerator for more details
+    '''
     try:
         ad = AdlibDocMapGenerator(handler)
-        if (type(contents) == str or type(contents) == unicode):
-            xml.sax.parse(getFileDescriptor(contents),ad)
-        if (type(contents) == file):
-            xml.sax.parse(contents,ad)
+        if (type(filename) == str or type(filename) == unicode):
+            xml.sax.parse(getFileDescriptor(filename),ad)
+        if (type(filename) == file):
+            xml.sax.parse(filename,ad)
         ad = None
         gc.collect()
     except Exception, e:
         import traceback
-        raise utils.UserError(e,traceback.format_exc(),"Ongeldig XML bestand %s" % (str(contents)))
+        raise utils.UserError(e,traceback.format_exc(),"Ongeldig XML bestand %s" % (str(filename)))
 
 
 ######################################
@@ -166,11 +185,8 @@ def parseSAXFile(contents, handler):
 ######################################
 
 def kv2map(k, v):
-    '''Convert a list of keys and list of values to
-    a map with a one-to-one mapping of keys and values.
-    Entries with empty key or value will be ignored.
-    This map can contain multiple values for one key, 
-    in which case that key will have a list as value.
+    '''
+        method generating a docmap from a list of fieldnames + a list of values
     '''
     map = {}
     if(not isinstance(k, list) or not isinstance(v, list)):
@@ -202,9 +218,13 @@ def kv2map(k, v):
             map[key] = value
     return map
 
+
 def parseCSVFile(filename, handler):
+    '''
+        parses a CSV files and sends the found records as docmaps to the handler.
+        handler can either be a single handler either a list of handlers.
+    '''
     import csv
-    'TODO: excel dialect selecteren?'
     fd = getFileDescriptor(filename)
     xdialect =  csv.Sniffer().sniff(fd.read(4096))
     xdialect.delimiter = str(xdialect.delimiter)

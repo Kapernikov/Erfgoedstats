@@ -357,7 +357,6 @@ def setCustomThesauri(thesauri):
     Calling this method sets custom reference thesauri, which will override
     the defaults when calling initThesauri(). Should be called before initThesauri()
     and should not be called more than once. Make sure that thesauri have unique names!'''
-    
     if not thesauri or not isinstance(thesauri, inputfiletable.TEntries):
         return
     global customThesauri

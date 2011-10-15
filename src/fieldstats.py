@@ -4,9 +4,7 @@ from __future__ import division
 Generates general fieldstats about occurences of fields in 
 a dataset.
 
-Created on Jan 6, 2011
-
-@author: kervel
+Main goal of the "fieldstats" report is just to see how fields are filled in.
 '''
 import invulboek
 import utils
@@ -14,32 +12,38 @@ import tr
 import htmlutils
 
 global xid
-
 xid=0
-
 def getFreshID():
-    '''Returns a new globally unique ID'''
+    '''Returns a new unique ID'''
     global xid
     xid = xid + 1
     return xid
 
+
+
 class Field:
-    '''Represents a field'''
+    '''Represents a field in a dataset.
+        this Field object will contain statistics about the usage of a certain field.
+        it contains a lot of data (for all records, it will contain the value for this field)
+    '''
     def __init__(self,fieldname):
         self.fieldname = fieldname
-        self.nbMultiValued = 0
-        # list of lists: one entry in self.documents = one document
-        # this entry contains another list that contains the different documents
+        
+        ''' we keep several counters to speed up the calculation of statistics '''
+        self._nbDocuments= 0          # number of documents having this field
+        self._nbUses = 0              # number of values (can be more than number of documents if multivalued)
+        self._totalFieldLength = 0    # total number of characters of all values together (needed for average length calculation)
+
+        ''' data structure: 
+            a list of lists: for each document it will contain the values for this field.
+            eg field "materiaal", 2 documents, one with a single value, one with 2 values
+            [
+                [ "aardewerk" ],
+                [ "metaal", "hout" ],
+            ]
+        '''
         self.documents = []
-        '''This should normally be a boolean, but is set to -1 when its value is not yet calculated'''
-        self._isReportDetail = -1
-        self._nbDocuments= 0
-        self._nbUses = 0
-        self._totalFieldLength = 0
-  
-    '''
-        a new document uses this field
-    '''
+          
     def newDocument(self,use):
         '''Notify this field that it is used by a document.
         The document will be stored in this field's document list.'''
@@ -49,6 +53,20 @@ class Field:
         self._nbDocuments = self._nbDocuments + 1
         self._nbUses = self._nbUses + 1
         self._totalFieldLength = self._totalFieldLength + len(use)
+
+    def newUse(self,use):
+        '''Notify this field that it is used another time by a document
+        that already announced its first usage of this field using newDocument.'''
+        if (use is None):
+            return
+        self._nbUses = self._nbUses + 1
+        self._totalFieldLength = self._totalFieldLength + len(use)
+
+        if (len(self.documents) > 0):
+            self.documents[-1].append(use.encode('utf-8'))
+        else:
+            self.documents.append([use.encode('utf-8')])
+
     
     
     def getAverageUsePerDocument(self):
@@ -67,22 +85,6 @@ class Field:
             return 0
         return totalLength / totalFields    
     
-    '''
-        a document that already used this field uses it again (multivalued field)
-    '''
-    def newUse(self,use):
-        '''Notify this field that it is used another time by a document
-        that already announced its first usage of this field using newDocument.'''
-        if (use is None):
-            return
-        self._nbUses = self._nbUses + 1
-        self._totalFieldLength = self._totalFieldLength + len(use)
-
-        if (len(self.documents) > 0):
-            self.documents[-1].append(use.encode('utf-8'))
-            self.nbMultiValued = self.nbMultiValued + 1
-        else:
-            self.documents.append([use.encode('utf-8')])
             
     def getNBDocuments(self):
         '''The number of documents this field is used in.'''
@@ -95,7 +97,9 @@ class Field:
     def isMeaningLess(self):
         '''Determines whether this field is meaningless. It is meaningless if
         its name is "priref" or "record_number", which are database IDs, or when
-        the field's name starts with "edit[._]" or input[._].'''
+        the field's name starts with "edit[._]" or input[._].
+        
+        meaningless fields are not shown in the report'''
         badfields = ["priref", "record_number"]
         if (self.fieldname.startswith("edit.") or self.fieldname.startswith("edit_")):
             return True
@@ -103,9 +107,8 @@ class Field:
             return True
         return self.fieldname in badfields
     
-    'TODO: ??  is id gebruikt?'
     def reportValueBreakdown(self, id):
-        '''Returns a breakdown of the different unique values and their
+        '''Returns a breakdown (CounterDict) of the different unique values and their
         number of occurences in the report (all values of all documents).
         A counterDict is returned. Returns None if no documents are added
         to this report yet.'''
@@ -117,27 +120,21 @@ class Field:
                 values.count(y)
         return values        
     
-    def isReportDetail(self):
-        '''Returns whether the report should be detailed with a counterDict
-        table popup with its different values (boolean).
-        If the report detail is not yet calculated it is calculated using 
-        the value breakdown of the current values in the report.'''
-        if self._isReportDetail == -1:
-            self.setReportDetail(self.reportValueBreakdown(id))
-        return self._isReportDetail
     
-    def checkReportDetail(self, values):
-        if values:
+    def shouldReportDetail(self, values):
+        if values and self.getNBDocuments() > 0:
             if (len(values) <= utils.getMaxDetail()):
-                self._isReportDetail = True
+                return  True
             else:
-                self._isReportDetail = False
+                return False
         else:
-            self._isReportDetail = False
+            return False
     
     def reportUsage(self, totaldocs):
         '''Generate a row about this field in the fieldstats table containing the usage statistics
         of the field this row represents.'''
+
+        
         row = htmlutils.TableRow()
         row.addClass("value-row")
         if (self.getNBDocuments() / totaldocs > 0.99):
@@ -149,18 +146,17 @@ class Field:
         if (self.fieldname in invulboek.allfields):
             row.addClass("invulboek")
         
-        values = self.reportValueBreakdown(id)
-        self.checkReportDetail(values) 
 
-        fieldnameCell = htmlutils.Cell()
         
         '''Determine whether a detailed popup should be shown for this row. Also, if no popup is shown, the checkbox for
         this row is disabled so that the detail table can also not be shown for printing.'''
-        if self.isReportDetail():
+        values = self.reportValueBreakdown(id)
+        if self.shouldReportDetail(values):
             # create the tooltip
             row.tooltip = values.getReport()
             row.tooltiptitle = tr.tr(self.fieldname)
 
+        fieldnameCell = htmlutils.Cell()
         fieldnameCell.addClass("fieldname")
         fieldnameCell.content = tr.tr(self.fieldname)
 
@@ -186,7 +182,23 @@ class Field:
 import inputfileformat
 
 class FieldStats:
+    '''
+        class for generating the FieldStats
+        this class does:
+            * serve as a handler for the inputfileformat (it has the onRecord row)
+            * keeps a collection of Fields
+            * has methods to write a html report
+    '''
     def __init__(self, filename=None, documentfilter=None, type="xml"):
+        '''
+            filename is the name of the file to parse or None if there is no parsing needed.
+            
+            documentfilter is a method:
+                documentfilter(docmap) that will return true if this docmap is to be included, and false if the docmap is to be excluded
+                when documentfilter is None, all records will be included
+            
+            type is either xml either csv. if filename is None, type can also be None
+        '''
         self.fields = {}
         self.totaldocs = 0
         self.documentFilter = documentfilter
@@ -199,14 +211,11 @@ class FieldStats:
 
     def getSize(self):
         return self.totaldocs
-        
 
-    def onRecord(self,dm):
-        self._parseDocMap(dm)
-
-
-    'TODO: Door gebrek aan strong typing kan het hier wel eens grondig misgaan bij vieze input'                        
-    def _parseDocMap(self, docmap):
+    def onRecord(self,docmap):
+        '''
+            parses this docmap: update / add Fields
+        '''
         include_d = True
         if (self.documentFilter is not None):
             include_d = self.documentFilter(docmap)
@@ -232,8 +241,6 @@ class FieldStats:
         table.addClass("fieldreport")
         table.addClass("rpt")
         table.setHeader(["veld", "% gebruikt", "aantal", "meervoudige waarde", "gem. veldlengte", "unieke waarden"])
-        
-        
 
         sv = self.fields.values()
         for x in sorted(sv, key=lambda x: x.getNBDocuments(), reverse=True):
