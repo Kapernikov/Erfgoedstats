@@ -5,7 +5,7 @@ _content=u'''
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-		<title>Efgoedstats rapport</title>
+		<title>Erfgoedstats rapport</title>
         <style type='text/css'>
             table.rpt tr td.fieldname {
                 background: #ddd;

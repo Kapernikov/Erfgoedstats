@@ -76,7 +76,7 @@ class AboutDialog(Toplevel):
         txt.pack(pady=5, fill=X, expand=1)
         hyperlink = HyperlinkManager(txt)
         txt.insert(INSERT,"Website: ")
-        txt.insert(INSERT, "http://www.packed.be", hyperlink.add(self.openPackedSite))
+        txt.insert(INSERT, "http://www.projectcest.be/index.php/Erfgoedstats", hyperlink.add(self.openPackedSite))
         txt.config(state=DISABLED)
         txt.config(height=3)
         txt.config(font=font)
@@ -120,7 +120,7 @@ class AboutDialog(Toplevel):
     
     def openPackedSite(self):
         import webbrowser
-        webbrowser.open("http://www.packed.be/")
+        webbrowser.open("http://www.projectcest.be/index.php/Erfgoedstats")
     
     def show(self):
         # Lock all interaction of underlying window and wait until the settigns window is closes
