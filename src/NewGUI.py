@@ -14,12 +14,13 @@ import pickle
 import utils
 import traceback
 from thesaurus import setCustomThesauri
-from gui import generateReport
+#from gui import generateReport
 # tkinter module was renamed in some python versions
 try: from Tkinter import *
 except: from tkinter import *
 # Override default Tkinter widgets with themed ttk ones (necessary for windows, for GTK they are already themed)
-from pyttk import *
+try: from pyttk import *
+except: from tkinter.ttk import *
 # These widgets are by default themed by the OS' window manager
 import tkFileDialog
 import tkMessageBox
