@@ -117,7 +117,8 @@ class SettingsDialog(Toplevel):
             # Add an empty row to GUI if no thesauri are configured, as a visual cue of what the purpose of this menu is
             self.thesauriTable.addRow()
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, text="Thesaurus toevoegen", image=PhotoImage(data=resources.ButtonIcons_base64.add), compound=LEFT, command=self.thesauriTable.addRow)
+        self.addimg = PhotoImage(data=resources.ButtonIcons_base64.add, format="gif89")
+        self.addRowButton = Button(self.frame, text="Thesaurus toevoegen", image=self.addimg, compound=LEFT, command=self.thesauriTable.addRow)
         self.addRowButton.pack(pady=5)
         # Description label
         descrLabel = Label(self.frame, text="De volgorde van de thesauri in deze tabel bepaalt hun belangrijkheid.\nDe bovenste thesaurus is het meest belangrijk.", anchor=W)

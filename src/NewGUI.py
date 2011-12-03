@@ -48,9 +48,9 @@ configFile = "erfgoedstats-settings-v1.cfg"
 ''' The real work is done in the "start" method below '''
 
 
-
 class MainWindow:
     def __init__(self, parent):
+        import resources.logo_packed
         self.parent = parent
         
         self.settings = self.loadConfiguration()
@@ -91,7 +91,9 @@ class MainWindow:
         self.inputFilesTable.addRow(name="Personen", filetype='Adlib XML Personen')
         
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, image=PhotoImage(data=resources.ButtonIcons_base64.add,format="gif89"), text="Bestand toevoegen", compound=LEFT, command=self.addInputRow)
+        img = PhotoImage(master=parent, data=resources.ButtonIcons_base64.add,format="gif89")
+        self.addimg = img
+        self.addRowButton = Button(self.frame, image=img, text="Bestand toevoegen", compound=LEFT,  command=self.addInputRow)
         self.addRowButton.pack(pady=5)
         
         # Kies output file

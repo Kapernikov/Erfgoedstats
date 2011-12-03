@@ -65,11 +65,11 @@ class AboutDialog(Toplevel):
         self.title('Over erfgoedstats')
         self.grab_set()
         
-        self.frame = Frame(self, bg="white", style="BW.TLabel")
+        self.frame = Frame(self, style="BW.TLabel")
         self.frame.pack(fill=BOTH, expand=1, padx=10, pady=10)
         
         font = tkFont.Font(weight="bold")
-        label = Label(self.frame, text="Erfgoedstats versie %s (%s)" % (release.version, release.date), anchor=W, font=font, bg="white", style="BW.TLabel")
+        label = Label(self.frame, text="Erfgoedstats versie %s (%s)" % (release.version, release.date), anchor=W, font=font, style="BW.TLabel")
         label.pack(pady=5, fill=X, expand=1)
         
         font = tkFont.Font(size=10)
@@ -82,32 +82,35 @@ class AboutDialog(Toplevel):
         txt.config(height=3)
         txt.config(font=font)
 
-        label = Label(self.frame, text="Ontwikkeling:" , anchor=W, bg="white", style="BW.TLabel",font=font)
+        label = Label(self.frame, text="Ontwikkeling:" , anchor=W, style="BW.TLabel",font=font)
         label.pack(pady=5, fill=X, expand=1)
 
 
-        self.logoFrame = Frame(self.frame, bg="white", style="BW.TLabel")
+        self.logoFrame = Frame(self.frame, style="BW.TLabel")
         self.logoFrame.pack(fill=BOTH, expand=0)
 
-        label = Label(self.frame, text="Sonsors:" , anchor=W, bg="white", style="BW.TLabel", font=font)
+        label = Label(self.frame, text="Sonsors:" , anchor=W, style="BW.TLabel", font=font)
         label.pack(pady=5, fill=X, expand=1)
 
-        self.logo2Frame = Frame(self.frame, bg="white", style="BW.TLabel")
+        self.logo2Frame = Frame(self.frame, style="BW.TLabel")
         self.logo2Frame.pack(fill=BOTH, expand=0)
 
         
         ## LOGOs (supplied as base64 encoded strings) ##
-        digiridooLogo = Label(self.logo2Frame, image=resources.logos_provincies.logo__provincie_, bg="white", style="BW.TLabel")
+        self.digiImg = PhotoImage(master=self.mainWindow.parent,data=resources.logos_provincies.logo__provincie_,format="gif89")
+        digiridooLogo = Label(self.logo2Frame, image=self.digiImg, style="BW.TLabel")
         digiridooLogo.pack(side=LEFT, padx=10, pady=10)
         
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_kapernikov.kapernikov, bg="white", style="BW.TLabel")
+        self.wvlImg = PhotoImage(master=self.mainWindow.parent, data=resources.logo_kapernikov.kapernikov,format="gif89")
+        provincieWestVlLogo = Label(self.logoFrame, image=self.wvlImg, style="BW.TLabel")
         provincieWestVlLogo.grid(column=0, row=0, padx=10, sticky=W)
-        provincieWestVlLogo = Label(self.logoFrame, image=resources.logo_packed.packed, bg="white", style="BW.TLabel")
+        self.packedImg = PhotoImage(master=self.mainWindow.parent, data=resources.logo_packed.packed,format="gif89")
+        provincieWestVlLogo = Label(self.logoFrame, image=packedImg, style="BW.TLabel")
         provincieWestVlLogo.grid(column=1, row=0, padx=10, sticky=E)
 
 
         # Add Ok and Cancel buttons
-        buttonsFrame = Frame(self.frame, bg="white", style="BW.TLabel")
+        buttonsFrame = Frame(self.frame, style="BW.TLabel")
         buttonsFrame.pack()
         buttonsFrame.pack(fill=X, expand=1)
         okButton = Button(buttonsFrame, text="Ok", command=self.okPressed)

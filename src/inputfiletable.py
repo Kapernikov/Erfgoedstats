@@ -182,7 +182,8 @@ class InputFileRow:
         self.browseButton = Button(self.frame, text="Bladeren", command=self.browseFile)
         self.browseButton.pack(side=LEFT, padx=5)
         # Remove row button
-        self.removeButton = Button(self.frame, image=PhotoImage(data=resources.ButtonIcons_base64.remove), text="Verwijderen", compound=LEFT, command=self.remove)
+        self.removeImg = PhotoImage(data=resources.ButtonIcons_base64.remove)
+        self.removeButton = Button(self.frame, image=self.removeImg, text="Verwijderen", compound=LEFT, command=self.remove)
         self.removeButton.pack(side=LEFT)
         # Add to rows list
         parentTable.rows.append(self)
