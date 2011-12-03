@@ -97,16 +97,16 @@ class AboutDialog(Toplevel):
 
         
         ## LOGOs (supplied as base64 encoded strings) ##
-        self.digiImg = PhotoImage(master=self.mainWindow.parent,data=resources.logos_provincies.logo__provincie_,format="gif89")
-        digiridooLogo = Label(self.logo2Frame, image=self.digiImg, style="BW.TLabel")
-        digiridooLogo.pack(side=LEFT, padx=10, pady=10)
+        self.provincies = PhotoImage(master=self.mainWindow.parent,data=resources.logos_provincies.logo__provincie_,format="gif89")
+        pvLogo = Label(self.logo2Frame, image=self.provincies, style="BW.TLabel")
+        pvLogo.pack(side=LEFT, padx=10, pady=10)
         
-        self.wvlImg = PhotoImage(master=self.mainWindow.parent, data=resources.logo_kapernikov.kapernikov,format="gif89")
-        provincieWestVlLogo = Label(self.logoFrame, image=self.wvlImg, style="BW.TLabel")
-        provincieWestVlLogo.grid(column=0, row=0, padx=10, sticky=W)
-        self.packedImg = PhotoImage(master=self.mainWindow.parent, data=resources.logo_packed.packed,format="gif89")
-        provincieWestVlLogo = Label(self.logoFrame, image=packedImg, style="BW.TLabel")
-        provincieWestVlLogo.grid(column=1, row=0, padx=10, sticky=E)
+        self.kapernikov = PhotoImage(master=self.mainWindow.parent, data=resources.logo_kapernikov.kapernikov,format="gif89")
+        self.packed = PhotoImage(master=self.mainWindow.parent, data=resources.logo_packed.packed,format="gif89")
+        dLogo = Label(self.logoFrame, image=self.kapernikov, style="BW.TLabel")
+        dLogo.grid(column=0, row=0, padx=10, sticky=W)
+        aLogo = Label(self.logoFrame, image=self.packed, style="BW.TLabel")
+        aLogo.grid(column=1, row=0, padx=10, sticky=E)
 
 
         # Add Ok and Cancel buttons
