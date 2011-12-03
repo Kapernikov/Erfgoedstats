@@ -7,6 +7,7 @@ Created on 26-jul-2011
 
 @author: duststorm
 '''
+import os
 import adlibstats
 import webbrowser
 import tkFont
@@ -19,8 +20,10 @@ from thesaurus import setCustomThesauri
 try: from Tkinter import *
 except: from tkinter import *
 # Override default Tkinter widgets with themed ttk ones (necessary for windows, for GTK they are already themed)
-try: from pyttk import *
-except: from tkinter.ttk import *
+try: from ttk import *
+except:
+    try: from pyttk import *
+    except: from tkinter.ttk import *
 # These widgets are by default themed by the OS' window manager
 import tkFileDialog
 import tkMessageBox
@@ -30,6 +33,8 @@ import resources.provinciewestvllogo_base64
 import resources.ButtonIcons_base64
 import resources.logos_provincies
 import resources.logos_kapernikovpacked
+
+import Tkinter
 
 from inputfiletable import InputFileRow, InputFileTable, TEntries
 from settings import Settings, SettingsDialog
@@ -86,7 +91,7 @@ class MainWindow:
         self.inputFilesTable.addRow(name="Personen", filetype='Adlib XML Personen')
         
         # Input file toevoegen knop
-        self.addRowButton = Button(self.frame, image=resources.ButtonIcons_base64.add, text="Bestand toevoegen", compound=LEFT, command=self.addInputRow)
+        self.addRowButton = Button(self.frame, image=PhotoImage(data=resources.ButtonIcons_base64.add,format="gif89"), text="Bestand toevoegen", compound=LEFT, command=self.addInputRow)
         self.addRowButton.pack(pady=5)
         
         # Kies output file

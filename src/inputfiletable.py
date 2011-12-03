@@ -4,13 +4,13 @@ import copy
 try: from Tkinter import *
 except: from tkinter import *
 # Override default Tkinter widgets with themed ttk ones (necessary for windows, for GTK they are already themed)
-from pyttk import *
+try: from ttk import *
+except: from pyttk import *
 # These widgets are by default themed by the OS' window manager
 import tkFileDialog
 import tkMessageBox
 import os.path
 import resources.ButtonIcons_base64
-
 
     
 
@@ -169,7 +169,7 @@ class InputFileRow:
             i = i+1
         values = " ".join(values)
         # use ttk.Combobox (please ignore pydev error on this line)
-        self.typeSelect = Combobox(self.frame, values=values, parent=self.parent)
+        self.typeSelect = Combobox(self.frame, values=values)
         self.typeSelect["state"] = "readonly" # only allow selection of predefined values
         self.typeSelect.current(self.table.availableTypes.index(filetype))
         self.typeSelect.pack(side=LEFT, padx=5)
@@ -182,7 +182,7 @@ class InputFileRow:
         self.browseButton = Button(self.frame, text="Bladeren", command=self.browseFile)
         self.browseButton.pack(side=LEFT, padx=5)
         # Remove row button
-        self.removeButton = Button(self.frame, image=resources.ButtonIcons_base64.remove, text="Verwijderen", compound=LEFT, command=self.remove)
+        self.removeButton = Button(self.frame, image=PhotoImage(data=resources.ButtonIcons_base64.remove), text="Verwijderen", compound=LEFT, command=self.remove)
         self.removeButton.pack(side=LEFT)
         # Add to rows list
         parentTable.rows.append(self)

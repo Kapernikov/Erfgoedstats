@@ -12,7 +12,8 @@ import resources.logo_packed
 try: from Tkinter import *
 except: from tkinter import *
 # Override default Tkinter widgets with themed ttk ones (necessary for windows, for GTK they are already themed)
-from pyttk import *
+try: from pyttk import *
+except: from ttk import *
 # These widgets are by default themed by the OS' window manager
 
 
