@@ -11,6 +11,20 @@ Volg daarvoor deze stappen:
 - de .exe package bevindt zich in de dist/ folder
 
 
+Deployment procedure voor macosx
+--------------------------------
+
+Getest op macox Snow Leopard
+volg deze stappen:
+
+- installeer py2app: typ in een terminal "sudo easy_install -U py2app"
+- compileer de applicatie: 
+	in een terminal: ga naar de map "erfgoedstats".
+	typ daar "/usr/bin/python compile_macosx.py py2app"
+- in de dist/ map staat nu het (werkende) programma. dit programma kan
+  doorgestuurd worden / online gezet worden nadat je in macosx finder
+  rechtsklikt op dit programma en "create archive" selecteert. Dit maakt
+  een transporteerbaar archiefbestand.
 
 Distributie van de .exe op windows
 ----------------------------------
