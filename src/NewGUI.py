@@ -359,7 +359,7 @@ def generateReport(museumName, objects, thesaurus, fieldstats, csvfieldstats, ou
                     "fieldstats" : fieldstats,
                     "csvfieldstats": csvfieldstats }
     'TODO: missch verbose op false zetten'
-    adlibstats.generateReportFile(outputFile, inputDataMap, False, True, True)
+    adlibstats.generateReportFile(outputFile, inputDataMap, False, True, False)
 
 
 def isValidOutputFile(filename):
