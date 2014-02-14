@@ -15,6 +15,7 @@ import pickle
 import copy
 import adlibstats
 import inputfiletable
+import assetsfolder
 
 '''The fields for which a thesaurus simularities
 report should be created. For each of these fields
@@ -245,7 +246,7 @@ def getCachedVersionFilename(xmlFilename):
     if not xmlFilename.lower().endswith('.xml'):
         return None
     plaintextFilename = utils.ensureUnicode(os.path.basename(xmlFilename))
-    return plaintextFilename.replace('.xml', '_cache.thc')
+    return assetsfolder.getAssetsPathFor(plaintextFilename.replace('.xml', '_cache.thc'))
 
 def createCachedVersion(thesaurus, filename):
     '''Create a cached version of a Thesaurus object

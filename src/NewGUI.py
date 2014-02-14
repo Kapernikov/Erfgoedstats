@@ -33,6 +33,7 @@ import resources.provinciewestvllogo_base64
 import resources.ButtonIcons_base64
 import resources.logos_provincies
 import resources.logos_kapernikovpacked
+import assetsfolder
 
 import Tkinter
 
@@ -41,7 +42,7 @@ from settings import Settings, SettingsDialog
 import settings
 
 
-configFile = "erfgoedstats-settings-v1.cfg"
+configFile = assetsfolder.getAssetsPathFor("erfgoedstats-settings-v1.cfg")
 
 
 ''' this file contains the "main" program for running the GUI + the code for the main window '''
